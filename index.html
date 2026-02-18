@@ -9,25 +9,16 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; --teal: #008080; }
+        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; }
         body { background-color: var(--parchment); color: var(--bapu-ink); font-family: 'Sahitya', serif; scroll-behavior: smooth; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); }
         h1, h2, h3, h4 { font-family: 'Kurale', serif; }
-        
         .bapu-canvas { border: 2px solid var(--bapu-ink); border-radius: 2% 98% 3% 97% / 96% 3% 97% 4%; background: #FFFFFF; padding: 0.75rem; box-shadow: 10px 10px 0px rgba(26,26,26,0.05); }
-        .lang-btn { font-family: 'Kurale', serif; padding: 4px 12px; border: 1px solid var(--bapu-ink); border-radius: 20px; font-size: 0.85rem; background: white; transition: 0.3s; cursor: pointer; }
+        .lang-btn { font-family: 'Kurale', serif; padding: 4px 12px; border: 1px solid var(--bapu-ink); border-radius: 20px; font-size: 0.85rem; background: white; cursor: pointer; transition: 0.3s; }
         .lang-btn.active { background: var(--turmeric); color: white; border-color: var(--turmeric); }
-        
         .tilakam-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background-color: var(--kumkum); border: 3px solid var(--turmeric); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-family: 'Kurale', serif; box-shadow: 0 4px 20px rgba(179, 27, 27, 0.5); z-index: 100; text-decoration: none; transition: 0.3s; }
-        .tilakam-btn:hover { transform: scale(1.1) rotate(5deg); }
-
-        /* RSVP BUTTON FIX: High Contrast */
-        #submitBtn { background-color: var(--kumkum) !important; color: #FFFFFF !important; border: 2px solid var(--bapu-ink); box-shadow: 6px 6px 0px var(--bapu-ink); transition: all 0.2s; cursor: pointer; }
-        #submitBtn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px var(--bapu-ink); background-color: #901515 !important; }
-        #submitBtn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--bapu-ink); }
-
+        #submitBtn { background-color: var(--kumkum) !important; color: white !important; border: 2px solid var(--bapu-ink); box-shadow: 6px 6px 0px var(--bapu-ink); cursor: pointer; width: 100%; padding: 1.5rem; font-size: 1.5rem; font-weight: bold; border-radius: 0.5rem; text-transform: uppercase; }
         .hidden { display: none; }
-        input[type="checkbox"] { accent-color: var(--kumkum); width: 1.3rem; height: 1.3rem; cursor: pointer; }
-        input[type="text"] { border: 2px solid var(--bapu-ink); padding: 1rem; border-radius: 4px; width: 100%; background: #fff; outline-color: var(--turmeric); }
+        input[type="checkbox"] { accent-color: var(--kumkum); width: 1.2rem; height: 1.2rem; cursor: pointer; }
     </style>
 </head>
 <body class="antialiased pb-20">
@@ -43,7 +34,7 @@
 
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
         <div data-aos="fade-down" class="w-full max-w-xl mb-12 bapu-canvas">
-            <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
+            <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90" alt="Wedding Portrait">
         </div>
         <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
         <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
@@ -54,30 +45,38 @@
     </section>
 
     <section class="max-w-6xl mx-auto py-24 px-6">
-        <h2 data-key="path_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-8">The Celebration Path</h2>
+        <h2 data-key="path_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-8 font-bold">The Celebration Path</h2>
         <div class="space-y-32">
             <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="mehendi.jpeg" class="w-full h-auto rounded"></div>
                 <div class="w-full md:w-1/2">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th</span>
                     <h3 data-key="title_mehendi" class="text-4xl mt-4 mb-4 font-bold">Mehendi & Welcome</h3>
-                    <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic">Henna ceremony for guests. Music, snacks, and family bonding!</p>
+                    <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic">Henna ceremony. A day of music, snacks, and meeting the family!</p>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-left">
-                <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto rounded"></div>
+                <div class="w-full md:w-1/2 bapu-canvas"><img src="sangeet.jpeg" class="w-full h-auto rounded"></div>
                 <div class="w-full md:w-1/2">
-                    <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th</span>
-                    <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4 font-bold">The Haldi Ceremony</h3>
-                    <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic">Turmeric paste for a golden glow. Wear yellow and prepare for a mess!</p>
+                    <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th (AM)</span>
+                    <h3 data-key="title_sangeet" class="text-4xl mt-4 mb-4 font-bold">Sangeet Night</h3>
+                    <p data-key="desc_sangeet" class="text-xl leading-relaxed text-gray-700 italic">A musical gala with high-energy dance performances!</p>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
+                <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto rounded"></div>
+                <div class="w-full md:w-1/2">
+                    <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th (PM)</span>
+                    <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4 font-bold">The Haldi Ceremony</h3>
+                    <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic">Turmeric paste for a golden glow. Wear yellow!</p>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-up">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="wedding.jpeg" class="w-full h-auto rounded"></div>
                 <div class="w-full md:w-1/2">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 29th</span>
                     <h3 data-key="title_wedding" class="text-4xl mt-4 mb-4 font-bold">The Main Wedding</h3>
-                    <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic">The Su-muhurtham: Jillakara Bellam ceremony followed by a grand feast.</p>
+                    <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic">The sacred Su-muhurtham followed by a traditional feast.</p>
                 </div>
             </div>
         </div>
@@ -85,16 +84,53 @@
 
     <section class="py-12 flex flex-col items-center text-center px-6">
         <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4">
-            <div class="bg-[url('https://www.transparenttextures.com/patterns/henna.png')] p-10 md:p-16 rounded-full bg-white/95">
+            <div class="bg-white/95 p-10 md:p-16 rounded-full">
                 <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic font-bold">The Su-muhurtham Approaches...</h3>
-                <div id="countdown" class="flex gap-6 md:gap-10 justify-center items-center font-bold">
-                    <div class="flex flex-col"><span id="days" class="text-5xl md:text-7xl">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
-                    <span class="text-4xl text-turmeric">•</span>
-                    <div class="flex flex-col"><span id="hours" class="text-5xl md:text-7xl">00</span><span data-key="unit_hours" class="text-xs uppercase text-turmeric">Hrs</span></div>
-                    <span class="text-4xl text-turmeric">•</span>
-                    <div class="flex flex-col"><span id="minutes" class="text-5xl md:text-7xl">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
+                <div id="countdown" class="flex gap-6 md:gap-10 justify-center font-bold text-4xl md:text-6xl">
+                    <div class="flex flex-col"><span id="days">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
+                    <span class="text-turmeric">•</span>
+                    <div class="flex flex-col"><span id="hours">00</span><span data-key="unit_hours" class="text-xs uppercase text-turmeric">Hrs</span></div>
+                    <span class="text-turmeric">•</span>
+                    <div class="flex flex-col"><span id="minutes">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
                 </div>
                 <p data-key="timer_sub" class="mt-8 text-sm italic border-t border-bapu-ink pt-4 inline-block">Adjusted to your local time zone.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 bg-bapu-ink text-parchment">
+        <div class="max-w-6xl mx-auto">
+            <h2 data-key="explorer_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-10 font-bold">Discover Hyderabad</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6 font-bold">Food & Biryani</h4>
+                    <ul class="space-y-4 text-lg">
+                        <li>• <a href="https://maps.app.goo.gl/yYvS6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Paradise Secunderabad</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/9ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Shah Ghouse Gachibowli</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">Explore & Shop</h4>
+                    <ul class="space-y-4 text-lg">
+                        <li>• <a href="https://maps.app.goo.gl/5ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Charminar</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/2ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Laad Bazaar</a></li>
+                    </ul>
+                </div>
+                <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 text-center space-y-6">
+                    <div>
+                        <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase">Weather</h4>
+                        <span id="live-temp" class="text-2xl font-bold">--°</span>
+                        <button onclick="toggleTempUnit()" class="text-[10px] block mx-auto underline mt-1">F / C</button>
+                    </div>
+                    <div class="border-t border-white/10 pt-4">
+                        <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase">Currency</h4>
+                        <span id="curr-rate" class="text-xl font-bold">₹ --</span>
+                        <div class="flex gap-2 justify-center mt-2">
+                            <button onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-2 py-1 rounded">USD</button>
+                            <button onclick="setCurrency('CNY')" class="text-[10px] bg-white/20 px-2 py-1 rounded">CNY</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -102,118 +138,118 @@
     <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
         <h2 data-key="venue_title" class="text-4xl mb-12 italic font-bold">The Wedding Venue</h2>
         <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
-            <iframe src="https://maps.google.com/?cid=14099833613764975639&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ3" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <a href="https://maps.google.com/?cid=14099833613764975639&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ0" target="_blank" class="text-xl font-bold underline">Open in Maps</a>
-    </section>
-
-    <section class="py-32 px-6 bg-bapu-ink text-parchment">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-                <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-4 font-bold">Biryani Legends</h4>
-                <ul class="space-y-4 text-lg">
-                    <li>• <a data-key="paradise_link" href="https://maps.google.com/?cid=14099833613764975639&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ1" target="_blank" class="hover:text-turmeric transition">Paradise OG</a></li>
-                    <li>• <a data-key="shah_link" href="https://maps.google.com/?cid=14099833613764975639&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ2" target="_blank" class="hover:text-turmeric transition">Shah Ghouse</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">Explore & Shop</h4>
-                <ul class="space-y-4 text-lg">
-                    <li>• <a data-key="charminar_link" href="https://maps.google.com/?cid=4066347626283015446&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ4" target="_blank" class="hover:text-turmeric transition">Charminar</a></li>
-                    <li>• <a data-key="shop_bangles" href="https://maps.google.com/maps/contrib/111369644332379382784" target="_blank" class="hover:text-turmeric transition">Laad Bazaar</a></li>
-                </ul>
-            </div>
-            <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 space-y-6">
-                <div class="text-center">
-                    <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase">Weather</h4>
-                    <div class="flex items-center justify-center gap-4">
-                        <span id="live-icon" class="text-3xl">☀️</span>
-                        <span id="live-temp" class="text-2xl font-bold">--°</span>
-                        <button onclick="toggleTempUnit()" class="text-[10px] border border-white/30 px-2 py-1 rounded">°F/°C</button>
-                    </div>
-                </div>
-                <div class="text-center pt-4 border-t border-white/10">
-                    <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase">Currency</h4>
-                    <div id="curr-rate" class="text-xl font-bold mb-2">₹ --</div>
-                    <div class="flex gap-2 justify-center">
-                        <button id="btn-usd" onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-3 py-1 rounded font-bold">USD</button>
-                        <button id="btn-cny" onclick="setCurrency('CNY')" class="text-[10px] bg-white/10 px-3 py-1 rounded font-bold">CNY</button>
-                    </div>
-                </div>
-            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.015243859666!2d78.35824987595305!3d17.459062000720455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93a064b676f7%3A0x117d9949c1915115!2sStay%20at%20Veksha!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 bg-white/50 bapu-canvas !border-t-8 !border-t-turmeric">
         <div id="rsvpContent">
-            <h2 data-key="rsvp_title" class="text-5xl text-center mb-4 italic font-bold">RSVP</h2>
-            <div class="text-center mb-12 p-4 bg-turmeric/10 border-2 border-dashed border-turmeric rounded-lg">
-                <p data-key="resubmit_note" class="italic text-bapu-ink font-bold">Need to update plans? Just resubmit the form anytime!</p>
+            <h2 data-key="rsvp_title" class="text-5xl text-center mb-12 italic font-bold">RSVP</h2>
+            <div class="text-center mb-8 p-4 bg-turmeric/10 border-2 border-dashed border-turmeric rounded">
+                <p data-key="resubmit_note" class="italic font-bold">Need to update plans? Just resubmit anytime!</p>
             </div>
-
-            <form id="rsvpForm" class="space-y-10">
+            <form id="rsvpForm" class="space-y-8">
+                <div><label data-key="label_name" class="block font-bold mb-2">Name</label><input type="text" name="Name" required class="w-full p-4 border-2 border-bapu-ink rounded"></div>
+                <div><label data-key="label_flight" class="block font-bold mb-2">Flight Details</label><input type="text" name="FlightInfo" class="w-full p-4 border-2 border-bapu-ink rounded"></div>
                 <div>
-                    <label data-key="label_name" class="block font-bold text-xl mb-2">Guest Name</label>
-                    <input type="text" name="Name" id="guestNameInput" required>
-                </div>
-                <div>
-                    <label data-key="label_flight" class="block font-bold text-xl mb-2">Flight Details (Optional)</label>
-                    <input type="text" name="FlightInfo" id="flightInput" placeholder="Arrival time, Flight #">
-                </div>
-                <div>
-                    <label data-key="label_attend" class="block font-bold text-xl mb-4">Events Attending</label>
-                    <div class="grid grid-cols-2 gap-4 text-lg">
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Events" value="Mehendi"> <span>Mehendi</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Events" value="Sangeet"> <span>Sangeet</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Events" value="Haldi"> <span>Haldi</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Events" value="Wedding"> <span>Wedding</span></label>
+                    <label data-key="label_attend" class="block font-bold mb-4">Events</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Mehendi" class="mr-2"> Mehendi</label>
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Sangeet" class="mr-2"> Sangeet</label>
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Haldi" class="mr-2"> Haldi</label>
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Wedding" class="mr-2"> Wedding</label>
                     </div>
                 </div>
                 <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
-                    <label data-key="label_safety" class="block font-bold text-xl text-red-900 mb-4">Dietary Allergies</label>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Allergy" value="Nuts"> <span>Nuts</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Allergy" value="Dairy"> <span>Dairy</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Allergy" value="Gluten"> <span>Gluten</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="Allergy" value="Other" id="otherCheck"> <span>Other</span></label>
+                    <label data-key="label_safety" class="block font-bold text-red-900 mb-4">Allergies</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
+                        <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
+                        <label><input type="checkbox" name="Allergy" value="Gluten"> Gluten</label>
+                        <label><input type="checkbox" name="Allergy" value="Other" id="otherCheck"> Other</label>
                     </div>
-                    <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded bg-white" rows="2"></textarea>
+                    <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded" placeholder="Details..."></textarea>
                 </div>
-                <button type="submit" id="submitBtn" data-key="btn_send" class="w-full py-6 text-3xl font-bold rounded shadow-xl uppercase tracking-widest hover:bg-black transition-all">Send RSVP</button>
+                <button type="submit" id="submitBtn" data-key="btn_send">Send RSVP</button>
             </form>
         </div>
     </section>
 
-    <footer class="text-center py-16 border-t border-bapu-ink bg-parchment/50 italic text-gray-600">
-        <p data-key="footer_text">© 2026 Sai Ruthvik & Gayathri | Gayathri's Art</p>
+    <footer class="text-center py-10 italic text-gray-600 border-t border-bapu-ink">
+        <p data-key="footer_note">© 2026 Sai Ruthvik & Gayathri | Gayathri's Art</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true });
-
+        
         const langData = {
-            en: { subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path", title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony for guests. Music, snacks, and family bonding!", title_haldi: "The Haldi Ceremony", desc_haldi: "Turmeric paste applied for a golden glow. Wear yellow!", title_wedding: "The Main Wedding", desc_wedding: "The Su-muhurtham: Jillakara Bellam ceremony followed by a grand feast.", countdown_header: "The Su-muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Adjusted to your local time zone.", venue_title: "The Wedding Venue", rsvp_title: "RSVP", resubmit_note: "Need to update plans? Just resubmit the form anytime!", label_name: "Guest Name", placeholder_name: "Full Name", label_attend: "Events Attending", label_safety: "Dietary Allergies", label_other: "Specify...", label_flight: "Flight Details (Optional)", placeholder_flight: "Arrival time, Flight #", btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Saved!", weather_title: "Weather", currency_title: "Currency", biryani_title: "Biryani Legends", sightseeing_title: "Explore & Shop", paradise_link: "Paradise OG", shah_link: "Shah Ghouse", charminar_link: "Charminar", shop_bangles: "Laad Bazaar", footer_text: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art" },
-            te: { subham: "శుభమస్తు", location: "హైదరాబాద్, భారతదేశం", path_title: "వేడుకల మార్గం", title_mehendi: "మెహందీ మరియు స్వాగతం", desc_mehendi: "గోరింటాకు వేడుక మరియు విందు!", title_haldi: "హల్దీ వేడుక", desc_haldi: "పసుపు వేడుక. పసుపు బట్టలు ధరించండి!", title_wedding: "ప్రధాన వివాహం", desc_wedding: "జీలకర్ర బెల్లం మరియు విందు.", countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", timer_sub: "మీ స్థానిక సమయానికి అనుగుణంగా మార్చబడింది.", venue_title: "వివాహ వేదిక", rsvp_title: "RSVP", resubmit_note: "మార్పులు ఉన్నాయా? మళ్ళీ పంపండి!", label_name: "అతిథి పేరు", placeholder_name: "పూర్తి పేరు", label_attend: "వేడుకలు", label_safety: "ఆరోగ్య జాగ్రత్తలు", label_other: "తెలపండి...", label_flight: "ఫ్లైట్ వివరాలు (ఐచ్ఛికం)", placeholder_flight: "సమయం, ఫ్లైట్ నంబర్", btn_send: "పంపండి", btn_sending: "పంపుతున్నాము...", thanks: "ధన్యవాదాలు!", success_sub: "సేవ్ చేయబడ్డాయి!", weather_title: "వాతావరణం", currency_title: "కరెన్సీ", biryani_title: "బిర్యానీ లెజెండ్స్", sightseeing_title: "అన్వేషణ & షాపింగ్", paradise_link: "పారడైజ్", shah_link: "షా ఘౌస్", charminar_link: "చార్మినార్", shop_bangles: "లాడ్ బజార్", footer_text: "© 2026 సాయి రుత్విక్ & గాయత్రి | గాయత్రి కళాఖండాలు" },
-            hi: { subham: "शुभमस्तु", location: "हैदराबाद, भारत", path_title: "उत्सव पथ", title_mehendi: "मेहंदी समारोह", desc_mehendi: "मेहंदी की रस्म।", title_haldi: "हल्दी रस्म", desc_haldi: "हल्दी और खुशियाँ!", title_wedding: "मुख्य विवाह", desc_wedding: "शुभ मुहूर्त और भोज।", countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "आपके स्थानीय समय के अनुसार।", venue_title: "विवाह स्थल", rsvp_title: "आरएसवीपी", resubmit_note: "योजना बदलनी है? दोबारा भरें!", label_name: "अतिथि का नाम", placeholder_name: "पूरा नाम", label_attend: "कार्यक्रम", label_safety: "एलर्जी", label_other: "विवरण दें...", label_flight: "फ्लाइट विवरण (वैकल्पिक)", placeholder_flight: "आगमन समय, फ्लाइट #", btn_send: "भेजें", btn_sending: "भेज रहे हैं...", thanks: "धन्यवाद!", success_sub: "प्रतिक्रिया सहेज ली गई है।", weather_title: "मौसम", currency_title: "मुद्रा", biryani_title: "बिरयानी दिग्गज", sightseeing_title: "भ्रमण और खरीदारी", paradise_link: "पैराडाइज़", shah_link: "शाह गौस", charminar_link: "चारमीनार", shop_bangles: "लाड बाजार", footer_text: "© 2026 साई रुत्विक और गायत्री | गायत्री की कला" },
-            zh: { subham: "吉祥如意", location: "海德拉巴，印度", path_title: "庆祝之路", title_mehendi: "海娜仪式", desc_mehendi: "手绘纹身。音乐与美食！", title_haldi: "姜黄仪式", desc_haldi: "姜黄涂抹。请穿黄色！", title_wedding: "婚礼庆典", desc_wedding: "婚礼仪式及盛宴。", countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "已调整为您的当地时间。", venue_title: "婚礼场地", rsvp_title: "确认出席", resubmit_note: "更改计划？重新提交即可！", label_name: "嘉宾姓名", placeholder_name: "全名", label_attend: "参加活动", label_safety: "饮食安全", label_other: "请注明...", label_flight: "航班信息（可选）", placeholder_flight: "到达时间, 航班号", btn_send: "发送", btn_sending: "发送中...", thanks: "谢谢！", success_sub: "回复已保存。", weather_title: "天气", currency_title: "货币", biryani_title: "比尔亚尼传奇", sightseeing_title: "探索与购物", paradise_link: "天堂比尔亚尼", shah_link: "沙豪斯", charminar_link: "查米纳塔", shop_bangles: "拉德集市", footer_text: "© 2026 Sai Ruthvik & Gayathri | 加亚特里艺术" }
+            en: { 
+                subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
+                title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony. A day of music!",
+                title_sangeet: "Sangeet Night", desc_sangeet: "High-energy dance and music gala!",
+                title_haldi: "The Haldi Ceremony", desc_haldi: "Turmeric glow. Wear yellow!",
+                title_wedding: "The Main Wedding", desc_wedding: "The Su-muhurtham and grand feast.",
+                countdown_header: "The Su-muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Adjusted to your local time zone.",
+                explorer_title: "Discover Hyderabad", biryani_title: "Food & Biryani", sightseeing_title: "Explore & Shop",
+                weather_title: "Weather", currency_title: "Currency", rsvp_title: "RSVP",
+                resubmit_note: "Need to update plans? Just resubmit anytime!",
+                label_name: "Name", label_flight: "Flight Info", label_attend: "Events", label_safety: "Allergies", 
+                btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Response saved!",
+                footer_note: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art"
+            },
+            te: { 
+                subham: "శుభమస్తు", location: "హైదరాబాద్, భారతదేశం", path_title: "వేడుకల మార్గం",
+                title_mehendi: "మెహందీ", desc_mehendi: "గోరింటాకు వేడుక మరియు విందు.",
+                title_sangeet: "సంగీత్", desc_sangeet: "సంగీత మరియు నృత్య వేడుక!",
+                title_haldi: "హల్దీ వేడుక", desc_haldi: "పసుపు వేడుక. పసుపు బట్టలు ధరించండి!",
+                title_wedding: "ప్రధాన వివాహం", desc_wedding: "సుముహూర్తం మరియు విందు.",
+                countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", timer_sub: "మీ స్థానిక సమయానికి మార్చబడింది.",
+                explorer_title: "హైదరాబాద్ అన్వేషణ", biryani_title: "ఆహారం & బిర్యానీ", sightseeing_title: "అన్వేషణ & షాపింగ్",
+                weather_title: "వాతావరణం", currency_title: "కరెన్సీ", rsvp_title: "RSVP",
+                resubmit_note: "మార్పులు ఉన్నాయా? మళ్ళీ పంపండి!",
+                label_name: "పేరు", label_flight: "ఫ్లైట్ వివరాలు", label_attend: "వేడుకలు", label_safety: "ఆరోగ్య జాగ్రత్తలు", 
+                btn_send: "పంపండి", btn_sending: "పంపుతున్నాము...", thanks: "ధన్యవాదాలు!", success_sub: "సేవ్ చేయబడ్డాయి!",
+                footer_note: "© 2026 సాయి రుత్విక్ & గాయత్రి | గాయత్రి కళాఖండాలు"
+            },
+            hi: { 
+                subham: "शुभमस्तु", location: "हैदराबाद, भारत", path_title: "उत्सव पथ",
+                title_mehendi: "मेहंदी", desc_mehendi: "मेहंदी की रस्म।",
+                title_sangeet: "संगीत संध्या", desc_sangeet: "नाच-गाने की शानदार शाम!",
+                title_haldi: "हल्दी रस्म", desc_haldi: "हल्दी और खुशियाँ!",
+                title_wedding: "मुख्य विवाह", desc_wedding: "शुभ मुहूर्त और भोज।",
+                countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "स्थानीय समय के अनुसार।",
+                explorer_title: "हैदराबाद की खोज", biryani_title: "भोजन और बिरयानी", sightseeing_title: "भ्रमण और खरीदारी",
+                weather_title: "मौसम", currency_title: "मुद्रा", rsvp_title: "आरएसवीपी",
+                resubmit_note: "योजना बदलनी है? दोबारा भरें!",
+                label_name: "नाम", label_flight: "फ्लाइट विवरण", label_attend: "कार्यक्रम", label_safety: "एलर्जी", 
+                btn_send: "भेजें", btn_sending: "भेज रहे हैं...", thanks: "धन्यवाद!", success_sub: "सहेज लिया गया है!",
+                footer_note: "© 2026 साई रुत्विक और गायत्री | गायत्री की कला"
+            },
+            zh: { 
+                subham: "吉祥如意", location: "海德拉巴，印度", path_title: "庆祝之路",
+                title_mehendi: "海娜仪式", desc_mehendi: "手绘纹身仪式。",
+                title_sangeet: "音乐之夜", desc_sangeet: "充满歌声与舞蹈的一晚！",
+                title_haldi: "姜黄仪式", desc_haldi: "姜黄涂抹。请穿黄色！",
+                title_wedding: "婚礼庆典", desc_wedding: "婚礼仪式及盛宴。",
+                countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "已调整为当地时间。",
+                explorer_title: "探索海德拉巴", biryani_title: "美食", sightseeing_title: "探索与购物",
+                weather_title: "天气", currency_title: "货币", rsvp_title: "确认出席",
+                resubmit_note: "更改计划？重新提交即可！",
+                label_name: "姓名", label_flight: "航班信息", label_attend: "参加活动", label_safety: "饮食安全", 
+                btn_send: "发送回复", btn_sending: "发送中...", thanks: "谢谢！", success_sub: "回复已保存。",
+                footer_note: "© 2026 Sai Ruthvik & Gayathri | 加亚特里艺术"
+            }
         };
 
-        function changeLang(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (langData[lang][key]) el.innerText = langData[lang][key];
-            });
-            document.getElementById('guestNameInput').placeholder = langData[lang].placeholder_name;
-            document.getElementById('flightInput').placeholder = langData[lang].placeholder_flight;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + lang).classList.add('active');
+        function changeLang(l) {
+            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = langData[l][el.getAttribute('data-key')] || el.innerText; });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + l).classList.add('active');
         }
 
-        // Timezone-Aware Countdown
         function updateTimer() {
-            const muhurthamIST = new Date("April 29, 2026 10:00:00 GMT+0530");
-            const diff = muhurthamIST - new Date();
+            const diff = new Date("April 29, 2026 10:00:00 GMT+0530") - new Date();
             if (diff > 0) {
                 document.getElementById("days").innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
                 document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
@@ -222,65 +258,37 @@
         }
         setInterval(updateTimer, 1000);
 
-        // Weather/Currency Logic
-        let currentTempF = 0; let isFahrenheit = true;
-        async function getLiveWeather() {
+        let curF = 0, isF = true, rates = { USD: 0, CNY: 0 }, base = 'USD';
+        async function getExt() {
             try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=17.46&longitude=78.35&current_weather=true&temperature_unit=fahrenheit');
-                const data = await res.json();
-                currentTempF = data.current_weather.temperature;
-                updateWeatherUI();
-            } catch (e) {}
+                const w = await fetch('https://api.open-meteo.com/v1/forecast?latitude=17.45&longitude=78.35&current_weather=true&temperature_unit=fahrenheit');
+                const wd = await w.json(); curF = wd.current_weather.temperature; updateW();
+                const r = await fetch('https://open.er-api.com/v6/latest/INR');
+                const rd = await r.json(); rates.USD = (1/rd.rates.USD).toFixed(2); rates.CNY = (1/rd.rates.CNY).toFixed(2); updateC();
+            } catch(e){}
         }
-        function updateWeatherUI() {
-            const val = isFahrenheit ? Math.round(currentTempF) + '°F' : Math.round((currentTempF - 32) * 5/9) + '°C';
-            document.getElementById('live-temp').innerText = val;
-        }
-        function toggleTempUnit() { isFahrenheit = !isFahrenheit; updateWeatherUI(); }
+        function updateW() { document.getElementById('live-temp').innerText = isF ? Math.round(curF)+'°F' : Math.round((curF-32)*5/9)+'°C'; }
+        function toggleTempUnit() { isF = !isF; updateW(); }
+        function updateC() { document.getElementById('curr-rate').innerText = "₹ "+(base==='USD' ? rates.USD : rates.CNY); }
+        function setCurrency(b) { base = b; updateC(); }
 
-        let currentBase = 'USD'; let rates = { USD: 0, CNY: 0 };
-        async function getRates() {
-            try {
-                const res = await fetch('https://open.er-api.com/v6/latest/INR');
-                const data = await res.json();
-                rates.USD = (1 / data.rates.USD).toFixed(2);
-                rates.CNY = (1 / data.rates.CNY).toFixed(2);
-                updateCurrencyUI();
-            } catch (e) {}
-        }
-        function updateCurrencyUI() {
-            document.getElementById('curr-rate').innerText = "₹ " + (currentBase === 'USD' ? rates.USD : rates.CNY);
-            document.getElementById('btn-usd').style.background = currentBase === 'USD' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)';
-            document.getElementById('btn-cny').style.background = currentBase === 'CNY' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)';
-        }
-        function setCurrency(base) { currentBase = base; updateCurrencyUI(); }
-
-        document.getElementById('otherCheck').addEventListener('change', (e) => {
-            document.getElementById('otherText').classList.toggle('hidden', !e.target.checked);
-        });
+        document.getElementById('otherCheck').addEventListener('change', e => document.getElementById('otherText').classList.toggle('hidden', !e.target.checked));
 
         const rsvpForm = document.getElementById('rsvpForm');
         rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const lang = document.querySelector('.lang-btn.active').id.split('-')[1];
+            const btn = document.getElementById('submitBtn'), l = document.querySelector('.lang-btn.active').id.split('-')[1];
             btn.disabled = true; btn.innerText = "...";
-
-            const formData = new FormData(rsvpForm);
-            ['Events', 'Allergy'].forEach(field => {
-                const values = [];
-                document.querySelectorAll(`input[name="${field}"]:checked`).forEach(c => values.push(c.value));
-                formData.set(field, values.join(', '));
+            const fd = new FormData(rsvpForm);
+            ['Events', 'Allergy'].forEach(f => {
+                const v = []; document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => v.push(c.value));
+                fd.set(f, v.join(', '));
             });
-
-            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: formData })
-            .then(() => {
-                document.getElementById('rsvpContent').innerHTML = "<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>Dhanyavadalu!</h3><p class='text-2xl'>Response saved!</p></div>";
-            })
+            fetch('https://script.google.com/macros/s/AKfycbxPUVV5-jvN_PwHQSLqsXVuD3yNY-CF2Hw6sw8t-HbMXMhMEEJjdKrPoRcfPgrLdQKc/exec', { method: 'POST', body: fd })
+            .then(() => document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`)
             .catch(() => { btn.disabled = false; btn.innerText = "Send RSVP"; });
         });
-
-        getLiveWeather(); getRates(); updateTimer();
+        getExt(); updateTimer();
     </script>
 </body>
 </html>
