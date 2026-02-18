@@ -9,7 +9,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; --money: #008080; }
+        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; --teal: #008080; }
         body { background-color: var(--parchment); color: var(--bapu-ink); font-family: 'Sahitya', serif; scroll-behavior: smooth; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); }
         h1, h2, h3, h4 { font-family: 'Kurale', serif; }
         
@@ -17,31 +17,13 @@
         .lang-btn { font-family: 'Kurale', serif; padding: 4px 12px; border: 1px solid var(--bapu-ink); border-radius: 20px; font-size: 0.85rem; background: white; transition: 0.3s; cursor: pointer; }
         .lang-btn.active { background: var(--turmeric); color: white; border-color: var(--turmeric); }
         
-        /* Floating Widgets */
         .tilakam-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background-color: var(--kumkum); border: 3px solid var(--turmeric); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-family: 'Kurale', serif; box-shadow: 0 4px 20px rgba(179, 27, 27, 0.5); z-index: 100; text-decoration: none; transition: 0.3s; }
         .tilakam-btn:hover { transform: scale(1.1) rotate(5deg); }
-
-        .weather-float, .currency-float { position: fixed; left: 30px; width: 75px; height: 75px; background: white; border: 3px solid var(--turmeric); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 100; font-family: 'Kurale', serif; transition: 0.3s; cursor: pointer; }
-        .weather-float { bottom: 30px; }
-        .currency-float { bottom: 115px; border-color: var(--money); }
-        .currency-float:hover { background: #f0fdfa; }
-
         .hidden { display: none; }
+        input[type="checkbox"] { accent-color: var(--turmeric); width: 1.1rem; height: 1.1rem; }
     </style>
 </head>
 <body class="antialiased">
-
-    <div class="currency-float" onclick="toggleCurrency()" title="Toggle USD/CNY">
-        <div id="curr-label" class="text-[0.55rem] font-bold text-[#008080]">USD → INR</div>
-        <div class="text-xl">💵</div>
-        <div id="curr-rate" class="text-xs font-bold">--</div>
-    </div>
-
-    <div class="weather-float">
-        <div id="live-icon" class="text-2xl">☀️</div>
-        <div id="live-temp" class="text-sm font-bold">--°</div>
-        <div class="text-[0.5rem] font-bold text-turmeric uppercase">HYD</div>
-    </div>
 
     <div class="fixed top-4 right-4 z-50 flex gap-2">
         <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
@@ -54,12 +36,12 @@
 
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
         <div data-aos="fade-down" class="w-full max-w-xl mb-12 bapu-canvas">
-            <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
+            <img src="wedding.jpeg" class="w-full h-auto rounded opacity-90">
         </div>
         <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
-        <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight">Sai Ruthvik & Gayathri</h2>
+        <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
         <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12">
-            <p class="text-2xl tracking-[0.2em] font-bold">APRIL 27 – 29, 2026</p>
+            <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
             <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
         </div>
     </section>
@@ -71,24 +53,24 @@
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="mehendi.jpeg" class="w-full h-auto rounded"></div>
                 <div class="w-full md:w-1/2">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th</span>
-                    <h3 data-key="title_mehendi" class="text-4xl mt-4 mb-4">Mehendi & Welcome</h3>
-                    <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic font-medium">Henna ceremony. Guests get intricate patterns on their hands. Music, snacks, and meeting the family!</p>
+                    <h3 data-key="title_mehendi" class="text-4xl mt-4 mb-4 font-bold">Mehendi & Welcome</h3>
+                    <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic">Henna ceremony. Guests get patterns on their hands. Music, snacks, and family bonding!</p>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-left">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto rounded"></div>
                 <div class="w-full md:w-1/2">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th</span>
-                    <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4">The Haldi Ceremony</h3>
-                    <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic font-medium">Applying turmeric paste to the couple for a golden glow. Wear yellow and prepare for a vibrant mess!</p>
+                    <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4 font-bold">The Haldi Ceremony</h3>
+                    <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic">The "Yellow Event": Applying turmeric paste for a golden glow. Wear yellow!</p>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-up">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="wedding.jpeg" class="w-full h-auto rounded"></div>
                 <div class="w-full md:w-1/2">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 29th</span>
-                    <h3 data-key="title_wedding" class="text-4xl mt-4 mb-4">The Main Wedding</h3>
-                    <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic font-medium">The Su-muhurtham: The sacred Jillakara Bellam ceremony followed by a grand traditional feast.</p>
+                    <h3 data-key="title_wedding" class="text-4xl mt-4 mb-4 font-bold">The Main Wedding</h3>
+                    <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic">The Su-muhurtham: The sacred ceremony of Jillakara Bellam followed by a feast.</p>
                 </div>
             </div>
         </div>
@@ -97,7 +79,7 @@
     <section class="py-12 flex flex-col items-center text-center px-6">
         <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4">
             <div class="bg-[url('https://www.transparenttextures.com/patterns/henna.png')] p-10 md:p-16 rounded-full bg-white/95">
-                <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic">The Su-muhurtham Approaches...</h3>
+                <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic font-bold">The Su-muhurtham Approaches...</h3>
                 <div id="countdown" class="flex gap-6 md:gap-10 justify-center items-center font-bold">
                     <div class="flex flex-col"><span id="days" class="text-5xl md:text-7xl">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
                     <span class="text-4xl text-turmeric">•</span>
@@ -105,66 +87,67 @@
                     <span class="text-4xl text-turmeric">•</span>
                     <div class="flex flex-col"><span id="minutes" class="text-5xl md:text-7xl">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
                 </div>
-                <p data-key="timer_sub" class="mt-8 text-lg italic border-t border-bapu-ink pt-4 inline-block">Countdown to the union of cumin & jaggery.</p>
+                <p data-key="timer_sub" class="mt-8 text-lg italic border-t border-bapu-ink pt-4 inline-block">Union of cumin & jaggery.</p>
             </div>
         </div>
-    </section>
-
-    <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
-        <h2 data-key="venue_title" class="text-4xl mb-12 italic">The Wedding Venue</h2>
-        <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.0125435091726!2d78.3547!3d17.4622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93a064b679f7%3A0x5d9d96b27191115!2sStay%20at%20Veksha!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
-        </div>
-        <a href="https://maps.app.goo.gl/3QW9C9781U5R1E9F6" target="_blank" class="text-xl font-bold underline">Open in Maps</a>
     </section>
 
     <section class="py-32 px-6 bg-bapu-ink text-parchment">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
             <div>
-                <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6">Biryani Legends</h4>
-                <ul class="space-y-4 text-xl">
-                    <li>• <a data-key="paradise_link" href="https://maps.app.goo.gl/OGParadise" target="_blank" class="hover:text-turmeric transition">Paradise Secunderabad</a></li>
-                    <li>• <a data-key="shah_link" href="https://maps.app.goo.gl/ShahGhouse" target="_blank" class="hover:text-turmeric transition">Shah Ghouse Gachibowli</a></li>
-                    <li>• <a data-key="bawarchi_link" href="https://maps.app.goo.gl/BawarchiOriginal" target="_blank" class="hover:text-turmeric transition">Bawarchi RTC X Roads</a></li>
+                <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-4">Biryani Legends</h4>
+                <ul class="space-y-4 text-lg">
+                    <li>• <a data-key="paradise_link" href="https://maps.app.goo.gl/G_3xjA-ayzsRFh3a8" target="_blank" class="hover:text-turmeric transition">Paradise Secunderabad</a></li>
+                    <li>• <a data-key="shah_link" href="https://maps.app.goo.gl/UVGcavmTyzsRF9yS8" target="_blank" class="hover:text-turmeric transition">Shah Ghouse Gachibowli</a></li>
+                    <li>• <a data-key="bawarchi_link" href="https://maps.app.goo.gl/C5GIs-qZyzsRkIIA8" target="_blank" class="hover:text-turmeric transition">Bawarchi RTC X Roads</a></li>
                 </ul>
             </div>
             <div>
-                <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-6 font-bold">Explore & Shop</h4>
-                <ul class="space-y-4 text-xl">
-                    <li>• <a data-key="charminar_link" href="https://maps.app.goo.gl/Charminar" target="_blank" class="hover:text-turmeric transition">Charminar & Bazaars</a></li>
-                    <li>• <a data-key="fort_link" href="https://maps.app.goo.gl/Golconda" target="_blank" class="hover:text-turmeric transition">Golconda Fort</a></li>
-                    <li>• <a data-key="shop_bangles" href="https://maps.app.goo.gl/LaadBazaar" target="_blank" class="hover:text-turmeric transition">Laad Bazaar (Bangles)</a></li>
+                <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">Explore & Shop</h4>
+                <ul class="space-y-4 text-lg">
+                    <li>• <a data-key="charminar_link" href="https://maps.app.goo.gl/m5MaboqXyzsR-xPx8" target="_blank" class="hover:text-turmeric transition">Charminar</a></li>
+                    <li>• <a data-key="fort_link" href="https://maps.app.goo.gl/j6mupo6WyzsRWjNa1" target="_blank" class="hover:text-turmeric transition">Golconda Fort</a></li>
+                    <li>• <a data-key="shop_bangles" href="https://maps.app.goo.gl/6wNyL4qXyzsRlMYf8" target="_blank" class="hover:text-turmeric transition">Laad Bazaar</a></li>
                 </ul>
             </div>
-            <div class="bapu-canvas !bg-white/10 !border-turmeric p-8 text-center">
-                <h4 data-key="weather_title" class="text-turmeric text-2xl mb-4 italic uppercase tracking-widest">Climate</h4>
-                <div class="text-6xl mb-2">🥥 🥛</div>
-                <p class="text-4xl font-bold">95°F | 35°C</p>
-                <p data-key="weather_hot_desc" class="text-sm italic opacity-60">Ideal for Coconut Water & Chaas</p>
+            <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 space-y-8">
+                <div class="text-center">
+                    <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold">Live Weather</h4>
+                    <div class="flex items-center justify-center gap-4">
+                        <span id="live-icon" class="text-4xl">☀️</span>
+                        <span id="live-temp" class="text-3xl font-bold">--°</span>
+                        <button onclick="toggleTempUnit()" class="text-xs border border-white/30 px-2 py-1 rounded">°F/°C</button>
+                    </div>
+                </div>
+                <div class="text-center pt-6 border-t border-white/10">
+                    <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold">Currency</h4>
+                    <div id="curr-rate" class="text-2xl font-bold mb-2">₹ --</div>
+                    <div class="flex gap-2 justify-center">
+                        <button id="btn-usd" onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-3 py-1 rounded">USD</button>
+                        <button id="btn-cny" onclick="setCurrency('CNY')" class="text-[10px] bg-white/10 px-3 py-1 rounded">CNY</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-32 bg-white/50 bapu-canvas !border-t-8 !border-t-turmeric">
         <div id="rsvpContent">
-            <h2 data-key="rsvp_title" class="text-5xl text-center mb-4 italic font-bold">Join Our Celebration</h2>
-            <p data-key="resubmit_note" class="text-center mb-12 italic text-gray-600">Need to update plans? Just resubmit!</p>
+            <h2 data-key="rsvp_title" class="text-5xl text-center mb-4 italic font-bold">RSVP</h2>
+            <p data-key="resubmit_note" class="text-center mb-12 italic text-gray-600">Update? Just resubmit!</p>
             <form id="rsvpForm" class="space-y-10">
                 <input type="text" name="Name" id="guestNameInput" class="w-full p-4 border-2 border-bapu-ink rounded bg-transparent" required>
                 <div>
-                    <label data-key="label_attend" class="block font-bold text-2xl mb-4">Events Attending</label>
+                    <label data-key="label_attend" class="block font-bold text-2xl mb-4">Events</label>
                     <div class="grid grid-cols-2 gap-4 text-lg">
-                        <label><input type="checkbox" name="Events" value="Mehendi" class="mr-2"> Mehendi</label>
-                        <label><input type="checkbox" name="Events" value="Sangeet" class="mr-2"> Sangeet</label>
-                        <label><input type="checkbox" name="Events" value="Haldi" class="mr-2"> Haldi</label>
-                        <label><input type="checkbox" name="Events" value="Wedding" class="mr-2"> Wedding</label>
+                        <label><input type="checkbox" name="Events" value="Mehendi"> Mehendi</label>
+                        <label><input type="checkbox" name="Events" value="Sangeet"> Sangeet</label>
+                        <label><input type="checkbox" name="Events" value="Haldi"> Haldi</label>
+                        <label><input type="checkbox" name="Events" value="Wedding"> Wedding</label>
                     </div>
                 </div>
                 <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
-                    <label data-key="label_safety" class="block font-bold text-2xl text-red-900 mb-4 font-bold">Dietary Allergies</label>
+                    <label data-key="label_safety" class="block font-bold text-2xl text-red-900 mb-4 font-bold">Allergies</label>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                         <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
                         <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
@@ -173,12 +156,12 @@
                     </div>
                     <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded bg-white/50"></textarea>
                 </div>
-                <button type="submit" id="submitBtn" data-key="btn_send" class="w-full bg-turmeric text-white py-6 text-3xl font-bold rounded shadow-lg uppercase tracking-widest hover:bg-black transition-all">Send RSVP</button>
+                <button type="submit" id="submitBtn" data-key="btn_send" class="w-full bg-turmeric text-white py-6 text-3xl font-bold rounded shadow-lg uppercase">Send RSVP</button>
             </form>
         </div>
         <div id="thankYouMessage" class="hidden text-center p-12">
             <h3 data-key="thanks" class="text-6xl text-turmeric mb-6 italic font-bold">Dhanyavadalu!</h3>
-            <p data-key="success_sub" class="text-2xl font-serif">Your response has been saved. See you soon!</p>
+            <p data-key="success_sub" class="text-2xl font-serif">Response saved!</p>
         </div>
     </section>
 
@@ -196,13 +179,14 @@
                 title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony for guests. Music and snacks!",
                 title_haldi: "The Haldi Ceremony", desc_haldi: "The 'Yellow Event'. Wear yellow!",
                 title_wedding: "The Main Wedding", desc_wedding: "The Su-muhurtham and grand feast.",
-                countdown_header: "The Muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Countdown to the union of cumin & jaggery.",
-                venue_title: "The Wedding Venue", rsvp_title: "Join Our Celebration", resubmit_note: "Need to update? Just resubmit!",
-                label_name: "Guest Name", placeholder_name: "Enter your full name", label_attend: "Events Attending", label_safety: "Dietary Allergies", label_other: "Please specify...",
-                btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Your response has been saved.",
-                weather_title: "Climate", weather_hot_desc: "Ideal for Coconut Water & Chaas", biryani_title: "Biryani Legends", sightseeing_title: "Explore & Shop",
-                paradise_link: "Paradise Secunderabad (OG)", shah_link: "Shah Ghouse Gachibowli", bawarchi_link: "Bawarchi RTC X Roads",
-                charminar_link: "Charminar & Bazaars", fort_link: "Golconda Fort", shop_bangles: "Laad Bazaar (Bangles)",
+                countdown_header: "The Su-muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Union of cumin & jaggery.",
+                venue_title: "The Wedding Venue", rsvp_title: "RSVP", resubmit_note: "Update? Just resubmit!",
+                placeholder_name: "Full Name", label_attend: "Events", label_safety: "Allergies", label_other: "Specify...",
+                btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Saved!",
+                weather_title: "Live Weather", currency_title: "Currency",
+                biryani_title: "Biryani Legends", sightseeing_title: "Explore & Shop",
+                paradise_link: "Paradise Secunderabad", shah_link: "Shah Ghouse Gachibowli", bawarchi_link: "Bawarchi RTC X Roads",
+                charminar_link: "Charminar", fort_link: "Golconda Fort", shop_bangles: "Laad Bazaar",
                 footer_text: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art"
             },
             te: { 
@@ -211,24 +195,26 @@
                 title_haldi: "హల్దీ వేడుక", desc_haldi: "పసుపు వేడుక. పసుపు బట్టలు ధరించండి!",
                 title_wedding: "ప్రధాన వివాహం", desc_wedding: "సుముహూర్తం మరియు విందు.",
                 countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", timer_sub: "జీలకర్ర బెల్లం కలిసే మధుర క్షణం కోసం...",
-                venue_title: "వివాహ వేదిక", rsvp_title: "మా వేడుకలో పాల్గొనండి", resubmit_note: "మార్పులు ఉన్నాయా? మళ్ళీ సబ్మిట్ చేయండి!",
-                label_name: "అతిథి పేరు", placeholder_name: "పూర్తి పేరు వ్రాయండి", label_attend: "హాజరయ్యే వేడుకలు", label_safety: "ఆహార నియమాలు", label_other: "వివరంగా తెలపండి...",
-                btn_send: "పంపండి", btn_sending: "పంపుతున్నాము...", thanks: "ధన్యవాదాలు!", success_sub: "సేవ్ చేయబడ్డాయి.",
-                weather_title: "వాతావరణం", weather_hot_desc: "మజ్జిగ కోసం సరైన సమయం", biryani_title: "బిర్యానీ లెజెండ్స్", sightseeing_title: "అన్వేషణ & షాపింగ్",
+                venue_title: "వివాహ వేదిక", rsvp_title: "RSVP", resubmit_note: "మార్పులు ఉన్నాయా? మళ్ళీ పంపండి!",
+                placeholder_name: "పూర్తి పేరు", label_attend: "వేడుకలు", label_safety: "ఆరోగ్య జాగ్రత్తలు", label_other: "తెలపండి...",
+                btn_send: "పంపండి", btn_sending: "పంపుతున్నాము...", thanks: "ధన్యవాదాలు!", success_sub: "సేవ్ చేయబడ్డాయి!",
+                weather_title: "వాతావరణం", currency_title: "కరెన్సీ",
+                biryani_title: "బిర్యానీ లెజెండ్స్", sightseeing_title: "అన్వేషణ & షాపింగ్",
                 paradise_link: "పారడైజ్ సికింద్రాబాద్", shah_link: "షా ఘౌస్ గచ్చిబౌలి", bawarchi_link: "బావర్చి RTC క్రాస్ రోడ్స్",
                 charminar_link: "చార్మినార్ & బజార్", fort_link: "గోల్కొండ కోట", shop_bangles: "లాడ్ బజార్ (గాజులు)",
                 footer_text: "© 2026 సాయి రుత్విక్ & గాయత్రి | గాయత్రి కళాఖండాలు"
             },
             hi: { 
                 subham: "शुभमस्तु", location: "हैदराबाद, भारत", path_title: "उत्सव पथ",
-                title_mehendi: "मेहंदी और स्वागत", desc_mehendi: "मेहंदी की रस्म और संगीत!",
-                title_haldi: "हल्दी समारोह", desc_haldi: "पीले कपड़ों में सजने का दिन!",
-                title_wedding: "मुख्य विवाह", desc_wedding: "पवित्र मुहूर्त और भोज।",
-                countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "जीरा और गुड़ के मिलन की प्रतीक्षा।",
-                venue_title: "विवाह स्थल", rsvp_title: "हमारे उत्सव में शामिल हों", resubmit_note: "योजना बदलनी है? दोबारा भरें!",
-                label_name: "अतिथि का नाम", placeholder_name: "अपना पूरा नाम लिखें", label_attend: "कार्यक्रम", label_safety: "एलर्जी", label_other: "विवरण दें...",
+                title_mehendi: "मेहंदी और स्वागत", desc_mehendi: "हाथों में मेहंदी लगाने की रस्म। संगीत और परिवार से मेल-जोल का दिन!",
+                title_haldi: "हल्दी समारोह", desc_haldi: "हल्दी का उबटन लगाकर शुभ शुरुआत। पीले कपड़ों में सजने का दिन!",
+                title_wedding: "मुख्य विवाह", desc_wedding: "पवित्र मुहूर्त और पारंपरिक शाकाहारी भोज।",
+                countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "जीरा और गुड़ के मीठे मिलन की प्रतीक्षा।",
+                venue_title: "विवाह स्थल", rsvp_title: "आरएसवीपी", resubmit_note: "योजना बदलनी है? दोबारा भरें!",
+                placeholder_name: "पूरा नाम", label_attend: "कार्यक्रम", label_safety: "एलर्जी", label_other: "विवरण दें...",
                 btn_send: "भेजें", btn_sending: "भेज रहे हैं...", thanks: "धन्यवाद!", success_sub: "प्रतिक्रिया सहेज ली गई है।",
-                weather_title: "जलवायु", weather_hot_desc: "नारियल पानी के लिए उत्तम", biryani_title: "बिरयानी दिग्गज", sightseeing_title: "भ्रमण और खरीदारी",
+                weather_title: "मौसम", currency_title: "मुद्रा",
+                biryani_title: "बिरयानी दिग्गज", sightseeing_title: "भ्रमण और खरीदारी",
                 paradise_link: "पैराडाइज़ सिकंदराबाद", shah_link: "शाह गौस", bawarchi_link: "बावर्ची",
                 charminar_link: "चारमीनार", fort_link: "गोलकुंडा किला", shop_bangles: "लाड बाजार",
                 footer_text: "© 2026 साई रुत्विक और गायत्री | गायत्री की कला"
@@ -236,13 +222,14 @@
             zh: { 
                 subham: "吉祥如意", location: "海德拉巴，印度", path_title: "庆祝之路",
                 title_mehendi: "海娜仪式", desc_mehendi: "手绘纹身。音乐与美食！",
-                title_haldi: "姜黄仪式", desc_haldi: "姜黄涂抹。请穿黄色！",
-                title_wedding: "婚礼庆典", desc_wedding: "婚礼及素食盛宴。",
-                countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "倒计时：甜蜜的结合。",
-                venue_title: "婚礼场地", rsvp_title: "RSVP", resubmit_note: "更改计划？重新提交！",
-                label_name: "嘉宾姓名", placeholder_name: "输入全名", label_attend: "参加活动", label_safety: "饮食安全", label_other: "请注明...",
+                title_haldi: "姜黄仪式", desc_haldi: "姜黄涂抹仪式。请穿黄色！",
+                title_wedding: "婚礼庆典", desc_wedding: "婚礼仪式及传统素食盛宴。",
+                countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "期待甜蜜的结合：孜然与糖浆。",
+                venue_title: "婚礼场地", rsvp_title: "确认出席", resubmit_note: "更改计划？重新提交即可！",
+                placeholder_name: "全名", label_attend: "参加活动", label_safety: "饮食安全", label_other: "请注明...",
                 btn_send: "发送", btn_sending: "发送中...", thanks: "谢谢！", success_sub: "回复已保存。",
-                weather_title: "气候", weather_hot_desc: "椰子水的最佳时机", biryani_title: "比尔亚尼传奇", sightseeing_title: "探索与购物",
+                weather_title: "实时天气", currency_title: "货币兑换",
+                biryani_title: "比尔亚尼传奇", sightseeing_title: "探索与购物",
                 paradise_link: "天堂比尔亚尼", shah_link: "沙豪斯", bawarchi_link: "巴瓦奇",
                 charminar_link: "查米纳塔", fort_link: "戈尔康达古堡", shop_bangles: "拉德集市",
                 footer_text: "© 2026 Sai Ruthvik & Gayathri | 加亚特里艺术"
@@ -252,48 +239,15 @@
         function changeLang(lang) {
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
-                if (langData[lang][key]) { el.innerText = langData[lang][key]; }
+                if (langData[lang][key]) el.innerText = langData[lang][key];
             });
             const nameInput = document.getElementById('guestNameInput');
             if (nameInput) nameInput.placeholder = langData[lang].placeholder_name;
-            const otherArea = document.getElementById('otherText');
-            if (otherArea) otherArea.placeholder = langData[lang].label_other;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
         }
 
-        document.getElementById('otherCheck').addEventListener('change', (e) => {
-            document.getElementById('otherText').classList.toggle('hidden', !e.target.checked);
-        });
-
-        // LIVE WEATHER & CURRENCY
-        async function getLiveWeather() {
-            try {
-                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=17.46&longitude=78.35&current_weather=true&temperature_unit=fahrenheit');
-                const data = await response.json();
-                document.getElementById('live-temp').innerText = Math.round(data.current_weather.temperature) + '°';
-            } catch (error) { console.log("Weather error"); }
-        }
-
-        let currentBase = 'USD';
-        let rates = { USD: 0, CNY: 0 };
-        async function getRates() {
-            try {
-                const response = await fetch('https://open.er-api.com/v6/latest/INR');
-                const data = await response.json();
-                rates.USD = (1 / data.rates.USD).toFixed(2);
-                rates.CNY = (1 / data.rates.CNY).toFixed(2);
-                updateCurr();
-            } catch (e) { console.log("Rate error"); }
-        }
-        function updateCurr() {
-            const lab = document.getElementById('curr-label');
-            const val = document.getElementById('curr-rate');
-            if (currentBase === 'USD') { lab.innerText = "USD → INR"; val.innerText = "₹" + rates.USD; }
-            else { lab.innerText = "CNY → INR"; val.innerText = "₹" + rates.CNY; }
-        }
-        function toggleCurrency() { currentBase = (currentBase === 'USD') ? 'CNY' : 'USD'; updateCurr(); }
-
+        // Timer
         function updateTimer() {
             const gap = new Date("April 29, 2026 10:00:00") - new Date();
             if (gap > 0) {
@@ -302,23 +256,57 @@
                 document.getElementById("minutes").innerText = Math.floor((gap % 3600000) / 60000);
             }
         }
+        setInterval(updateTimer, 1000);
+
+        let currentTempF = 0; let isFahrenheit = true;
+        async function getLiveWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=17.46&longitude=78.35&current_weather=true&temperature_unit=fahrenheit');
+                const data = await res.json();
+                currentTempF = data.current_weather.temperature;
+                updateWeatherUI();
+            } catch (e) {}
+        }
+        function updateWeatherUI() {
+            const val = isFahrenheit ? Math.round(currentTempF) + '°F' : Math.round((currentTempF - 32) * 5/9) + '°C';
+            document.getElementById('live-temp').innerText = val;
+        }
+        function toggleTempUnit() { isFahrenheit = !isFahrenheit; updateWeatherUI(); }
+
+        let currentBase = 'USD'; let rates = { USD: 0, CNY: 0 };
+        async function getRates() {
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/INR');
+                const data = await res.json();
+                rates.USD = (1 / data.rates.USD).toFixed(2);
+                rates.CNY = (1 / data.rates.CNY).toFixed(2);
+                updateCurrencyUI();
+            } catch (e) {}
+        }
+        function updateCurrencyUI() {
+            document.getElementById('curr-rate').innerText = "₹ " + (currentBase === 'USD' ? rates.USD : rates.CNY);
+            document.getElementById('btn-usd').style.background = currentBase === 'USD' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)';
+            document.getElementById('btn-cny').style.background = currentBase === 'CNY' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)';
+        }
+        function setCurrency(base) { currentBase = base; updateCurrencyUI(); }
+
+        document.getElementById('otherCheck').addEventListener('change', (e) => {
+            document.getElementById('otherText').classList.toggle('hidden', !e.target.checked);
+        });
 
         const rsvpForm = document.getElementById('rsvpForm');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec';
-
         rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            const lang = document.querySelector('.lang-btn.active').id.split('-')[1];
-            btn.disabled = true; btn.innerText = langData[lang].btn_sending;
-            fetch(scriptURL, { method: 'POST', body: new FormData(rsvpForm)})
+            btn.disabled = true; btn.innerText = "...";
+            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: new FormData(rsvpForm)})
             .then(() => {
                 document.getElementById('rsvpContent').classList.add('hidden');
                 document.getElementById('thankYouMessage').classList.remove('hidden');
-            }).catch(() => { alert("Error connecting."); btn.disabled = false; btn.innerText = langData[lang].btn_send; });
+            }).catch(() => { alert("Error."); btn.disabled = false; });
         });
 
-        getLiveWeather(); getRates(); setInterval(updateTimer, 1000); updateTimer();
+        getLiveWeather(); getRates(); updateTimer();
     </script>
 </body>
 </html>
