@@ -38,23 +38,31 @@
             display: block;
 }
 
-        ..watercolor-splash { 
+  .watercolor-splash { 
     position: relative; 
     display: inline-block; 
     z-index: 1; 
+    /* This ensures the container doesn't fight for space with the image */
+    max-width: 100%; 
 }
+
 .watercolor-splash::before {
     content: '';
     position: absolute;
-    /* Adjust these to control how much the paint leaks outside the text */
-    top: -5%; left: -5%; right: -5%; bottom: -5%;
+    /* Hard Constraints: Anchored to the text boundaries */
+    top: 0; 
+    bottom: 0;
+    left: 5%;  /* Pulls the paint in from the left edge */
+    right: 5%; /* Pulls the paint in from the right edge */
+    
     background: var(--paint-yellow);
-    /* Large organic blob shape */
-    border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+    /* A tighter, more controlled organic shape */
+    border-radius: 20% 80% 30% 70% / 50% 30% 70% 50%;
     filter: url(#rough-edge);
-    opacity: 0.7;
+    opacity: 0.6;
     z-index: -1;
-    box-shadow: 0 0 80px var(--paint-yellow);
+    /* Minimal blur to prevent bleeding into adjacent elements */
+    box-shadow: 0 0 20px var(--paint-yellow);
 }
         .splash-content { position: relative; z-index: 2; filter: none !important; }
 
@@ -119,7 +127,7 @@
         <h2 data-key="path_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-8 font-bold">The Celebration Path</h2>
         <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
             <div class="w-full md:w-1/2 bapu-canvas"><img src="mehendi.jpeg" class="w-full h-auto rounded"></div>
-            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+            <div class="w-full md:w-1/2 text-center flex justify-center"><div class="watercolor-splash px-4 py-4 max-w-sm"><div class="splash-content">
                 <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th, Evening</span>
                 <h3 data-key="title_mehendi" class="text-4xl mt-4 mb-4 font-bold">Mehendi & Welcome</h3>
                 <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic font-semibold">The journey begins with henna and music. A day for family bonding and intricate art.</p>
@@ -127,7 +135,7 @@
         </div>
         <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-left">
             <div class="w-full md:w-1/2 bapu-canvas"><img src="sangeet.jpeg" class="w-full h-auto rounded"></div>
-            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+            <div class="w-full md:w-1/2 text-center flex justify-center"><div class="watercolor-splash px-4 py-4 max-w-sm"><div class="splash-content">
                 <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th Night</span>
                 <h3 data-key="title_sangeet" class="text-4xl mt-4 mb-4 font-bold">Sangeet Night</h3>
                 <p data-key="desc_sangeet" class="text-xl leading-relaxed text-gray-700 italic font-semibold">Get ready for high-energy dance performances and a night of non-stop music!</p>
@@ -135,7 +143,7 @@
         </div>
         <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
             <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto rounded"></div>
-            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+            <div class="w-full md:w-1/2 text-center flex justify-center"><div class="watercolor-splash px-4 py-4 max-w-sm"><div class="splash-content">
                 <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th (AM)</span>
                 <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4 font-bold">The Haldi Ceremony</h3>
                 <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic font-semibold">A vibrant ceremony with turmeric paste for a golden glow. Dress in yellow!</p>
@@ -143,7 +151,7 @@
         </div>
         <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-up">
             <div class="w-full md:w-1/2 bapu-canvas"><img src="wedding.jpeg" class="w-full h-auto rounded"></div>
-            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+            <div class="w-full md:w-1/2 text-center flex justify-center"><div class="watercolor-splash px-4 py-4 max-w-sm"><div class="splash-content">
                 <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 29th AM</span>
                 <h3 data-key="title_wedding" class="text-4xl mt-4 mb-4 font-bold">The Main Wedding</h3>
                 <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic font-semibold">The sacred Su-muhurtham: Jillakara Bellam ceremony followed by a traditional feast.</p>
