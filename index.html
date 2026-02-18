@@ -33,8 +33,9 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* Allows you to still click buttons */
-            z-index: -1; /* Background is -2, Canvas is -1, Content is 1+ */
+            pointer-events: none;
+            z-index: 99; /* Force it to the front for testing. If you see it, then change to -1 */
+            background: transparent;
 }
 
         .watercolor-splash { position: relative; display: inline-block; padding: 3rem; z-index: 1; }
@@ -442,23 +443,14 @@
     window.addEventListener('load', initCanvas);
     window.addEventListener('load', animate);
         // --- GLOBAL START ---
-    // --- HARDENED STARTUP SEQUENCE ---
+   // --- HARDENED START ---
+document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', initCanvas);
-    
-    // 1. Initialize Canvas Dimensions
-    initCanvas(); 
-    
-    // 2. Ensure sparkles are created before loop starts
-    if (sparkles.length === 0) {
-        createSparkles();
-    }
-    
-    // 3. Start Animation Loop
+    initCanvas();
     animate();
-    
-    // 4. Start standard utilities
     getExt(); 
     updateTimer();
+});
     </script>
 </body>
 </html>
