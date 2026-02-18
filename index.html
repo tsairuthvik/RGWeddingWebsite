@@ -186,34 +186,41 @@
     </section>
 
     <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 text-center">
-        <div id="rsvp-container" class="watercolor-splash w-full">
-            <div class="splash-content">
-                <h2 data-key="rsvp_title" class="text-5xl mb-12 italic font-bold">RSVP</h2>
-                <p data-key="resubmit_note" class="mb-10 text-lg italic text-gray-700 font-bold">Note: If you want to edit your RSVP, you can re-submit it anytime.</p>
-                <form id="rsvpForm" class="space-y-8 text-left">
-                    <input type="text" name="Name" required placeholder="Name" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
-                    <input type="text" name="FlightInfo" placeholder="Flight Info" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+    <div id="rsvpContent" class="watercolor-splash w-full">
+        <div class="splash-content">
+            <h2 data-key="rsvp_title" class="text-5xl mb-4 italic font-bold">RSVP</h2>
+            <p data-key="resubmit_note" class="mb-10 text-lg italic text-gray-700 font-bold">Note: If you want to edit your RSVP, you can re-submit it anytime.</p>
+            
+            <form id="rsvpForm" class="space-y-8 text-left">
+                <input type="text" name="Name" id="guestNameInput" required placeholder="Name" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+                
+                <input type="text" name="FlightInfo" id="flightInput" placeholder="Flight Info" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+                
+                <div>
+                    <label data-key="label_attend" class="block font-bold mb-4">Events</label>
                     <div class="grid grid-cols-2 gap-4 font-bold">
                         <label><input type="checkbox" name="Events" value="Mehendi"> Mehendi</label>
                         <label><input type="checkbox" name="Events" value="Sangeet"> Sangeet</label>
                         <label><input type="checkbox" name="Events" value="Haldi"> Haldi</label>
                         <label><input type="checkbox" name="Events" value="Wedding"> Wedding</label>
                     </div>
-                    <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
-                        <label data-key="label_safety" class="block font-bold text-red-900 mb-4">Safety & Dietary</label>
-                        <div class="grid grid-cols-2 gap-4">
-                            <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
-                            <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
-                            <label><input type="checkbox" name="Allergy" value="Gluten"> Gluten</label>
-                            <label><input type="checkbox" name="Allergy" value="Other" id="otherCheck"> Other</label>
-                        </div>
-                        <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded bg-white" placeholder="Details..."></textarea>
+                </div>
+
+                <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
+                    <label data-key="label_safety" class="block font-bold text-red-900 mb-4">Safety & Dietary</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
+                        <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
+                        <label><input type="checkbox" name="Allergy" value="Gluten"> Gluten</label>
+                        <label><input type="checkbox" name="Allergy" value="Other" id="otherCheck"> Other</label>
                     </div>
-                    <button type="submit" id="submitBtn" data-key="btn_send">Send RSVP</button>
-                </form>
-            </div>
+                    <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded bg-white" placeholder="Details..."></textarea>
+                </div>
+                <button type="submit" id="submitBtn" data-key="btn_send">Send RSVP</button>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 
     <footer class="text-center py-10 italic text-gray-600 border-t border-bapu-ink">
         <p data-key="footer_note">© 2026 Sai Ruthvik & Gayathri | Gayathri's Art</p>
@@ -325,27 +332,57 @@
 
         document.getElementById('otherCheck').addEventListener('change', e => document.getElementById('otherText').classList.toggle('hidden', !e.target.checked));
 
-        // RSVP - THE HARDENED VERSION
+        // --- RSVP HARDENED LOGIC ---
         const rsvpForm = document.getElementById('rsvpForm');
+        
+        // Toggle the "Other" textarea
+        const otherCheck = document.getElementById('otherCheck');
+        const otherText = document.getElementById('otherText');
+        if (otherCheck) {
+            otherCheck.addEventListener('change', e => {
+                otherText.classList.toggle('hidden', !e.target.checked);
+            });
+        }
+        
         rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn'), l = document.querySelector('.lang-btn.active').id.split('-')[1];
-            btn.disabled = true; btn.innerText = langData[l].btn_sending;
+            const btn = document.getElementById('submitBtn');
+            // Get current language for button text
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const l = activeBtn ? activeBtn.id.split('-')[1] : 'en';
+            
+            btn.disabled = true;
+            btn.innerText = langData[l].btn_sending || "Sending...";
             
             const fd = new FormData(rsvpForm);
             
-            // MANUAL CHECKBOX STRINGIFICATION - ESSENTIAL FOR SPREADSHEET
-            ['Events', 'Allergy'].forEach(f => {
-                const v = []; 
-                document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => v.push(c.value));
-                fd.set(f, v.join(', '));
+            // Package checkboxes for AppScript (Events and Allergy)
+            ['Events', 'Allergy'].forEach(field => {
+                const selected = [];
+                document.querySelectorAll(`input[name="${field}"]:checked`).forEach(checkbox => {
+                    selected.push(checkbox.value);
+                });
+                fd.set(field, selected.join(', '));
             });
-
-            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: fd })
-            .then(() => {
-                document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`;
+        
+            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { 
+                method: 'POST', 
+                body: fd,
+                mode: 'no-cors' // Crucial for Google Script redirects
             })
-            .catch(() => { btn.disabled = false; btn.innerText = langData[l].btn_send; });
+            .then(() => {
+                // Replace form with Thank You message
+                document.getElementById('rsvpContent').innerHTML = `
+                    <div class='text-center p-12'>
+                        <h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3>
+                        <p class='text-2xl mt-4'>${langData[l].success_sub}</p>
+                    </div>`;
+            })
+            .catch(err => {
+                console.error("RSVP Error:", err);
+                btn.disabled = false;
+                btn.innerText = langData[l].btn_send;
+            });
         });
         getExt(); updateTimer();
     </script>
