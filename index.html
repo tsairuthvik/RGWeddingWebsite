@@ -442,9 +442,21 @@
     window.addEventListener('load', initCanvas);
     window.addEventListener('load', animate);
         // --- GLOBAL START ---
+    // --- HARDENED STARTUP SEQUENCE ---
     window.addEventListener('resize', initCanvas);
-    initCanvas();
+    
+    // 1. Initialize Canvas Dimensions
+    initCanvas(); 
+    
+    // 2. Ensure sparkles are created before loop starts
+    if (sparkles.length === 0) {
+        createSparkles();
+    }
+    
+    // 3. Start Animation Loop
     animate();
+    
+    // 4. Start standard utilities
     getExt(); 
     updateTimer();
     </script>
