@@ -34,6 +34,10 @@
         }
         .tilakam-btn:hover { transform: scale(1.15) rotate(5deg); }
 
+        /* Timeline Styles */
+        .path-line { position: absolute; left: 50%; width: 2px; height: 100%; background: var(--bapu-ink); transform: translateX(-50%); z-index: 0; }
+        .path-step { position: relative; z-index: 1; margin-bottom: 4rem; }
+
         .hidden { display: none; }
         input[type="checkbox"] { accent-color: var(--turmeric); width: 1.1rem; height: 1.1rem; }
     </style>
@@ -61,6 +65,34 @@
         </div>
     </section>
 
+    <section class="py-24 px-6 max-w-4xl mx-auto">
+        <h2 data-key="path_title" class="text-5xl text-center mb-20 italic">The Celebration Path</h2>
+        <div class="relative">
+            <div class="path-line"></div>
+            
+            <div data-aos="fade-right" class="path-step flex justify-start w-full">
+                <div class="w-5/12 bapu-canvas p-6">
+                    <h3 class="text-turmeric text-2xl font-bold">April 27</h3>
+                    <p data-key="event_mehendi" class="text-xl italic">Mehendi & Welcome Lunch</p>
+                </div>
+            </div>
+
+            <div data-aos="fade-left" class="path-step flex justify-end w-full">
+                <div class="w-5/12 bapu-canvas p-6 border-kumkum">
+                    <h3 class="text-kumkum text-2xl font-bold">April 28</h3>
+                    <p data-key="event_sangeet" class="text-xl italic">Sangeet: Night of Music</p>
+                </div>
+            </div>
+
+            <div data-aos="fade-right" class="path-step flex justify-start w-full">
+                <div class="w-5/12 bapu-canvas p-6">
+                    <h3 class="text-turmeric text-2xl font-bold">April 29</h3>
+                    <p data-key="event_wedding" class="text-xl italic">The Wedding (Su-muhurtham)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-12 flex flex-col items-center text-center px-6">
         <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4">
             <div class="bg-[url('https://www.transparenttextures.com/patterns/henna.png')] p-10 md:p-16 rounded-full bg-white/95">
@@ -80,10 +112,17 @@
     <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
         <h2 data-key="venue_title" class="text-4xl mb-12 italic">The Wedding Venue</h2>
         <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
-            <iframe src="https://www.google.com/maps/contrib/102540300208977991534/reviews" 
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe 
+                width="100%" 
+                height="100%" 
+                style="border:0" 
+                loading="lazy" 
+                allowfullscreen 
+                src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Stay+at+Veksha+Kondapur+Hyderabad">
+            </iframe>
         </div>
-        <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ4" target="_blank" class="text-xl font-bold underline hover:text-turmeric">Open Venue in Google Maps</a>
+        <p class="text-gray-500 italic mb-4">Note: Map requires an API Key for full interactivity.</p>
+        <a href="https://maps.google.com/?cid=18184859863423340821&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="text-xl font-bold underline hover:text-turmeric">Open Venue in Google Maps</a>
     </section>
 
     <section class="py-32 px-6 bg-bapu-ink text-parchment">
@@ -94,18 +133,18 @@
                 <div>
                     <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6">Biryani Legends</h4>
                     <ul class="space-y-4 text-xl">
-                        <li>• <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ5" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Paradise Secunderabad (OG)</a></li>
-                        <li>• <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ6" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Shah Ghouse Gachibowli</a></li>
-                        <li>• <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25Jd05USjRUemhZVVZwdldVZGtMVlJ2Tm1SUWJWRRAB!2m1!1s0x3bcb770064b6def7:0xfc5d99b2c19b5115" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Bawarchi RTC X Roads</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=4066347626283015446&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Paradise Secunderabad (OG)</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=14099833613764975639&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Shah Ghouse Gachibowli</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=560634053754126992&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Bawarchi RTC X Roads</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-6">Explore & Shop</h4>
                     <ul class="space-y-4 text-xl">
-                        <li>• <a href="https://www.google.com/maps/contrib/108305649502632658163/reviews" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Charminar & Bazaars</a></li>
-                        <li>• <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ9" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Golconda Fort</a></li>
-                        <li>• <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25kR2VGUldRMWd0U1hWVkxURm1RVEpTU2psd1VFRRAB!2m1!1s0x3bcb770064b6def7:0xfc5d99b2c19b5115" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Laad Bazaar (Bangles)</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=14653140768444716027&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Charminar & Bazaars</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=7743637055428244314&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Golconda Fort</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=13439015337679946522&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Laad Bazaar (Bangles)</a></li>
                     </ul>
                 </div>
 
@@ -172,7 +211,10 @@
             en: { 
                 subham: "Subhamastu", 
                 location: "Hyderabad, India", 
-                invite: "The Thandayams invite you to our wedding.", 
+                path_title: "The Celebration Path",
+                event_mehendi: "Mehendi & Welcome Lunch",
+                event_sangeet: "Sangeet: Night of Music",
+                event_wedding: "The Wedding (Su-muhurtham)",
                 countdown_header: "The Su-muhurtham Approaches...", 
                 unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", 
                 timer_sub: "Counting down to the union of cumin & jaggery.", 
@@ -193,7 +235,10 @@
             te: { 
                 subham: "శుభమస్తు", 
                 location: "హైదరాబాద్, భారతదేశం", 
-                invite: "తాండయం కుటుంబం మిమ్మల్ని వివాహానికి ఆహ్వానిస్తోంది.", 
+                path_title: "వేడుకల మార్గం",
+                event_mehendi: "మెహందీ మరియు స్వాగత భోజనం",
+                event_sangeet: "సంగీత్: సంగీత విభావరి",
+                event_wedding: "వివాహం (సుముహూర్తం)",
                 countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", 
                 unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", 
                 timer_sub: "జీలకర్ర బెల్లం కలిసే మధుర క్షణం కోసం...", 
@@ -214,7 +259,10 @@
             hi: { 
                 subham: "शुभमस्तु", 
                 location: "हैदराबाद, भारत", 
-                invite: "तांडयम परिवार आपको आमंत्रित करता है।", 
+                path_title: "उत्सव पथ",
+                event_mehendi: "मेहंदी और स्वागत भोज",
+                event_sangeet: "संगीत: सुरमयी शाम",
+                event_wedding: "विवाह (शुभ मुहूर्त)",
                 countdown_header: "शुभ मुहूर्त निकट है...", 
                 unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", 
                 timer_sub: "जीरा और गुड़ के मीठे मिलन की प्रतीक्षा।", 
@@ -235,7 +283,10 @@
             zh: { 
                 subham: "吉祥如意", 
                 location: "海德拉巴，印度", 
-                invite: "Thandayam 家族诚邀您参加婚礼庆典。", 
+                path_title: "庆祝之路",
+                event_mehendi: "彩绘与迎宾午餐",
+                event_sangeet: "音乐之夜",
+                event_wedding: "婚礼庆典",
                 countdown_header: "吉时将至...", 
                 unit_days: "天", unit_hours: "时", unit_mins: "分", 
                 timer_sub: "期待甜蜜的结合：孜然与糖浆。", 
