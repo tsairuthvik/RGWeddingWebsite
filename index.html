@@ -34,7 +34,7 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 999; /* Force it to the front for testing. If you see it, then change to -1 */
+            z-index: 9999; /* Force it to the front for testing. If you see it, then change to -1 */
             display: block;
 }
 
@@ -287,6 +287,11 @@
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // TEST PATTERN: If you see a red box, the canvas is visible.
+        ctx.fillStyle = "red";
+        ctx.fillRect(10, 10, 100, 100); 
+    
         sparkles.forEach(s => { s.update(); s.draw(); });
         requestAnimationFrame(animate);
     }
