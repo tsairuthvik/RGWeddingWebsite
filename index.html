@@ -38,18 +38,24 @@
             display: block;
 }
 
-        .watercolor-splash { position: relative; display: inline-block; padding: 3rem; z-index: 1; }
-        .watercolor-splash::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--paint-yellow);
-            border-radius: 45% 55% 65% 35% / 40% 45% 55% 60%;
-            filter: url(#rough-edge);
-            opacity: 0.8;
-            z-index: -1;
-            box-shadow: 0 0 60px var(--paint-yellow);
-        }
+        ..watercolor-splash { 
+    position: relative; 
+    display: inline-block; 
+    z-index: 1; 
+}
+.watercolor-splash::before {
+    content: '';
+    position: absolute;
+    /* Adjust these to control how much the paint leaks outside the text */
+    top: -5%; left: -5%; right: -5%; bottom: -5%;
+    background: var(--paint-yellow);
+    /* Large organic blob shape */
+    border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+    filter: url(#rough-edge);
+    opacity: 0.7;
+    z-index: -1;
+    box-shadow: 0 0 80px var(--paint-yellow);
+}
         .splash-content { position: relative; z-index: 2; filter: none !important; }
 
         h1, h2, h3, h4 { font-family: 'Kurale', serif; }
@@ -83,21 +89,31 @@
     <a href="#rsvp-section" class="tilakam-btn">RSVP</a>
 
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
-        <div class="watercolor-splash" data-aos="fade-down">
-            <div class="splash-content">
-                <div class="w-full max-w-xl mb-12 mt-20 bapu-canvas mx-auto">
-                    <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
-                </div>
-                <p data-key="welcome_msg" class="text-xl md:text-2xl mb-4 italic font-bold">The Thandayams welcome you to the wedding of</p>
-                <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
-                <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
-                <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12 inline-block bg-white/10">
-                    <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
-                    <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
-                </div>
+    <div class="w-full max-w-xl mb-12 bapu-canvas mx-auto mt-20">
+        <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
+    </div>
+
+    <div class="watercolor-splash w-full max-w-4xl" data-aos="zoom-in">
+        <div class="splash-content py-10">
+            <p data-key="welcome_msg" class="text-xl md:text-2xl mb-4 italic font-bold text-bapu-ink">
+                The Thandayams welcome you to the wedding of
+            </p>
+            
+            <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic text-bapu-ink">
+                Subhamastu
+            </h1>
+            
+            <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">
+                Sai Ruthvik & Gayathri
+            </h2>
+            
+            <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12 inline-block bg-white/20">
+                <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
+                <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="max-w-6xl mx-auto py-24 px-6 space-y-48">
         <h2 data-key="path_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-8 font-bold">The Celebration Path</h2>
