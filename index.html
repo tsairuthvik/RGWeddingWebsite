@@ -49,20 +49,26 @@
 .watercolor-splash::before {
     content: '';
     position: absolute;
-    /* Hard Constraints: Anchored to the text boundaries */
-    top: 0; 
-    bottom: 0;
-    left: 5%;  /* Pulls the paint in from the left edge */
-    right: 5%; /* Pulls the paint in from the right edge */
+    /* This allows the splash to grow 20px above and below the text */
+    top: -20px; 
+    bottom: -20px;
+    /* Keeping the left and right closer to 0 so it doesn't hit the side images */
+    left: -10px; 
+    right: -10px;
     
     background: var(--paint-yellow);
-    /* A tighter, more controlled organic shape */
-    border-radius: 20% 80% 30% 70% / 50% 30% 70% 50%;
+    /* A more expansive, "splat" like border radius */
+    border-radius: 35% 65% 60% 40% / 45% 50% 55% 50%;
+    
     filter: url(#rough-edge);
-    opacity: 0.6;
+    opacity: 0.7;
     z-index: -1;
-    /* Minimal blur to prevent bleeding into adjacent elements */
-    box-shadow: 0 0 20px var(--paint-yellow);
+    
+    /* Increasing the glow makes the splash feel larger without physically moving the borders */
+    box-shadow: 0 0 50px var(--paint-yellow);
+    
+    /* Subtle tilt makes it look more hand-painted */
+    transform: rotate(-1deg); 
 }
         .splash-content { position: relative; z-index: 2; filter: none !important; }
 
