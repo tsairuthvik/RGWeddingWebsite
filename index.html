@@ -193,29 +193,26 @@
         </div>
     </section>
 
-    <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 text-center">
+   <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 text-center">
     <div id="rsvpContent" class="watercolor-splash w-full">
         <div class="splash-content">
             <h2 data-key="rsvp_title" class="text-5xl mb-4 italic font-bold">RSVP</h2>
             <p data-key="resubmit_note" class="mb-10 text-lg italic text-gray-700 font-bold">Note: If you want to edit your RSVP, you can re-submit it anytime.</p>
             
             <form id="rsvpForm" class="space-y-8 text-left">
-                <input type="text" name="Name" id="guestNameInput" required placeholder="Name" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+                <input type="text" name="Name" required placeholder="Name" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
                 
-                <input type="text" name="FlightInfo" id="flightInput" placeholder="Flight Info" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+                <input type="text" name="FlightInfo" placeholder="Flight Info" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
                 
-                <div>
-                    <label data-key="label_attend" class="block font-bold mb-4">Events</label>
-                    <div class="grid grid-cols-2 gap-4 font-bold">
-                        <label><input type="checkbox" name="Events" value="Mehendi"> Mehendi</label>
-                        <label><input type="checkbox" name="Events" value="Sangeet"> Sangeet</label>
-                        <label><input type="checkbox" name="Events" value="Haldi"> Haldi</label>
-                        <label><input type="checkbox" name="Events" value="Wedding"> Wedding</label>
-                    </div>
+                <div class="grid grid-cols-2 gap-4 font-bold">
+                    <label><input type="checkbox" name="Events" value="Mehendi"> Mehendi</label>
+                    <label><input type="checkbox" name="Events" value="Sangeet"> Sangeet</label>
+                    <label><input type="checkbox" name="Events" value="Haldi"> Haldi</label>
+                    <label><input type="checkbox" name="Events" value="Wedding"> Wedding</label>
                 </div>
 
                 <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
-                    <label data-key="label_safety" class="block font-bold text-red-900 mb-4">Safety & Dietary</label>
+                    <label class="block font-bold text-red-900 mb-4">Safety & Dietary</label>
                     <div class="grid grid-cols-2 gap-4">
                         <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
                         <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
@@ -239,72 +236,52 @@
         AOS.init({ duration: 1200, once: true });
 
         // --- UNIFIED SPARKLE ENGINE ---
-        const canvas = document.getElementById('sparkleCanvas');
-        const ctx = canvas.getContext('2d');
-        let sparkles = [];
-        
-        // Adjusts canvas size to match the screen resolution
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            createSparkles();
+        // --- SPARKLE ENGINE ---
+const canvas = document.getElementById('sparkleCanvas');
+const ctx = canvas.getContext('2d');
+let sparkles = [];
+
+function initCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    sparkles = [];
+    for(let i=0; i<120; i++) sparkles.push(new Sparkle());
+}
+
+class Sparkle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.phase = Math.random() * Math.PI * 2;
+        this.twinkle = Math.random() * 0.02 + 0.005;
+    }
+    update() {
+        this.phase += this.twinkle;
+        this.opacity = (Math.sin(this.phase) + 1) / 2;
+    }
+    draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.beginPath();
+        for(let i=0; i<4; i++) {
+            ctx.lineTo(0, -this.size);
+            ctx.lineTo(this.size*0.2, 0);
+            ctx.rotate(Math.PI/2);
         }
-        
-        class Sparkle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.phase = Math.random() * Math.PI * 2; // Random starting point for the shimmer
-                this.twinkle = Math.random() * 0.02 + 0.005; // Speed of the fade
-            }
-        
-            update() {
-                this.phase += this.twinkle;
-                // Sin wave creates a smooth fade in and out (0 to 1)
-                this.opacity = (Math.sin(this.phase) + 1) / 2;
-            }
-        
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(Math.PI / 4); // Rotate for diamond/star look
-                ctx.beginPath();
-                for (let i = 0; i < 4; i++) {
-                    ctx.lineTo(0, -this.size);
-                    ctx.lineTo(this.size * 0.2, 0);
-                    ctx.rotate(Math.PI / 2);
-                }
-                ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`; // Gold color
-                ctx.shadowBlur = 10 * this.opacity; // Glow increases as it brightens
-                ctx.shadowColor = "gold";
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-        
-        function createSparkles() {
-            sparkles = [];
-            for (let i = 0; i < 120; i++) { // Adjust count for density
-                sparkles.push(new Sparkle());
-            }
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            sparkles.forEach(s => {
-                s.update();
-                s.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-        
-        // Global Event Listeners
-        window.addEventListener('resize', initCanvas);
-        
-        // Kickstart the engine
-        initCanvas();
-        animate();
+        ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`;
+        ctx.shadowBlur = 10 * this.opacity;
+        ctx.shadowColor = "gold";
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    sparkles.forEach(s => { s.update(); s.draw(); });
+    requestAnimationFrame(animate);
+}
         const langData = {
         en: { 
                 subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
@@ -393,57 +370,54 @@
         document.getElementById('otherCheck').addEventListener('change', e => document.getElementById('otherText').classList.toggle('hidden', !e.target.checked));
 
         // --- RSVP HARDENED LOGIC ---
-        const rsvpForm = document.getElementById('rsvpForm');
-        
-        // Toggle the "Other" textarea
-        const otherCheck = document.getElementById('otherCheck');
-        const otherText = document.getElementById('otherText');
-        if (otherCheck) {
-            otherCheck.addEventListener('change', e => {
-                otherText.classList.toggle('hidden', !e.target.checked);
-            });
-        }
-        
-        rsvpForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            // Get current language for button text
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const l = activeBtn ? activeBtn.id.split('-')[1] : 'en';
-            
-            btn.disabled = true;
-            btn.innerText = langData[l].btn_sending || "Sending...";
-            
-            const fd = new FormData(rsvpForm);
-            
-            // Package checkboxes for AppScript (Events and Allergy)
-            ['Events', 'Allergy'].forEach(field => {
-                const selected = [];
-                document.querySelectorAll(`input[name="${field}"]:checked`).forEach(checkbox => {
-                    selected.push(checkbox.value);
-                });
-                fd.set(field, selected.join(', '));
-            });
-        
-            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { 
-                method: 'POST', 
-                body: fd,
-                mode: 'no-cors' // Crucial for Google Script redirects
-            })
-            .then(() => {
-                // Replace form with Thank You message
-                document.getElementById('rsvpContent').innerHTML = `
-                    <div class='text-center p-12'>
-                        <h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3>
-                        <p class='text-2xl mt-4'>${langData[l].success_sub}</p>
-                    </div>`;
-            })
-            .catch(err => {
-                console.error("RSVP Error:", err);
-                btn.disabled = false;
-                btn.innerText = langData[l].btn_send;
-            });
-        });
+        // --- RSVP LOGIC ---
+const rsvpForm = document.getElementById('rsvpForm');
+const otherCheck = document.getElementById('otherCheck');
+const otherText = document.getElementById('otherText');
+
+if (otherCheck) {
+    otherCheck.addEventListener('change', e => otherText.classList.toggle('hidden', !e.target.checked));
+}
+
+rsvpForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const lang = document.querySelector('.lang-btn.active').id.split('-')[1];
+    
+    btn.disabled = true;
+    btn.innerText = langData[lang].btn_sending || "Sending...";
+    
+    const fd = new FormData(rsvpForm);
+    
+    // Explicitly bundle multi-selects
+    ['Events', 'Allergy'].forEach(key => {
+        const vals = [];
+        document.querySelectorAll(`input[name="${key}"]:checked`).forEach(c => vals.push(c.value));
+        fd.set(key, vals.join(', '));
+    });
+
+    fetch('YOUR_SCRIPT_URL_HERE', { 
+        method: 'POST', 
+        body: fd,
+        mode: 'no-cors' 
+    })
+    .then(() => {
+        document.getElementById('rsvpContent').innerHTML = `
+            <div class='text-center p-12'>
+                <h3 class='text-6xl text-turmeric italic'>${langData[lang].thanks}</h3>
+                <p class='text-2xl mt-4'>${langData[lang].success_sub}</p>
+            </div>`;
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.innerText = "Error - Try Again";
+    });
+});
+
+// START
+window.addEventListener('resize', initCanvas);
+initCanvas();
+animate();
         getExt(); updateTimer();
     </script>
 </body>
