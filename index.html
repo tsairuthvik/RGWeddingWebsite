@@ -228,7 +228,70 @@
     <footer class="text-center py-10 italic text-gray-600 border-t border-bapu-ink">
         <p data-key="footer_note">© 2026 Sai Ruthvik & Gayathri | Gayathri's Art</p>
     </footer>
+    <script>
+    // --- START OF STATIC SHIMMER ENGINE ---
+    const canvas = document.getElementById('sparkleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
 
+    function initCanvas() { 
+        canvas.width = window.innerWidth; 
+        canvas.height = window.innerHeight; 
+        createSparkles(); 
+    }
+    window.addEventListener('resize', initCanvas);
+
+    class StaticSparkle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2.5 + 0.5;
+            this.rotation = Math.random() * Math.PI;
+            this.opacity = Math.random();
+            this.twinkleSpeed = Math.random() * 0.02 + 0.005; 
+            this.phase = Math.random() * Math.PI * 2;
+        }
+        update() {
+            this.phase += this.twinkleSpeed;
+            this.opacity = (Math.sin(this.phase) + 1) / 2;
+        }
+        draw() {
+            if (this.opacity < 0.1) return;
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation);
+            ctx.beginPath();
+            for(let i = 0; i < 4; i++) {
+                ctx.lineTo(0, -this.size);
+                ctx.lineTo(this.size * 0.2, 0);
+                ctx.rotate(Math.PI / 2);
+            }
+            ctx.closePath();
+            ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`;
+            ctx.shadowBlur = 10 * this.opacity;
+            ctx.shadowColor = "rgba(255, 215, 0, 0.8)";
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    function createSparkles() {
+        particles = [];
+        for (let i = 0; i < 120; i++) {
+            particles.push(new StaticSparkle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+
+    initCanvas();
+    animate();
+    // --- END OF STATIC SHIMMER ENGINE ---
+</script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true });
@@ -372,6 +435,356 @@
             fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: fd })
             .then(() => document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`)
             .catch(() => { btn.disabled = false; btn.innerText = "Send RSVP"; });
+        });
+        getExt(); updateTimer();
+    </script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Thandayam Wedding | Sai Ruthvik & Gayathri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; --paint-yellow: rgba(255, 224, 102, 0.75); }
+        body { background-color: var(--parchment); color: var(--bapu-ink); font-family: 'Sahitya', serif; scroll-behavior: smooth; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); margin: 0; overflow-x: hidden; }
+        
+        /* 1. BOUNCY / BREATHING BACKGROUND */
+        .scenery-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('background.png') no-repeat top center;
+            background-size: cover;
+            z-index: -2;
+            pointer-events: none;
+            transform-origin: top center; 
+            animation: breathe 20s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        #sparkleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+
+        .watercolor-splash { position: relative; display: inline-block; padding: 3rem; z-index: 1; }
+        .watercolor-splash::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--paint-yellow);
+            border-radius: 45% 55% 65% 35% / 40% 45% 55% 60%;
+            filter: url(#rough-edge);
+            opacity: 0.8;
+            z-index: -1;
+            box-shadow: 0 0 60px var(--paint-yellow);
+        }
+        .splash-content { position: relative; z-index: 2; filter: none !important; }
+
+        h1, h2, h3, h4 { font-family: 'Kurale', serif; }
+        .bapu-canvas { border: 2px solid var(--bapu-ink); border-radius: 2% 98% 3% 97% / 96% 3% 97% 4%; background: #FFFFFF; padding: 0.75rem; box-shadow: 10px 10px 0px rgba(26,26,26,0.05); }
+        .lang-btn { font-family: 'Kurale', serif; padding: 4px 12px; border: 1px solid var(--bapu-ink); border-radius: 20px; font-size: 0.85rem; background: white; cursor: pointer; transition: 0.3s; }
+        .lang-btn.active { background: var(--turmeric); color: white; border-color: var(--turmeric); }
+        .tilakam-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background-color: var(--kumkum); border: 3px solid var(--turmeric); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-family: 'Kurale', serif; box-shadow: 0 4px 20px rgba(179, 27, 27, 0.5); z-index: 100; text-decoration: none; transition: 0.3s; }
+        #submitBtn { background-color: var(--kumkum) !important; color: white !important; border: 2px solid var(--bapu-ink); box-shadow: 6px 6px 0px var(--bapu-ink); cursor: pointer; width: 100%; padding: 1.5rem; font-size: 1.5rem; font-weight: bold; border-radius: 0.5rem; text-transform: uppercase; }
+        input[type="checkbox"] { accent-color: var(--kumkum); width: 1.2rem; height: 1.2rem; cursor: pointer; }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <svg style="position: absolute; width: 0; height: 0;">
+        <filter id="rough-edge">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" />
+        </filter>
+    </svg>
+
+    <div class="scenery-bg"></div>
+    <canvas id="sparkleCanvas"></canvas>
+
+    <div class="fixed top-4 right-4 z-50 flex gap-2">
+        <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
+        <button onclick="changeLang('te')" class="lang-btn" id="btn-te">తెలుగు</button>
+        <button onclick="changeLang('hi')" class="lang-btn" id="btn-hi">हिन्दी</button>
+        <button onclick="changeLang('zh')" class="lang-btn" id="btn-zh">中文</button>
+    </div>
+
+    <a href="#rsvp-section" class="tilakam-btn">RSVP</a>
+
+    <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
+        <div class="watercolor-splash" data-aos="fade-down">
+            <div class="splash-content">
+                <div class="w-full max-w-xl mb-12 bapu-canvas mx-auto">
+                    <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
+                </div>
+                <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
+                <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
+                <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12 inline-block bg-white/10">
+                    <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
+                    <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto py-24 px-6 space-y-48">
+        <h2 data-key="path_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-8 font-bold">The Celebration Path</h2>
+        <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
+            <div class="w-full md:w-1/2 bapu-canvas"><img src="mehendi.jpeg" class="w-full h-auto rounded"></div>
+            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+                <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th, Evening</span>
+                <h3 data-key="title_mehendi" class="text-4xl mt-4 mb-4 font-bold">Mehendi & Welcome</h3>
+                <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic font-semibold">The journey begins with henna and music. A day for family bonding and intricate art.</p>
+            </div></div></div>
+        </div>
+        <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-left">
+            <div class="w-full md:w-1/2 bapu-canvas"><img src="sangeet.jpeg" class="w-full h-auto rounded"></div>
+            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+                <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th Night</span>
+                <h3 data-key="title_sangeet" class="text-4xl mt-4 mb-4 font-bold">Sangeet Night</h3>
+                <p data-key="desc_sangeet" class="text-xl leading-relaxed text-gray-700 italic font-semibold">Get ready for high-energy dance performances and a night of non-stop music!</p>
+            </div></div></div>
+        </div>
+        <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
+            <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto rounded"></div>
+            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+                <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th (AM)</span>
+                <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4 font-bold">The Haldi Ceremony</h3>
+                <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic font-semibold">A vibrant ceremony with turmeric paste for a golden glow. Dress in yellow!</p>
+            </div></div></div>
+        </div>
+        <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-up">
+            <div class="w-full md:w-1/2 bapu-canvas"><img src="wedding.jpeg" class="w-full h-auto rounded"></div>
+            <div class="w-full md:w-1/2 text-center"><div class="watercolor-splash"><div class="splash-content">
+                <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 29th AM</span>
+                <h3 data-key="title_wedding" class="text-4xl mt-4 mb-4 font-bold">The Main Wedding</h3>
+                <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic font-semibold">The sacred Su-muhurtham: Jillakara Bellam ceremony followed by a traditional feast.</p>
+            </div></div></div>
+        </div>
+    </section>
+
+    <section class="py-24 flex flex-col items-center text-center px-6">
+        <div class="watercolor-splash" data-aos="zoom-in">
+            <div class="splash-content">
+                <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-8 font-bold italic">The Su-muhurtham Approaches...</h3>
+                <div id="countdown" class="flex gap-6 md:gap-10 justify-center font-bold text-4xl md:text-6xl">
+                    <div class="flex flex-col"><span id="days">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
+                    <span class="text-turmeric">•</span>
+                    <div class="flex flex-col"><span id="hours">00</span><span data-key="unit_hours" class="text-xs uppercase text-turmeric">Hrs</span></div>
+                    <span class="text-turmeric">•</span>
+                    <div class="flex flex-col"><span id="minutes">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 bg-bapu-ink text-parchment">
+        <div class="max-w-6xl mx-auto">
+            <h2 data-key="explorer_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-10 font-bold">Discover Hyderabad</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6 font-bold">🍛 Food Legends</h4>
+                    <ul class="space-y-4 text-lg">
+                        <li>• <a href="https://maps.app.goo.gl/OGBiryaniParadise" target="_blank" class="hover:text-turmeric transition">Paradise Secunderabad</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/ShahGhouseGachibowli" target="_blank" class="hover:text-turmeric transition">Shah Ghouse Gachibowli</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">🏰 Explore & Shop</h4>
+                    <ul class="space-y-4 text-lg">
+                        <li>• <a href="https://maps.app.goo.gl/CharminarBazaars" target="_blank" class="hover:text-turmeric transition">Charminar</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/LaadBazaar" target="_blank" class="hover:text-turmeric transition">Laad Bazaar 📿</a></li>
+                    </ul>
+                </div>
+                <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 text-center space-y-6">
+                    <div>
+                        <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🥥 Weather</h4>
+                        <span id="live-temp" class="text-3xl font-bold">--°</span>
+                        <button onclick="toggleTempUnit()" class="text-[10px] block mx-auto underline mt-1 opacity-60">F / C</button>
+                    </div>
+                    <div class="border-t border-white/10 pt-4">
+                        <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🪙 Currency</h4>
+                        <span id="curr-rate" class="text-2xl font-bold">₹ --</span>
+                        <div class="flex gap-2 justify-center mt-2">
+                            <button onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-3 py-1 rounded">USD</button>
+                            <button onclick="setCurrency('CNY')" class="text-[10px] bg-white/10 px-3 py-1 rounded">CNY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
+        <h2 data-key="venue_title" class="text-4xl mb-12 italic font-bold">🪔 The Wedding Venue</h2>
+        <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1pa8tsj4nDsf58z9_dYl4hf4rvTIWlwE&ehbc=2E312F" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 text-center">
+        <div id="rsvp-container" class="watercolor-splash w-full">
+            <div class="splash-content">
+                <h2 data-key="rsvp_title" class="text-5xl mb-12 italic font-bold">RSVP</h2>
+                <form id="rsvpForm" class="space-y-8 text-left">
+                    <input type="text" name="Name" required placeholder="Name" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+                    <input type="text" name="FlightInfo" placeholder="Flight Info" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80">
+                    <div class="grid grid-cols-2 gap-4 font-bold">
+                        <label><input type="checkbox" name="Events" value="Mehendi"> Mehendi</label>
+                        <label><input type="checkbox" name="Events" value="Sangeet"> Sangeet</label>
+                        <label><input type="checkbox" name="Events" value="Haldi"> Haldi</label>
+                        <label><input type="checkbox" name="Events" value="Wedding"> Wedding</label>
+                    </div>
+                    <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
+                        <label data-key="label_safety" class="block font-bold text-red-900 mb-4">Safety & Dietary</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
+                            <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
+                            <label><input type="checkbox" name="Allergy" value="Gluten"> Gluten</label>
+                            <label><input type="checkbox" name="Allergy" value="Other" id="otherCheck"> Other</label>
+                        </div>
+                        <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded bg-white" placeholder="Details..."></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" data-key="btn_send">Send RSVP</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-10 italic text-gray-600 border-t border-bapu-ink">
+        <p data-key="footer_note">© 2026 Sai Ruthvik & Gayathri | Gayathri's Art</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1200, once: true });
+        
+        // UNIFIED STATIC SHIMMER ENGINE
+        const canvas = document.getElementById('sparkleCanvas');
+        const ctx = canvas.getContext('2d');
+        let sparkles = [];
+        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; createSparkles(); }
+        window.addEventListener('resize', initCanvas);
+        class Sparkle {
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*2+0.5; this.phase = Math.random()*Math.PI*2; this.twinkle = Math.random()*0.02+0.005; }
+            update() { this.phase += this.twinkle; this.opacity = (Math.sin(this.phase)+1)/2; }
+            draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(Math.PI/4); ctx.beginPath(); for(let i=0; i<4; i++){ ctx.lineTo(0, -this.size); ctx.lineTo(this.size*0.2, 0); ctx.rotate(Math.PI/2); } ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`; ctx.shadowBlur = 10*this.opacity; ctx.shadowColor = "gold"; ctx.fill(); ctx.restore(); }
+        }
+        function createSparkles() { sparkles = []; for(let i=0; i<100; i++) sparkles.push(new Sparkle()); }
+        function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); sparkles.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); }
+        initCanvas(); animate();
+
+        const langData = {
+        en: { 
+                subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
+                title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony. A day of music and family!",
+                title_sangeet: "Sangeet Night", desc_sangeet: "High-energy dance and music gala!",
+                title_haldi: "The Haldi Ceremony", desc_haldi: "Turmeric glow. Wear yellow!",
+                title_wedding: "The Main Wedding", desc_wedding: "Su-muhurtham and grand feast.",
+                countdown_header: "The Su-muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Adjusted to your local time zone.",
+                explorer_title: "Discover Hyderabad", biryani_title: "🍛 Food Legends", sightseeing_title: "🏰 Explore & Shop",
+                weather_title: "🥥 Weather", currency_title: "🪙 Currency", rsvp_title: "RSVP",
+                resubmit_note: "Need to update plans? Just resubmit the form anytime!",
+                label_name: "Name", label_flight: "Flight Info", label_attend: "Events", label_safety: "Safety & Dietary", label_other: "Details...", 
+                btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Response saved!",
+                footer_note: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art"
+            },
+            te: { 
+                subham: "శుభమస్తు", location: "హైదరాబాద్, భారతదేశం", path_title: "వేడుకల మార్గం",
+                title_mehendi: "మెహందీ", desc_mehendi: "గోరింటాకు వేడుక మరియు విందు.",
+                title_sangeet: "సంగీత్", desc_sangeet: "సంగీత మరియు నృత్య వేడుక!",
+                title_haldi: "హల్దీ వేడుక", desc_haldi: "పసుపు వేడుక. పసుపు బట్టలు ధరించండి!",
+                title_wedding: "ప్రధాన వివాహం", desc_wedding: "సుముహూర్తం మరియు విందు.",
+                countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", timer_sub: "మీ సమయానికి మార్చబడింది.",
+                explorer_title: "హైదరాబాద్ అన్వేషణ", biryani_title: "🍛 ఆహారం & బిర్యానీ", sightseeing_title: "🏰 అన్వేషణ & షాపింగ్",
+                weather_title: "🥥 వాతావరణం", currency_title: "🪙 కరెన్సీ", rsvp_title: "RSVP",
+                resubmit_note: "మార్పులు ఉన్నాయా? మళ్ళీ పంపండి!",
+                label_name: "పేరు", label_flight: "ఫ్లైట్ వివరాలు", label_attend: "వేడుకలు", label_safety: "ఆరోగ్య జాగ్రత్తలు", label_other: "వివరాలు...", 
+                btn_send: "పంపండి", btn_sending: "పంపుతున్నాము...", thanks: "ధన్యవాదాలు!", success_sub: "సేవ్ చేయబడ్డాయి!",
+                footer_note: "© 2026 సాయి రుత్విక్ & గాయత్రి | గాయత్రి కళాఖండాలు"
+            },
+            hi: { 
+                subham: "शुभमस्तु", location: "हैदराबाद, भारत", path_title: "उत्सव पथ",
+                title_mehendi: "मेहंदी", desc_mehendi: "मेहंदी की रस्म।",
+                title_sangeet: "संगीत संध्या", desc_sangeet: "नाच-गाने की रात!",
+                title_haldi: "हल्दी रस्म", desc_haldi: "हल्दी और खुशियाँ!",
+                title_wedding: "मुख्य विवाह", desc_wedding: "शुभ मुहूर्त और भोज।",
+                countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "स्थानीय समय के अनुसार।",
+                explorer_title: "हैदराबाद की खोज", biryani_title: "भोजन", sightseeing_title: "भ्रमण",
+                weather_title: "🥥 मौसम", currency_title: "🪙 मुद्रा", rsvp_title: "आरएसवीपी", 
+                label_name: "नाम", label_flight: "फ्लाइट विवरण", btn_send: "भेजें", thanks: "धन्यवाद!", success_sub: "सहेज लिया गया है!",
+                footer_note: "© 2026 साई रुत्विक और गायत्री | गायत्री की कला"
+            },
+            zh: { 
+                subham: "吉祥如意", location: "海德拉巴，印度", path_title: "庆祝之路",
+                title_mehendi: "海娜仪式", desc_mehendi: "手绘纹身。",
+                title_sangeet: "音乐之夜", desc_sangeet: "歌声与舞蹈！",
+                title_haldi: "姜黄仪式", desc_haldi: "姜黄涂抹。",
+                title_wedding: "婚礼庆典", desc_wedding: "婚礼仪式及盛宴。",
+                countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "已调整为当地时间。",
+                explorer_title: "探索海德拉巴", biryani_title: "美食", sightseeing_title: "探索",
+                weather_title: "🥥 天气", currency_title: "🪙 货币", rsvp_title: "确认出席",
+                label_name: "姓名", label_flight: "航班信息", btn_send: "发送回复", thanks: "谢谢！", success_sub: "回复已保存。",
+                footer_note: "© 2026 Sai Ruthvik & Gayathri | 加亚特里艺术"
+            }    
+        };
+
+        function changeLang(l) {
+            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = langData[l][el.getAttribute('data-key')] || el.innerText; });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + l).classList.add('active');
+        }
+
+        function updateTimer() {
+            const diff = new Date("April 29, 2026 10:00:00 GMT+0530") - new Date();
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+            }
+        }
+        setInterval(updateTimer, 1000);
+
+        let curF = 0, isF = true, rates = { USD: 0, CNY: 0 }, base = 'USD';
+        async function getExt() {
+            try {
+                const w = await fetch('https://api.open-meteo.com/v1/forecast?latitude=17.45&longitude=78.35&current_weather=true&temperature_unit=fahrenheit');
+                const wd = await w.json(); curF = wd.current_weather.temperature; updateW();
+                const r = await fetch('https://open.er-api.com/v6/latest/INR');
+                const rd = await r.json(); rates.USD = (1/rd.rates.USD).toFixed(2); rates.CNY = (1/rd.rates.CNY).toFixed(2); updateC();
+            } catch(e){}
+        }
+        function updateW() { document.getElementById('live-temp').innerText = isF ? Math.round(curF)+'°F' : Math.round((curF-32)*5/9)+'°C'; }
+        function toggleTempUnit() { isF = !isF; updateW(); }
+        function updateC() { document.getElementById('curr-rate').innerText = "₹ "+(base==='USD' ? rates.USD : rates.CNY); }
+        function setCurrency(b) { base = b; updateC(); }
+
+        document.getElementById('otherCheck').addEventListener('change', e => document.getElementById('otherText').classList.toggle('hidden', !e.target.checked));
+
+        const rsvpForm = document.getElementById('rsvpForm');
+        rsvpForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn'), l = document.querySelector('.lang-btn.active').id.split('-')[1];
+            btn.disabled = true; btn.innerText = langData[l].btn_sending;
+            const fd = new FormData(rsvpForm);
+            
+            // PACKAGING DATA FOR SPREADSHEET
+            ['Events', 'Allergy'].forEach(f => {
+                const v = []; document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => v.push(c.value));
+                fd.set(f, v.join(', '));
+            });
+
+            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: fd })
+            .then(() => document.getElementById('rsvp-container').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`)
+            .catch(() => { btn.disabled = false; btn.innerText = langData[l].btn_send; });
         });
         getExt(); updateTimer();
     </script>
