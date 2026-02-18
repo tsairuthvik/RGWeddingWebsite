@@ -323,28 +323,28 @@
 
         document.getElementById('otherCheck').addEventListener('change', e => document.getElementById('otherText').classList.toggle('hidden', !e.target.checked));
 
-        // --- RSVP HARDENED LOGIC ---
+        // RSVP - THE HARDENED VERSION
         const rsvpForm = document.getElementById('rsvpForm');
         rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn'), l = document.querySelector('.lang-btn.active').id.split('-')[1];
             btn.disabled = true; btn.innerText = langData[l].btn_sending;
+            
             const fd = new FormData(rsvpForm);
             
-            // Explicit serialization for multi-selects
+            // MANUAL CHECKBOX STRINGIFICATION - ESSENTIAL FOR SPREADSHEET
             ['Events', 'Allergy'].forEach(f => {
-                const values = [];
-                document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => values.push(c.value));
-                fd.set(f, values.join(', '));
+                const v = []; 
+                document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => v.push(c.value));
+                fd.set(f, v.join(', '));
             });
 
             fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: fd })
             .then(() => {
-                document.getElementById('rsvp-container').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`;
+                document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`;
             })
             .catch(() => { btn.disabled = false; btn.innerText = langData[l].btn_send; });
         });
-
         getExt(); updateTimer();
     </script>
 </body>
