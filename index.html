@@ -9,247 +9,294 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        :root { 
-            --parchment: #F5F2E1; 
-            --bapu-ink: #1A1A1A; 
-            --turmeric: #E0A500; 
-        }
+        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; }
+        body { background-color: var(--parchment); color: var(--bapu-ink); font-family: 'Sahitya', serif; scroll-behavior: smooth; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); }
+        h1, h2, h3, h4 { font-family: 'Kurale', serif; }
         
-        body { 
-            background-color: var(--parchment); 
-            color: var(--bapu-ink); 
-            font-family: 'Sahitya', serif; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth;
-            line-height: 1.7;
-            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+        .bapu-canvas { 
+            border: 2px solid var(--bapu-ink); 
+            border-radius: 2% 98% 3% 97% / 96% 3% 97% 4%; 
+            background: #FFFFFF; 
+            padding: 0.75rem; 
+            box-shadow: 10px 10px 0px rgba(26,26,26,0.05); 
         }
 
-        h1, h2, h3, h4 { 
-            font-family: 'Kurale', serif; 
-            font-weight: 400;
+        .lang-btn { font-family: 'Kurale', serif; padding: 4px 12px; border: 1px solid var(--bapu-ink); border-radius: 20px; font-size: 0.85rem; background: white; transition: 0.3s; cursor: pointer; }
+        .lang-btn.active { background: var(--turmeric); color: white; border-color: var(--turmeric); }
+        
+        .tilakam-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px;
+            background-color: var(--kumkum); border: 3px solid var(--turmeric);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-family: 'Kurale', serif;
+            box-shadow: 0 4px 20px rgba(179, 27, 27, 0.5); z-index: 100;
+            text-decoration: none; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .bapu-canvas {
-            border: 2px solid var(--bapu-ink);
-            border-radius: 2% 98% 3% 97% / 96% 3% 97% 4%;
-            background: #FFFFFF;
-            padding: 0.75rem;
-            box-shadow: 10px 10px 0px rgba(26, 26, 26, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .btn-telugu {
-            font-family: 'Kurale', serif;
-            background-color: var(--turmeric);
-            border: 2px solid var(--bapu-ink);
-            border-radius: 120px 30px 120px 30px / 30px 120px 30px 120px;
-            box-shadow: 4px 4px 0px var(--bapu-ink);
-            transition: all 0.2s ease;
-        }
-
-        .btn-telugu:hover {
-            transform: scale(1.02);
-            background-color: var(--bapu-ink);
-            color: white;
-        }
+        .tilakam-btn:hover { transform: scale(1.15) rotate(5deg); }
 
         .hidden { display: none; }
-
-        input[type="checkbox"] {
-            accent-color: var(--turmeric);
-            width: 1.25rem;
-            height: 1.25rem;
-            cursor: pointer;
-        }
+        input[type="checkbox"] { accent-color: var(--turmeric); width: 1.1rem; height: 1.1rem; }
     </style>
 </head>
 <body class="antialiased">
 
+    <div class="fixed top-4 right-4 z-50 flex gap-2">
+        <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
+        <button onclick="changeLang('te')" class="lang-btn" id="btn-te">తెలుగు</button>
+        <button onclick="changeLang('hi')" class="lang-btn" id="btn-hi">हिन्दी</button>
+        <button onclick="changeLang('zh')" class="lang-btn" id="btn-zh">中文</button>
+    </div>
+
+    <a href="#rsvp-section" class="tilakam-btn">RSVP</a>
+
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
-        <div data-aos="fade-down" data-aos-duration="1500" class="w-full max-w-xl mb-12 bapu-canvas">
-            <img src="wedding.jpeg" alt="Wedding Sketch" class="w-full h-auto rounded opacity-90">
+        <div data-aos="fade-down" class="w-full max-w-xl mb-12 bapu-canvas">
+            <img src="wedding.jpeg" alt="Sai Ruthvik and Gayathri" class="w-full h-auto rounded opacity-90">
         </div>
-        <h1 data-aos="fade-up" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
-        <p data-aos="fade-up" data-aos-delay="200" class="text-xl md:text-2xl italic mb-6 text-gray-700">The Thandayams invite you to the wedding of</p>
-        <h2 data-aos="zoom-in" data-aos-delay="400" class="text-6xl md:text-8xl text-turmeric mb-10">Sai Ruthvik & Gayathri</h2>
-        <div data-aos="fade-up" data-aos-delay="600" class="border-t-2 border-b-2 border-bapu-ink py-4 px-12">
-            <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
-            <p class="text-lg italic mt-1 text-gray-600">Hyderabad, India</p>
+        <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
+        <h2 class="text-6xl md:text-8xl text-turmeric mb-10 drop-shadow-sm leading-tight">Sai Ruthvik & Gayathri</h2>
+        <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12">
+            <p class="text-2xl tracking-[0.2em] font-bold">APRIL 27 – 29, 2026</p>
+            <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto py-32 px-6">
-        <h2 data-aos="fade-right" class="text-5xl text-center mb-24 italic border-b-2 border-turmeric inline-block mx-auto w-full pb-4">The Celebration Path</h2>
-        
-        <div class="space-y-40">
-            <div class="flex flex-col md:flex-row items-center gap-20" data-aos="fade-right">
-                <div class="w-full md:w-1/2 bapu-canvas"><img src="mehendi.jpeg" class="w-full h-auto"></div>
-                <div class="w-full md:w-1/2">
-                    <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th</span>
-                    <h3 class="text-5xl mt-4 mb-6">Mehendi & Sangeet</h3>
-                    <p class="text-xl leading-relaxed italic text-gray-700">An evening of Gorintaku followed by family performances and music.</p>
+    <section class="py-12 flex flex-col items-center text-center px-6">
+        <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4">
+            <div class="bg-[url('https://www.transparenttextures.com/patterns/henna.png')] p-10 md:p-16 rounded-full bg-white/95">
+                <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic">The Su-muhurtham Approaches...</h3>
+                <div id="countdown" class="flex gap-6 md:gap-10 justify-center items-center font-bold">
+                    <div class="flex flex-col"><span id="days" class="text-5xl md:text-7xl">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
+                    <span class="text-4xl text-turmeric">•</span>
+                    <div class="flex flex-col"><span id="hours" class="text-5xl md:text-7xl">00</span><span data-key="unit_hours" class="text-xs uppercase text-turmeric">Hrs</span></div>
+                    <span class="text-4xl text-turmeric">•</span>
+                    <div class="flex flex-col"><span id="minutes" class="text-5xl md:text-7xl">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
                 </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row-reverse items-center gap-20" data-aos="fade-left">
-                <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto"></div>
-                <div class="w-full md:w-1/2">
-                    <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th</span>
-                    <h3 class="text-5xl mt-4 mb-6">The Haldi Ceremony</h3>
-                    <div class="bg-yellow-50 p-8 border-l-8 border-turmeric italic text-xl shadow-inner">
-                        "The Golden Blessing. Please wear something light that can carry a few yellow memories home."
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row items-center gap-20" data-aos="fade-up">
-                <div class="w-full md:w-1/2 bapu-canvas"><img src="wedding.jpeg" class="w-full h-auto"></div>
-                <div class="w-full md:w-1/2">
-                    <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 29th</span>
-                    <h3 class="text-5xl mt-4 mb-6">Wedding & Reception</h3>
-                    <p class="text-2xl font-bold mb-4 italic">Stay at Veksha, Kondapur</p>
-                    <div class="inline-block px-6 py-2 bg-red-100 text-red-900 font-bold border-2 border-red-200 uppercase text-sm tracking-widest">Strictly Vegetarian Feast</div>
-                </div>
+                <p data-key="timer_sub" class="mt-8 text-lg italic border-t border-bapu-ink pt-4 inline-block">Counting down to the sweet union of cumin & jaggery.</p>
             </div>
         </div>
     </section>
 
-    <section class="py-32 bg-white/30 border-t border-bapu-ink">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-4xl mb-16 italic">Venue Location</h2>
-            <div class="bapu-canvas mb-12 h-[500px]">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.0123447953255!2d78.3618147!3d17.4589998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93006436deb7%3A0x5f5d99b2c1915115!2sStay%20at%20Veksha!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <a href="https://maps.app.goo.gl/t6zT6f1A5H9yG7Yp8" target="_blank" class="btn-telugu inline-block py-4 px-12 text-2xl font-bold tracking-wide">Open in Google Maps</a>
+    <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
+        <h2 data-key="venue_title" class="text-4xl mb-12 italic">The Wedding Venue</h2>
+        <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
+            <iframe src="https://www.google.com/maps/contrib/102540300208977991534/reviews" 
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
+        <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ4" target="_blank" class="text-xl font-bold underline hover:text-turmeric">Open Venue in Google Maps</a>
     </section>
 
     <section class="py-32 px-6 bg-bapu-ink text-parchment">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-10">Discover Hyderabad</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-20 text-center md:text-left">
+            <h2 data-key="explorer_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-10">Discover Hyderabad</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
                 <div>
-                    <h4 class="text-turmeric text-3xl mb-6">Biryani Legends</h4>
+                    <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6">Biryani Legends</h4>
                     <ul class="space-y-4 text-xl">
-                        <li>• <a href="https://maps.app.goo.gl/B9Z8x9R8Y2A2R8F87" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Paradise Secunderabad</a></li>
-                        <li>• <a href="https://maps.app.goo.gl/T6yS8PerrMMF9ySt" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Shah Ghouse Gachibowli</a></li>
-                        <li>• <a href="https://maps.app.goo.gl/rtcXRoadsBawarchi" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Bawarchi RTC X Roads</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ5" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Paradise Secunderabad (OG)</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ6" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Shah Ghouse Gachibowli</a></li>
+                        <li>• <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25Jd05USjRUemhZVVZwdldVZGtMVlJ2Tm1SUWJWRRAB!2m1!1s0x3bcb770064b6def7:0xfc5d99b2c19b5115" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Bawarchi RTC X Roads</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h4 class="text-turmeric text-3xl mb-6">Historic Soul</h4>
+                    <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-6">Explore & Shop</h4>
                     <ul class="space-y-4 text-xl">
-                        <li>• <a href="https://www.telanganatourism.gov.in/" target="_blank" class="hover:text-turmeric transition">Charminar & Bazaars</a></li>
-                        <li>• <a href="https://www.telanganatourism.gov.in/" target="_blank" class="hover:text-turmeric transition">Golconda Fort</a></li>
+                        <li>• <a href="https://www.google.com/maps/contrib/108305649502632658163/reviews" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Charminar & Bazaars</a></li>
+                        <li>• <a href="https://maps.google.com/?cid=6064866262680045741&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ9" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Golconda Fort</a></li>
+                        <li>• <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25kR2VGUldRMWd0U1hWVkxURm1RVEpTU2psd1VFRRAB!2m1!1s0x3bcb770064b6def7:0xfc5d99b2c19b5115" target="_blank" class="hover:text-turmeric transition border-b border-transparent hover:border-turmeric">Laad Bazaar (Bangles)</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-turmeric text-3xl mb-6">Guest Logistics</h4>
-                    <p class="text-gray-400 italic mb-4">Clothing, Taxis, & Climate</p>
-                    <p class="text-lg leading-relaxed">Hyderabad in April is warm (**90–100°F**). We have arranged private taxis for your transit between the airport and wedding events.</p>
+
+                <div class="bapu-canvas !bg-white/10 !border-turmeric p-8 flex flex-col items-center justify-center text-center">
+                    <h4 data-key="weather_title" class="text-turmeric text-2xl mb-4 italic tracking-widest uppercase">Climate</h4>
+                    <div class="space-y-4">
+                        <div class="text-6xl mb-2">🥥 🥛</div>
+                        <p class="text-4xl font-bold">95°F | 35°C</p>
+                        <p data-key="weather_hot_desc" class="text-sm italic text-gray-400">Perfect for Coconut Water & Chaas</p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-white/20 w-full">
+                        <p data-key="taxi_note" class="text-xs font-bold text-turmeric uppercase">AC Taxis arranged for all guests</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="rsvp-section" class="py-32 px-6 max-w-3xl mx-auto mb-32 bg-white/50 bapu-canvas !border-t-8 !border-t-turmeric">
+    <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-32 bg-white/50 bapu-canvas !border-t-8 !border-t-turmeric">
         <div id="rsvpContent">
-            <h2 class="text-5xl text-center mb-16 italic">Join Us</h2>
-            <form id="rsvpForm" class="space-y-12">
+            <h2 data-key="rsvp_title" class="text-5xl text-center mb-16 italic text-bapu-ink">RSVP</h2>
+            <form id="rsvpForm" class="space-y-10">
                 <div>
-                    <label class="block font-bold text-2xl mb-4">Guest Name</label>
-                    <input type="text" name="Name" class="w-full p-5 border-2 border-bapu-ink rounded-lg bg-transparent outline-none focus:bg-white transition" required>
+                    <label data-key="label_name" class="block font-bold text-2xl mb-4">Guest Name</label>
+                    <input type="text" name="Name" class="w-full p-4 border-2 border-bapu-ink rounded bg-transparent outline-none focus:bg-white transition" required>
                 </div>
-                
                 <div>
-                  <label class="block font-bold text-2xl mb-6">Will you attend?</label>
-                  <div class="grid grid-cols-2 gap-6">
-                      <label class="flex items-center text-xl cursor-pointer"><input type="checkbox" name="EventsList" value="Mehendi" class="mr-3"> Mehendi</label>
-                      <label class="flex items-center text-xl cursor-pointer"><input type="checkbox" name="EventsList" value="Sangeet" class="mr-3"> Sangeet</label>
-                      <label class="flex items-center text-xl cursor-pointer"><input type="checkbox" name="EventsList" value="Haldi" class="mr-3"> Haldi</label>
-                      <label class="flex items-center text-xl cursor-pointer"><input type="checkbox" name="EventsList" value="Wedding" class="mr-2"> Wedding</label>
-                  </div>
-                </div>
-
-                <div class="p-8 bg-red-50/50 rounded-lg border-2 border-red-200">
-                    <label class="block font-bold text-2xl text-red-900 mb-4 underline decoration-red-300">Safety & Dietary</label>
-                    <p class="text-lg italic mb-6 text-red-800">Check any severe allergies for our catering team:</p>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-                        <label class="flex items-center cursor-pointer text-lg"><input type="checkbox" name="AllergyList" value="Nuts" class="mr-3"> Nuts</label>
-                        <label class="flex items-center cursor-pointer text-lg"><input type="checkbox" name="AllergyList" value="Dairy" class="mr-3"> Dairy</label>
-                        <label class="flex items-center cursor-pointer text-lg"><input type="checkbox" name="AllergyList" value="Gluten" class="mr-3"> Gluten</label>
-                        <label class="flex items-center cursor-pointer text-lg"><input type="checkbox" name="AllergyList" value="Other" id="otherAllergyCheck" class="mr-3"> Other</label>
+                    <label data-key="label_attend" class="block font-bold text-2xl mb-4">Events Attending</label>
+                    <div class="grid grid-cols-2 gap-4 text-lg font-bold">
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Mehendi" class="mr-2"> Mehendi</label>
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Sangeet" class="mr-2"> Sangeet</label>
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Haldi" class="mr-2"> Haldi</label>
+                        <label class="flex items-center"><input type="checkbox" name="Events" value="Wedding" class="mr-2"> Wedding</label>
                     </div>
-                    <textarea id="otherAllergyInput" name="AllergyDetails" class="hidden w-full p-5 border-2 border-red-200 rounded-lg bg-white/80" placeholder="Please specify other needs..."></textarea>
                 </div>
-
-                <div>
-                    <label class="block font-bold text-2xl mb-4">Flight Details (for Taxi Pickup)</label>
-                    <textarea name="FlightDetails" class="w-full p-5 border-2 border-bapu-ink rounded-lg bg-transparent" placeholder="Arrival flight # and time..."></textarea>
+                <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
+                    <label data-key="label_safety" class="block font-bold text-2xl text-red-900 mb-4">Dietary Allergies</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
+                        <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
+                        <label><input type="checkbox" name="Allergy" value="Gluten"> Gluten</label>
+                        <label><input type="checkbox" name="Allergy" value="Other" id="otherCheck"> Other</label>
+                    </div>
+                    <textarea id="otherText" name="OtherDetail" class="hidden w-full p-4 mt-2 border border-red-200 rounded bg-white/50" placeholder="Specify allergies here..."></textarea>
                 </div>
-
-                <div class="text-center">
-                    <p class="text-sm italic text-gray-500 mb-4 font-bold">Note: If your plans change later, simply resubmit this form with your updated info.</p>
-                    <button type="submit" id="submitBtn" class="w-full btn-telugu py-8 text-3xl font-bold uppercase tracking-widest">Send RSVP</button>
-                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-turmeric text-white py-6 text-3xl font-bold rounded shadow-lg uppercase tracking-widest hover:bg-black transition-all">Send RSVP</button>
             </form>
         </div>
         <div id="thankYouMessage" class="hidden text-center p-12">
-            <h3 class="text-6xl text-turmeric mb-6 italic">Dhanyavadalu!</h3>
-            <p class="text-2xl font-serif mb-4">Your response has been added to our wedding guest list.</p>
-            <p class="text-lg italic text-gray-600">If you need to update your details or flight info later, you can return to this page and resubmit the form at any time.</p>
+            <h3 data-key="thanks" class="text-6xl text-turmeric mb-6 italic font-bold">Dhanyavadalu!</h3>
+            <p data-key="success_sub" class="text-2xl font-serif">Your response has been saved. We can't wait to see you!</p>
         </div>
     </section>
 
-    <footer class="text-center py-16 border-t border-bapu-ink italic text-gray-500 text-lg">
-        © 2026 Sai Ruthvik & Gayathri | Gayathri's art
+    <footer class="text-center py-16 border-t border-bapu-ink bg-parchment/50 italic text-gray-600">
+        <p data-key="footer_text">© 2026 Sai Ruthvik & Gayathri | Gayathri's Art</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      AOS.init({ duration: 1200, once: true });
+        AOS.init({ duration: 1200, once: true });
 
-      const otherCheck = document.getElementById('otherAllergyCheck');
-      const otherInput = document.getElementById('otherAllergyInput');
-      otherCheck.addEventListener('change', () => { otherInput.classList.toggle('hidden', !otherCheck.checked); });
+        const langData = {
+            en: { 
+                subham: "Subhamastu", 
+                location: "Hyderabad, India", 
+                invite: "The Thandayams invite you to our wedding.", 
+                countdown_header: "The Su-muhurtham Approaches...", 
+                unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", 
+                timer_sub: "Counting down to the union of cumin & jaggery.", 
+                venue_title: "The Wedding Venue", 
+                rsvp_title: "Join Our Celebration", 
+                label_name: "Guest Name", 
+                label_attend: "Events Attending", 
+                label_safety: "Dietary Allergies", 
+                thanks: "Dhanyavadalu!", 
+                success_sub: "Your response has been saved.", 
+                weather_title: "Climate", 
+                weather_hot_desc: "Perfect for Coconut Water & Chaas", 
+                taxi_note: "AC TAXIS ARRANGED FOR ALL GUESTS", 
+                biryani_title: "Biryani Legends", 
+                sightseeing_title: "Explore & Shop",
+                footer_text: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art"
+            },
+            te: { 
+                subham: "శుభమస్తు", 
+                location: "హైదరాబాద్, భారతదేశం", 
+                invite: "తాండయం కుటుంబం మిమ్మల్ని వివాహానికి ఆహ్వానిస్తోంది.", 
+                countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", 
+                unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", 
+                timer_sub: "జీలకర్ర బెల్లం కలిసే మధుర క్షణం కోసం...", 
+                venue_title: "వివాహ వేదిక", 
+                rsvp_title: "మా వేడుకలో పాల్గొనండి", 
+                label_name: "అతిథి పేరు", 
+                label_attend: "హాజరయ్యే వేడుకలు", 
+                label_safety: "ఆహార నియమాలు", 
+                thanks: "ధన్యవాదాలు!", 
+                success_sub: "మీ వివరాలు సేవ్ చేయబడ్డాయి.", 
+                weather_title: "వాతావరణం", 
+                weather_hot_desc: "కొబ్బరి నీళ్లు మరియు చల్లని మజ్జిగ కోసం సరైన సమయం", 
+                taxi_note: "అతిథుల కోసం ఏసీ టాక్సీలు సిద్ధంగా ఉన్నాయి", 
+                biryani_title: "బిర్యానీ లెజెండ్స్", 
+                sightseeing_title: "అన్వేషణ & షాపింగ్",
+                footer_text: "© 2026 సాయి రుత్విక్ & గాయత్రి | గాయత్రి కళాఖండాలు"
+            },
+            hi: { 
+                subham: "शुभमस्तु", 
+                location: "हैदराबाद, भारत", 
+                invite: "तांडयम परिवार आपको आमंत्रित करता है।", 
+                countdown_header: "शुभ मुहूर्त निकट है...", 
+                unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", 
+                timer_sub: "जीरा और गुड़ के मीठे मिलन की प्रतीक्षा।", 
+                venue_title: "विवाह स्थल", 
+                rsvp_title: "हमारे उत्सव में शामिल हों", 
+                label_name: "अतिथि का नाम", 
+                label_attend: "कौन से कार्यक्रम?", 
+                label_safety: "आहार संबंधी एलर्जी", 
+                thanks: "धन्यवाद!", 
+                success_sub: "आपकी प्रतिक्रिया सहेज ली गई है।", 
+                weather_title: "जलवायु", 
+                weather_hot_desc: "नारियल पानी और छाछ के लिए उत्तम", 
+                taxi_note: "एसी टैक्सियों की व्यवस्था की गई है", 
+                biryani_title: "बिरयानी दिग्गज", 
+                sightseeing_title: "भ्रमण और खरीदारी",
+                footer_text: "© 2026 साई रुत्विक और गायत्री | गायत्री की कला"
+            },
+            zh: { 
+                subham: "吉祥如意", 
+                location: "海德拉巴，印度", 
+                invite: "Thandayam 家族诚邀您参加婚礼庆典。", 
+                countdown_header: "吉时将至...", 
+                unit_days: "天", unit_hours: "时", unit_mins: "分", 
+                timer_sub: "期待甜蜜的结合：孜然与糖浆。", 
+                venue_title: "婚礼场地", 
+                rsvp_title: "确认出席", 
+                label_name: "嘉宾姓名", 
+                label_attend: "参加活动", 
+                label_safety: "饮食安全", 
+                thanks: "谢谢！", 
+                success_sub: "您的回复已成功保存。", 
+                weather_title: "气候", 
+                weather_hot_desc: "椰子水和咸酸奶的最佳时机", 
+                taxi_note: "为所有客人安排了空调出租车", 
+                biryani_title: "比尔亚尼传奇", 
+                sightseeing_title: "探索与购物",
+                footer_text: "© 2026 Sai Ruthvik & Gayathri | 加亚特里的艺术"
+            }
+        };
 
-      const rsvpForm = document.getElementById('rsvpForm');
-      const rsvpContent = document.getElementById('rsvpContent');
-      const thankYouMessage = document.getElementById('thankYouMessage');
-      const submitBtn = document.getElementById('submitBtn');
+        function changeLang(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => el.innerText = langData[lang][el.getAttribute('data-key')]);
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
 
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec';
+        document.getElementById('otherCheck').addEventListener('change', (e) => {
+            document.getElementById('otherText').classList.toggle('hidden', !e.target.checked);
+        });
 
-      rsvpForm.addEventListener('submit', e => {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Connecting...";
+        function updateTimer() {
+            const target = new Date("April 29, 2026 10:00:00").getTime();
+            const now = new Date().getTime();
+            const gap = target - now;
+            if (gap > 0) {
+                document.getElementById("days").innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+            }
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
 
-        const events = Array.from(rsvpForm.elements['EventsList']).filter(c => c.checked).map(c => c.value).join(', ');
-        const baseAllergies = Array.from(rsvpForm.elements['AllergyList']).filter(c => c.checked).map(c => c.value).join(', ');
-        const otherDetail = rsvpForm.elements['AllergyDetails'].value;
-        const finalAllergies = baseAllergies + (otherDetail ? ' (Other: ' + otherDetail + ')' : '');
+        const rsvpForm = document.getElementById('rsvpForm');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec';
 
-        const formData = new FormData();
-        formData.append('Name', rsvpForm.elements['Name'].value);
-        formData.append('Events', events);
-        formData.append('Allergies', finalAllergies);
-        formData.append('FlightDetails', rsvpForm.elements['FlightDetails'].value);
-
-        fetch(scriptURL, { method: 'POST', body: formData })
-          .then(response => {
-              rsvpContent.classList.add('hidden');
-              thankYouMessage.classList.remove('hidden');
-              window.scrollTo({ top: document.getElementById('rsvp-section').offsetTop - 50, behavior: 'smooth' });
-          })
-          .catch(error => {
-              alert("Error! Please message Sai Ruthvik directly.");
-              submitBtn.disabled = false;
-              submitBtn.innerText = "Send RSVP";
-          });
-      });
+        rsvpForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "...";
+            fetch(scriptURL, { method: 'POST', body: new FormData(rsvpForm)})
+            .then(() => {
+                document.getElementById('rsvpContent').classList.add('hidden');
+                document.getElementById('thankYouMessage').classList.remove('hidden');
+            })
+            .catch(() => {
+                alert("Error connecting. Please contact Sai Ruthvik.");
+                btn.disabled = false;
+                btn.innerText = "Send RSVP";
+            });
+        });
     </script>
 </body>
 </html>
