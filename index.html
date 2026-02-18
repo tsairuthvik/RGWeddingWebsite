@@ -11,20 +11,25 @@
         :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; --paint-yellow: rgba(255, 224, 102, 0.75); }
         body { background-color: var(--parchment); color: var(--bapu-ink); font-family: 'Sahitya', serif; scroll-behavior: smooth; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); margin: 0; overflow-x: hidden; }
         
-        /* 1. BOUNCY / BREATHING BACKGROUND */
+        /* 1. BOUNCY / BREATHING BACKGROUND - FIXED ANCHOR */
         .scenery-bg {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('background.png') no-repeat center bottom;
+            top: 0; left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            /* Changed from center bottom to simply 'bottom' to lock the base */
+            background: url('background.jpg') no-repeat bottom center;
             background-size: cover;
             z-index: -2;
             pointer-events: none;
+            /* Ensure the transform stays anchored to the bottom during the bounce */
+            transform-origin: bottom center; 
             animation: breathe 20s ease-in-out infinite;
         }
-
+        
         @keyframes breathe {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            50% { transform: scale(1.05); } /* Subtle zoom from the bottom up */
         }
 
         /* 2. GOLD SPARKLE CANVAS */
