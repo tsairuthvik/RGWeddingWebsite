@@ -369,55 +369,73 @@ function animate() {
 
         document.getElementById('otherCheck').addEventListener('change', e => document.getElementById('otherText').classList.toggle('hidden', !e.target.checked));
 
-        // --- RSVP HARDENED LOGIC ---
-        // --- RSVP LOGIC ---
-const rsvpForm = document.getElementById('rsvpForm');
-const otherCheck = document.getElementById('otherCheck');
-const otherText = document.getElementById('otherText');
-
-if (otherCheck) {
-    otherCheck.addEventListener('change', e => otherText.classList.toggle('hidden', !e.target.checked));
-}
-
-rsvpForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    const lang = document.querySelector('.lang-btn.active').id.split('-')[1];
-    
-    btn.disabled = true;
-    btn.innerText = langData[lang].btn_sending || "Sending...";
-    
-    const fd = new FormData(rsvpForm);
-    
-    // Explicitly bundle multi-selects
-    ['Events', 'Allergy'].forEach(key => {
-        const vals = [];
-        document.querySelectorAll(`input[name="${key}"]:checked`).forEach(c => vals.push(c.value));
-        fd.set(key, vals.join(', '));
-    });
-
-    fetch('YOUR_SCRIPT_URL_HERE', { 
-        method: 'POST', 
-        body: fd,
-        mode: 'no-cors' 
-    })
-    .then(() => {
-        document.getElementById('rsvpContent').innerHTML = `
-            <div class='text-center p-12'>
-                <h3 class='text-6xl text-turmeric italic'>${langData[lang].thanks}</h3>
-                <p class='text-2xl mt-4'>${langData[lang].success_sub}</p>
-            </div>`;
-    })
-    .catch(() => {
-        btn.disabled = false;
-        btn.innerText = "Error - Try Again";
-    });
-});
-
-// START
-window.addEventListener('resize', initCanvas);
-initCanvas();
-animate();
+        // --- THE HARDENED RSVP LOGIC ---
+        const rsvpForm = document.getElementById('rsvpForm');
+        const otherCheck = document.getElementById('otherCheck');
+        const otherText = document.getElementById('otherText');
+        
+        // Toggle the "Other" text area
+        if (otherCheck) {
+            otherCheck.addEventListener('change', e => {
+                otherText.classList.toggle('hidden', !e.target.checked);
+            });
+        }
+        
+        rsvpForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            
+            // Safety check for language buttons
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const l = activeBtn ? activeBtn.id.split('-')[1] : 'en';
+            
+            btn.disabled = true;
+            btn.innerText = (langData[l] && langData[l].btn_sending) ? langData[l].btn_sending : "Sending...";
+            
+            // Create the data payload
+            const fd = new FormData(rsvpForm);
+            
+            // --- MANUAL SERIALIZATION FOR APPSCRIPT ---
+            // This handles the checkboxes specifically so your spreadsheet doesn't get "on"
+            ['Events', 'Allergy'].forEach(field => {
+                const selected = [];
+                document.querySelectorAll(`input[name="${field}"]:checked`).forEach(checkbox => {
+                    selected.push(checkbox.value);
+                });
+                fd.set(field, selected.join(', '));
+            });
+        
+            // name="Name", name="FlightInfo", and name="OtherDetail" 
+            // are automatically captured by the FormData(rsvpForm) constructor.
+        
+            // YOUR SCRIPT CALL
+            fetch('https://script.google.com/macros/s/AKfycbyrfo8gmL_9CmN6zAj0Oylgz2dSFIUSg7dflnOQVMYM_Y0U6uVGBVgBWgHHeBB3a25agA/exec', { 
+                method: 'POST', 
+                body: fd,
+                mode: 'no-cors' // Essential for Google Apps Script redirects
+            })
+            .then(() => {
+                // SUCCESS UI REPLACEMENT
+                const container = document.getElementById('rsvpContent');
+                if (container) {
+                    container.innerHTML = `
+                        <div class='text-center p-12'>
+                            <h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3>
+                            <p class='text-2xl mt-4'>${langData[l].success_sub}</p>
+                        </div>`;
+                }
+            })
+            .catch(err => {
+                console.error("Critical RSVP Failure:", err);
+                btn.disabled = false;
+                btn.innerText = "Error - Try Again";
+            });
+        });
+        
+        // START
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animate();
         getExt(); updateTimer();
     </script>
 </body>
