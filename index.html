@@ -575,33 +575,43 @@
         const audio = document.getElementById('bgMusic');
 const playIcon = document.getElementById('playIcon');
 
-// 1. Force the volume to your desired 0.1
-audio.volume = 0.1;
+// Force volume up slightly for testing
+audio.volume = 0.2; 
 
-// 2. The Activation Function
-async function startMusic() {
+// Master function to wake up Android audio hardware
+async function unlockAndroidAudio() {
+    // 1. Resume AudioContext (Standard for Mobile Chrome)
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+        const ctx = new AudioContext();
+        if (ctx.state === 'suspended') {
+            await ctx.resume();
+        }
+    }
+
+    // 2. Play the audio
     try {
         await audio.play();
         if(playIcon) playIcon.innerText = "⏸";
-        console.log("Music Engine: Active");
         
-        // Remove triggers once playing
-        ["click", "scroll", "touchstart", "mousemove"].forEach(type => 
-            document.removeEventListener(type, startMusic)
+        // 3. Success! Remove the "everywhere" listeners
+        ["click", "touchstart", "scroll"].forEach(type => 
+            document.removeEventListener(type, unlockAndroidAudio)
         );
+        console.log("Android Audio Unlocked");
     } catch (err) {
-        // This handles cases where the browser still blocks it
-        console.log("Waiting for more definitive user interaction...");
+        console.log("Android still blocking: " + err.message);
     }
 }
 
-// 3. Add global triggers for the first interaction
-["click", "scroll", "touchstart", "mousemove"].forEach(type => 
-    document.addEventListener(type, startMusic, { once: true })
-);
+// Attach to EVERYTHING on mobile
+document.addEventListener('click', unlockAndroidAudio);
+document.addEventListener('touchstart', unlockAndroidAudio);
+document.addEventListener('scroll', unlockAndroidAudio);
 
-// 4. Fallback: Manual Toggle still works
-document.getElementById('musicToggle').addEventListener('click', () => {
+// Manual Button (Keep this as a fallback)
+document.getElementById('musicToggle').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the global listener from double-firing
     if (audio.paused) {
         audio.play();
         playIcon.innerText = "⏸";
