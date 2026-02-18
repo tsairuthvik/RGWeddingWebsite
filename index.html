@@ -34,8 +34,8 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 99; /* Force it to the front for testing. If you see it, then change to -1 */
-            background: transparent;
+            z-index: 999; /* Force it to the front for testing. If you see it, then change to -1 */
+            display: block;
 }
 
         .watercolor-splash { position: relative; display: inline-block; padding: 3rem; z-index: 1; }
@@ -440,25 +440,29 @@
             });
         });
 
-   // --- HARDENED INITIALIZATION WITH LOGS ---
-        window.addEventListener('load', () => {
-            console.log("Sparkle Engine: Window Loaded.");
-            
-            initCanvas(); 
-            console.log("Sparkle Engine: Canvas Resized to " + canvas.width + "x" + canvas.height);
-            console.log("Sparkle Engine: " + sparkles.length + " sparkles generated.");
-            
+  // --- GLOBAL START ---
+    window.addEventListener('resize', () => {
+        initCanvas();
+        console.log("Sparkle Engine: Handle Resize.");
+    });
+    
+    // Run once on load
+    window.addEventListener('load', () => {
+        console.log("Sparkle Engine: Window Loaded.");
+        initCanvas(); 
+        console.log("Sparkle Engine: Generated " + sparkles.length + " particles.");
+        
+        // Ensure the animation loop is called explicitly
+        if (typeof animate === "function") {
             animate();
             console.log("Sparkle Engine: Render loop started.");
-        });
-
-        window.addEventListener('resize', () => {
-            initCanvas();
-            console.log("Sparkle Engine: Handle Resize.");
-        });
-        
-        getExt(); 
-        updateTimer();
+        } else {
+            console.error("Sparkle Engine Error: animate() function not found.");
+        }
+    });
+    
+    getExt(); 
+    updateTimer();
     </script>
 </body>
 </html>
