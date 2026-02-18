@@ -31,11 +31,11 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Critical: allows clicks to pass through to the UI */
-            z-index: -1; /* Sits between the background (-2) and the text (1) */
-        }
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Allows you to still click buttons */
+            z-index: -1; /* Background is -2, Canvas is -1, Content is 1+ */
+}
 
         .watercolor-splash { position: relative; display: inline-block; padding: 3rem; z-index: 1; }
         .watercolor-splash::before {
@@ -61,7 +61,7 @@
     </style>
 </head>
 <body class="antialiased pb-20">
-
+    <canvas id="sparkleCanvas"></canvas>
     <svg style="position: absolute; width: 0; height: 0;">
         <filter id="rough-edge">
             <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
@@ -70,7 +70,7 @@
     </svg>
 
     <div class="scenery-bg"></div>
-    <canvas id="sparkleCanvas"></canvas>
+    
 
     <div class="fixed top-4 right-4 z-50 flex gap-2">
         <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
@@ -235,53 +235,60 @@
     <script>
         AOS.init({ duration: 1200, once: true });
 
-        // --- UNIFIED SPARKLE ENGINE ---
-        // --- SPARKLE ENGINE ---
-const canvas = document.getElementById('sparkleCanvas');
-const ctx = canvas.getContext('2d');
-let sparkles = [];
+// --- SPARKLE ENGINE ---
+    const canvas = document.getElementById('sparkleCanvas');
+    const ctx = canvas.getContext('2d');
+    let sparkles = [];
 
-function initCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    sparkles = [];
-    for(let i=0; i<120; i++) sparkles.push(new Sparkle());
-}
+    function initCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        createSparkles();
+    }
 
-class Sparkle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.phase = Math.random() * Math.PI * 2;
-        this.twinkle = Math.random() * 0.02 + 0.005;
-    }
-    update() {
-        this.phase += this.twinkle;
-        this.opacity = (Math.sin(this.phase) + 1) / 2;
-    }
-    draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.beginPath();
-        for(let i=0; i<4; i++) {
-            ctx.lineTo(0, -this.size);
-            ctx.lineTo(this.size*0.2, 0);
-            ctx.rotate(Math.PI/2);
+    class Sparkle {
+        constructor() { this.init(); }
+        init() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.phase = Math.random() * Math.PI * 2;
+            this.twinkle = Math.random() * 0.02 + 0.005;
         }
-        ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`;
-        ctx.shadowBlur = 10 * this.opacity;
-        ctx.shadowColor = "gold";
-        ctx.fill();
-        ctx.restore();
+        update() {
+            this.phase += this.twinkle;
+            this.opacity = (Math.sin(this.phase) + 1) / 2;
+        }
+        draw() {
+            if (this.opacity < 0.1) return;
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(Math.PI / 4);
+            ctx.beginPath();
+            for (let i = 0; i < 4; i++) {
+                ctx.lineTo(0, -this.size);
+                ctx.lineTo(this.size * 0.2, 0);
+                ctx.rotate(Math.PI / 2);
+            }
+            ctx.closePath();
+            ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`;
+            ctx.shadowBlur = 10 * this.opacity;
+            ctx.shadowColor = "gold";
+            ctx.fill();
+            ctx.restore();
+        }
     }
-}
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    sparkles.forEach(s => { s.update(); s.draw(); });
-    requestAnimationFrame(animate);
-}
+    function createSparkles() {
+        sparkles = [];
+        for (let i = 0; i < 120; i++) sparkles.push(new Sparkle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        sparkles.forEach(s => { s.update(); s.draw(); });
+        requestAnimationFrame(animate);
+    }
         const langData = {
         en: { 
                 subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
@@ -432,11 +439,12 @@ function animate() {
             });
         });
         
-        // START
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-        animate();
-        getExt(); updateTimer();
+        // --- GLOBAL START ---
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+    animate();
+    getExt(); 
+    updateTimer();
     </script>
 </body>
 </html>
