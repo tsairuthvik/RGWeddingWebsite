@@ -574,62 +574,42 @@
     <script>
         const audio = document.getElementById('bgMusic');
 const playIcon = document.getElementById('playIcon');
-const volControl = document.getElementById('volumeControl');
 
-// 1. Initial State
+// 1. Force the volume to your desired 0.1
 audio.volume = 0.1;
 
-// 2. The Master Play Function
-async function playAudio() {
+// 2. The Activation Function
+async function startMusic() {
     try {
         await audio.play();
-        playIcon.innerText = "⏸";
-        console.log("Music Engine: Playing");
+        if(playIcon) playIcon.innerText = "⏸";
+        console.log("Music Engine: Active");
+        
+        // Remove triggers once playing
+        ["click", "scroll", "touchstart", "mousemove"].forEach(type => 
+            document.removeEventListener(type, startMusic)
+        );
     } catch (err) {
-        console.error("Music Engine Error:", err);
+        // This handles cases where the browser still blocks it
+        console.log("Waiting for more definitive user interaction...");
     }
 }
 
-// 3. The Toggle Logic
-function toggleMusic() {
-    console.log("Music Toggle Clicked. Current State:", audio.paused ? "Paused" : "Playing");
+// 3. Add global triggers for the first interaction
+["click", "scroll", "touchstart", "mousemove"].forEach(type => 
+    document.addEventListener(type, startMusic, { once: true })
+);
+
+// 4. Fallback: Manual Toggle still works
+document.getElementById('musicToggle').addEventListener('click', () => {
     if (audio.paused) {
-        playAudio();
+        audio.play();
+        playIcon.innerText = "⏸";
     } else {
         audio.pause();
         playIcon.innerText = "▶";
     }
-}
-
-// 4. Listeners
-document.getElementById('musicToggle').addEventListener('click', toggleMusic);
-
-if(volControl) {
-    volControl.addEventListener('input', (e) => {
-        audio.volume = e.target.value;
-    });
-}
-
-// 5. Global Interaction Unlock (The "Hammer" approach)
-const autoPlayUnlock = () => {
-    if (audio.paused) {
-        playAudio();
-        // Clean up listeners so they don't keep firing
-        ["click", "touchstart", "scroll"].forEach(evt => 
-            document.removeEventListener(evt, autoPlayUnlock)
-        );
-    }
-};
-
-["click", "touchstart", "scroll"].forEach(evt => 
-    document.addEventListener(evt, autoPlayUnlock)
-);
-
-// 6. Debug Log: Is the file even loading?
-audio.addEventListener('error', (e) => {
-    console.error("CRITICAL AUDIO ERROR: Check if 'music.mp3' exists in your folder.");
 });
-audio.addEventListener('loadstart', () => console.log("Music Engine: Loading file..."));
     </script>
 </body>
 </html>
