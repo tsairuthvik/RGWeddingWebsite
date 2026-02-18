@@ -38,6 +38,27 @@
             display: block;
 }
 
+        /* Custom Volume Slider Styling */
+#volumeControl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #E0A500; /* Turmeric Gold */
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #1A1A1A;
+}
+
+#volumeControl::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #E0A500;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #1A1A1A;
+}
+
   .watercolor-splash { 
     position: relative; 
     display: inline-block; 
@@ -83,18 +104,22 @@
 </head>
 <body class="antialiased pb-20">
     <canvas id="sparkleCanvas"></canvas>
-    <audio id="bgMusic" loop>
-        <source src="your-music-file.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic" loop preload="auto">
+    <source src="your-music-file.mp3" type="audio/mpeg">
+</audio>
     
-    <div class="fixed bottom-6 left-6 z-[100] flex items-center gap-3 bg-white/80 backdrop-blur-md p-3 rounded-full border border-bapu-ink shadow-lg transition-all hover:scale-105">
-        <button id="musicToggle" class="w-10 h-10 flex items-center justify-center bg-turmeric rounded-full text-white shadow-inner">
-            <span id="playIcon">▶</span>
-        </button>
-        <div class="flex flex-col pr-2">
-            <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" class="w-20 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-turmeric">
-        </div>
+    <div class="fixed bottom-6 left-6 z-[100] flex items-center gap-4 bg-white/95 backdrop-blur-md p-3 rounded-xl border-2 border-bapu-ink shadow-[8px_8px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-1 hover:-translate-y-1">
+    
+    <button id="musicToggle" class="w-12 h-12 flex items-center justify-center bg-[#B31B1B] rounded-lg text-white text-xl shadow-md active:scale-95 transition-transform border border-bapu-ink">
+        <span id="playIcon">▶</span>
+    </button>
+
+    <div class="flex flex-col gap-1 pr-2">
+        <label class="text-[10px] font-bold uppercase tracking-widest text-bapu-ink opacity-70">Volume</label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.1" 
+            class="w-24 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[#B31B1B] border border-bapu-ink/20">
     </div>
+</div>
     <svg style="position: absolute; width: 0; height: 0;">
         <filter id="rough-edge">
             <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
@@ -547,40 +572,48 @@
     </script>
     <script>
         const audio = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        const playIcon = document.getElementById('playIcon');
-        const volumeControl = document.getElementById('volumeControl');
-        
-        // Initial Volume
-        audio.volume = 0.5;
-        
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
-                playIcon.innerText = "⏸";
-            } else {
-                audio.pause();
-                playIcon.innerText = "▶";
-            }
-        }
-        
-        musicToggle.addEventListener('click', toggleMusic);
-        
-        volumeControl.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-        
-        // "GENTLE" AUTOPLAY: Attempts to play on first user interaction
-        document.addEventListener('click', () => {
-            if (audio.paused && audio.currentTime === 0) {
-                // Only try to play if they haven't manually paused it
-                audio.play().then(() => {
-                    playIcon.innerText = "⏸";
-                }).catch(() => {
-                    console.log("Autoplay prevented by browser.");
-                });
-            }
-        }, { once: true });
+const playIcon = document.getElementById('playIcon');
+const volumeControl = document.getElementById('volumeControl');
+
+// Set default volume to 0.1 (10%)
+audio.volume = 0.1;
+if(volumeControl) volumeControl.value = 0.1;
+
+// Function to handle the play promise
+function attemptPlay() {
+    audio.play().then(() => {
+        if(playIcon) playIcon.innerText = "⏸";
+        console.log("Music started successfully at 10% volume.");
+    }).catch(error => {
+        console.log("Autoplay blocked. Waiting for user interaction...");
+    });
+}
+
+// 1. Try playing immediately (works if user has visited before)
+attemptPlay();
+
+// 2. UNLOCK ON INTERACTION (The "Lead Engineer" standard)
+// Any click, scroll, or touch will trigger the music if it's currently paused
+const unlockAudio = () => {
+    if (audio.paused) {
+        attemptPlay();
+        // Remove listeners once audio is successfully playing
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('scroll', unlockAudio);
+    }
+};
+
+document.addEventListener('click', unlockAudio);
+document.addEventListener('touchstart', unlockAudio);
+document.addEventListener('scroll', unlockAudio);
+
+// Volume slider sync
+if(volumeControl) {
+    volumeControl.addEventListener('input', (e) => {
+        audio.volume = e.target.value;
+    });
+}
     </script>
 </body>
 </html>
