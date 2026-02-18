@@ -27,7 +27,15 @@
             50% { transform: scale(1.08); }
         }
 
-        #sparkleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        #sparkleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Critical: allows clicks to pass through to the UI */
+            z-index: -1; /* Sits between the background (-2) and the text (1) */
+        }
 
         .watercolor-splash { position: relative; display: inline-block; padding: 3rem; z-index: 1; }
         .watercolor-splash::before {
@@ -234,17 +242,69 @@
         const canvas = document.getElementById('sparkleCanvas');
         const ctx = canvas.getContext('2d');
         let sparkles = [];
-        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; createSparkles(); }
-        window.addEventListener('resize', initCanvas);
-        class Sparkle {
-            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*2+0.5; this.phase = Math.random()*Math.PI*2; this.twinkle = Math.random()*0.02+0.005; }
-            update() { this.phase += this.twinkle; this.opacity = (Math.sin(this.phase)+1)/2; }
-            draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(Math.PI/4); ctx.beginPath(); for(let i=0; i<4; i++){ ctx.lineTo(0, -this.size); ctx.lineTo(this.size*0.2, 0); ctx.rotate(Math.PI/2); } ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`; ctx.shadowBlur = 8*this.opacity; ctx.shadowColor = "gold"; ctx.fill(); ctx.restore(); }
+        
+        // Adjusts canvas size to match the screen resolution
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createSparkles();
         }
-        function createSparkles() { sparkles = []; for(let i=0; i<100; i++) sparkles.push(new Sparkle()); }
-        function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); sparkles.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); }
-        initCanvas(); animate();
-
+        
+        class Sparkle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.phase = Math.random() * Math.PI * 2; // Random starting point for the shimmer
+                this.twinkle = Math.random() * 0.02 + 0.005; // Speed of the fade
+            }
+        
+            update() {
+                this.phase += this.twinkle;
+                // Sin wave creates a smooth fade in and out (0 to 1)
+                this.opacity = (Math.sin(this.phase) + 1) / 2;
+            }
+        
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(Math.PI / 4); // Rotate for diamond/star look
+                ctx.beginPath();
+                for (let i = 0; i < 4; i++) {
+                    ctx.lineTo(0, -this.size);
+                    ctx.lineTo(this.size * 0.2, 0);
+                    ctx.rotate(Math.PI / 2);
+                }
+                ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`; // Gold color
+                ctx.shadowBlur = 10 * this.opacity; // Glow increases as it brightens
+                ctx.shadowColor = "gold";
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+        
+        function createSparkles() {
+            sparkles = [];
+            for (let i = 0; i < 120; i++) { // Adjust count for density
+                sparkles.push(new Sparkle());
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            sparkles.forEach(s => {
+                s.update();
+                s.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        // Global Event Listeners
+        window.addEventListener('resize', initCanvas);
+        
+        // Kickstart the engine
+        initCanvas();
+        animate();
         const langData = {
         en: { 
                 subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
