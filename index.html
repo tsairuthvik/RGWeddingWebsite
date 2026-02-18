@@ -16,7 +16,9 @@
         .lang-btn { font-family: 'Kurale', serif; padding: 4px 12px; border: 1px solid var(--bapu-ink); border-radius: 20px; font-size: 0.85rem; background: white; cursor: pointer; transition: 0.3s; }
         .lang-btn.active { background: var(--turmeric); color: white; border-color: var(--turmeric); }
         .tilakam-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background-color: var(--kumkum); border: 3px solid var(--turmeric); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-family: 'Kurale', serif; box-shadow: 0 4px 20px rgba(179, 27, 27, 0.5); z-index: 100; text-decoration: none; transition: 0.3s; }
-        #submitBtn { background-color: var(--kumkum) !important; color: white !important; border: 2px solid var(--bapu-ink); box-shadow: 6px 6px 0px var(--bapu-ink); cursor: pointer; width: 100%; padding: 1.5rem; font-size: 1.5rem; font-weight: bold; border-radius: 0.5rem; text-transform: uppercase; }
+        .tilakam-btn:hover { transform: scale(1.1) rotate(5deg); }
+        #submitBtn { background-color: var(--kumkum) !important; color: white !important; border: 2px solid var(--bapu-ink); box-shadow: 6px 6px 0px var(--bapu-ink); cursor: pointer; width: 100%; padding: 1.5rem; font-size: 1.5rem; font-weight: bold; border-radius: 0.5rem; text-transform: uppercase; transition: 0.2s; }
+        #submitBtn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--bapu-ink); }
         .hidden { display: none; }
         input[type="checkbox"] { accent-color: var(--kumkum); width: 1.2rem; height: 1.2rem; cursor: pointer; }
     </style>
@@ -34,7 +36,7 @@
 
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
         <div data-aos="fade-down" class="w-full max-w-xl mb-12 bapu-canvas">
-            <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90" alt="Wedding Portrait">
+            <img src="wedding.jpeg" class="w-full h-auto rounded opacity-90" alt="Sai Ruthvik & Gayathri">
         </div>
         <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
         <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
@@ -83,7 +85,7 @@
     </section>
 
     <section class="py-12 flex flex-col items-center text-center px-6">
-        <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4">
+        <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4 shadow-xl">
             <div class="bg-white/95 p-10 md:p-16 rounded-full">
                 <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic font-bold">The Su-muhurtham Approaches...</h3>
                 <div id="countdown" class="flex gap-6 md:gap-10 justify-center font-bold text-4xl md:text-6xl">
@@ -103,31 +105,31 @@
             <h2 data-key="explorer_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-10 font-bold">Discover Hyderabad</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
-                    <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6 font-bold">Food & Biryani</h4>
+                    <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6 font-bold">🍛 Food Legends</h4>
                     <ul class="space-y-4 text-lg">
-                        <li>• <a href="https://maps.app.goo.gl/yYvS6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Paradise Secunderabad</a></li>
-                        <li>• <a href="https://maps.app.goo.gl/9ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Shah Ghouse Gachibowli</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/yYvS6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric transition">Paradise Secunderabad</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/9ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric transition">Shah Ghouse Gachibowli</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">Explore & Shop</h4>
+                    <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">🏰 Sightseeing</h4>
                     <ul class="space-y-4 text-lg">
-                        <li>• <a href="https://maps.app.goo.gl/5ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Charminar</a></li>
-                        <li>• <a href="https://maps.app.goo.gl/2ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric">Laad Bazaar</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/5ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric transition">Charminar</a></li>
+                        <li>• <a href="https://maps.app.goo.gl/2ZpY6R291z7S4Y3A8" target="_blank" class="hover:text-turmeric transition">Laad Bazaar 📿</a></li>
                     </ul>
                 </div>
                 <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 text-center space-y-6">
                     <div>
-                        <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase">Weather</h4>
-                        <span id="live-temp" class="text-2xl font-bold">--°</span>
-                        <button onclick="toggleTempUnit()" class="text-[10px] block mx-auto underline mt-1">F / C</button>
+                        <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🥥 Weather (గాలి)</h4>
+                        <span id="live-temp" class="text-3xl font-bold">--°</span>
+                        <button onclick="toggleTempUnit()" class="text-[10px] block mx-auto underline mt-1 opacity-60">Change Unit</button>
                     </div>
                     <div class="border-t border-white/10 pt-4">
-                        <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase">Currency</h4>
-                        <span id="curr-rate" class="text-xl font-bold">₹ --</span>
+                        <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🍃 Offering (కానుక)</h4>
+                        <span id="curr-rate" class="text-2xl font-bold">₹ --</span>
                         <div class="flex gap-2 justify-center mt-2">
-                            <button onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-2 py-1 rounded">USD</button>
-                            <button onclick="setCurrency('CNY')" class="text-[10px] bg-white/20 px-2 py-1 rounded">CNY</button>
+                            <button onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-2 py-1 rounded">USD 🇺🇸</button>
+                            <button onclick="setCurrency('CNY')" class="text-[10px] bg-white/20 px-2 py-1 rounded">CNY 🇨🇳</button>
                         </div>
                     </div>
                 </div>
@@ -136,9 +138,9 @@
     </section>
 
     <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
-        <h2 data-key="venue_title" class="text-4xl mb-12 italic font-bold">The Wedding Venue</h2>
+        <h2 data-key="venue_title" class="text-4xl mb-12 italic font-bold">🪔 The Wedding Venue</h2>
         <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.015243859666!2d78.35824987595305!3d17.459062000720455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93a064b676f7%3A0x117d9949c1915115!2sStay%20at%20Veksha!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.371239855325!2d78.3562657!3d17.4420108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb939664b67f1b%3A0x475999b2c1915115!2sStay%20at%20Veksha!5e0!3m2!1sen!2sin!4v1711234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
@@ -146,11 +148,11 @@
         <div id="rsvpContent">
             <h2 data-key="rsvp_title" class="text-5xl text-center mb-12 italic font-bold">RSVP</h2>
             <div class="text-center mb-8 p-4 bg-turmeric/10 border-2 border-dashed border-turmeric rounded">
-                <p data-key="resubmit_note" class="italic font-bold">Need to update plans? Just resubmit anytime!</p>
+                <p data-key="resubmit_note" class="italic font-bold text-bapu-ink">Need to update plans? Just resubmit anytime!</p>
             </div>
             <form id="rsvpForm" class="space-y-8">
-                <div><label data-key="label_name" class="block font-bold mb-2">Name</label><input type="text" name="Name" required class="w-full p-4 border-2 border-bapu-ink rounded"></div>
-                <div><label data-key="label_flight" class="block font-bold mb-2">Flight Details</label><input type="text" name="FlightInfo" class="w-full p-4 border-2 border-bapu-ink rounded"></div>
+                <div><label data-key="label_name" class="block font-bold mb-2">Name</label><input type="text" name="Name" id="guestNameInput" required class="w-full p-4 border-2 border-bapu-ink rounded"></div>
+                <div><label data-key="label_flight" class="block font-bold mb-2">Flight Details ✈️</label><input type="text" name="FlightInfo" id="flightInput" class="w-full p-4 border-2 border-bapu-ink rounded"></div>
                 <div>
                     <label data-key="label_attend" class="block font-bold mb-4">Events</label>
                     <div class="grid grid-cols-2 gap-4">
@@ -182,19 +184,19 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true });
-        
+
         const langData = {
             en: { 
                 subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
-                title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony. A day of music!",
+                title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony. A day of music and family!",
                 title_sangeet: "Sangeet Night", desc_sangeet: "High-energy dance and music gala!",
                 title_haldi: "The Haldi Ceremony", desc_haldi: "Turmeric glow. Wear yellow!",
                 title_wedding: "The Main Wedding", desc_wedding: "The Su-muhurtham and grand feast.",
                 countdown_header: "The Su-muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Adjusted to your local time zone.",
                 explorer_title: "Discover Hyderabad", biryani_title: "Food & Biryani", sightseeing_title: "Explore & Shop",
-                weather_title: "Weather", currency_title: "Currency", rsvp_title: "RSVP",
-                resubmit_note: "Need to update plans? Just resubmit anytime!",
-                label_name: "Name", label_flight: "Flight Info", label_attend: "Events", label_safety: "Allergies", 
+                weather_title: "Weather (గాలి)", currency_title: "Offering (కానుక)",
+                rsvp_title: "RSVP", resubmit_note: "Need to update plans? Just resubmit anytime!",
+                label_name: "Name", label_flight: "Flight Info", label_attend: "Events", label_safety: "Allergies", label_other: "Details...", 
                 btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Response saved!",
                 footer_note: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art"
             },
@@ -206,44 +208,50 @@
                 title_wedding: "ప్రధాన వివాహం", desc_wedding: "సుముహూర్తం మరియు విందు.",
                 countdown_header: "సుముహూర్తం ఆసన్నమవుతోంది...", unit_days: "రోజులు", unit_hours: "గంటలు", unit_mins: "నిమిషాలు", timer_sub: "మీ స్థానిక సమయానికి మార్చబడింది.",
                 explorer_title: "హైదరాబాద్ అన్వేషణ", biryani_title: "ఆహారం & బిర్యానీ", sightseeing_title: "అన్వేషణ & షాపింగ్",
-                weather_title: "వాతావరణం", currency_title: "కరెన్సీ", rsvp_title: "RSVP",
+                weather_title: "వాతావరణం (గాలి)", currency_title: "కానుక", rsvp_title: "RSVP",
                 resubmit_note: "మార్పులు ఉన్నాయా? మళ్ళీ పంపండి!",
-                label_name: "పేరు", label_flight: "ఫ్లైట్ వివరాలు", label_attend: "వేడుకలు", label_safety: "ఆరోగ్య జాగ్రత్తలు", 
+                label_name: "పేరు", label_flight: "ఫ్లైట్ వివరాలు", label_attend: "వేడుకలు", label_safety: "ఆరోగ్య జాగ్రత్తలు", label_other: "వివరాలు...", 
                 btn_send: "పంపండి", btn_sending: "పంపుతున్నాము...", thanks: "ధన్యవాదాలు!", success_sub: "సేవ్ చేయబడ్డాయి!",
                 footer_note: "© 2026 సాయి రుత్విక్ & గాయత్రి | గాయత్రి కళాఖండాలు"
             },
             hi: { 
                 subham: "शुभमस्तु", location: "हैदराबाद, भारत", path_title: "उत्सव पथ",
-                title_mehendi: "मेहंदी", desc_mehendi: "मेहंदी की रस्म।",
+                title_mehendi: "मेहंदी", desc_mehendi: "मेहंदी की रस्म और परिवार से मेल-जोल।",
                 title_sangeet: "संगीत संध्या", desc_sangeet: "नाच-गाने की शानदार शाम!",
-                title_haldi: "हल्दी रस्म", desc_haldi: "हल्दी और खुशियाँ!",
-                title_wedding: "मुख्य विवाह", desc_wedding: "शुभ मुहूर्त और भोज।",
-                countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "स्थानीय समय के अनुसार।",
+                title_haldi: "हल्दी रस्म", desc_haldi: "हल्दी और खुशियाँ! पीले कपड़े पहनें।",
+                title_wedding: "मुख्य विवाह", desc_wedding: "शुभ मुहूर्त और पारंपरिक भोज।",
+                countdown_header: "शुभ मुहूर्त निकट है...", unit_days: "दिन", unit_hours: "घंटे", unit_mins: "मिनट", timer_sub: "आपके स्थानीय समय के अनुसार।",
                 explorer_title: "हैदराबाद की खोज", biryani_title: "भोजन और बिरयानी", sightseeing_title: "भ्रमण और खरीदारी",
-                weather_title: "मौसम", currency_title: "मुद्रा", rsvp_title: "आरएसवीपी",
+                weather_title: "मौसम (గాలి)", currency_title: "उपहार (కానుక)", rsvp_title: "आरएसवीपी",
                 resubmit_note: "योजना बदलनी है? दोबारा भरें!",
-                label_name: "नाम", label_flight: "फ्लाइट विवरण", label_attend: "कार्यक्रम", label_safety: "एलर्जी", 
+                label_name: "नाम", label_flight: "फ्लाइट विवरण", label_attend: "कार्यक्रम", label_safety: "एलर्जी", label_other: "विवरण...", 
                 btn_send: "भेजें", btn_sending: "भेज रहे हैं...", thanks: "धन्यवाद!", success_sub: "सहेज लिया गया है!",
                 footer_note: "© 2026 साई रुत्विक और गायत्री | गायत्री की कला"
             },
             zh: { 
                 subham: "吉祥如意", location: "海德拉巴，印度", path_title: "庆祝之路",
-                title_mehendi: "海娜仪式", desc_mehendi: "手绘纹身仪式。",
+                title_mehendi: "海娜仪式", desc_mehendi: "手绘纹身仪式。音乐与聚会！",
                 title_sangeet: "音乐之夜", desc_sangeet: "充满歌声与舞蹈的一晚！",
                 title_haldi: "姜黄仪式", desc_haldi: "姜黄涂抹。请穿黄色！",
-                title_wedding: "婚礼庆典", desc_wedding: "婚礼仪式及盛宴。",
-                countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "已调整为当地时间。",
-                explorer_title: "探索海德拉巴", biryani_title: "美食", sightseeing_title: "探索与购物",
-                weather_title: "天气", currency_title: "货币", rsvp_title: "确认出席",
+                title_wedding: "婚礼庆典", desc_wedding: "婚礼仪式及传统盛宴。",
+                countdown_header: "吉时将至...", unit_days: "天", unit_hours: "时", unit_mins: "分", timer_sub: "已调整为您的当地时间。",
+                explorer_title: "探索海德拉巴", biryani_title: "美食与比尔亚尼", sightseeing_title: "探索与购物",
+                weather_title: "天气 (గాలి)", currency_title: "礼金 (కానుక)", rsvp_title: "确认出席",
                 resubmit_note: "更改计划？重新提交即可！",
-                label_name: "姓名", label_flight: "航班信息", label_attend: "参加活动", label_safety: "饮食安全", 
+                label_name: "姓名", label_flight: "航班信息", label_attend: "参加活动", label_safety: "饮食安全", label_other: "请注明...", 
                 btn_send: "发送回复", btn_sending: "发送中...", thanks: "谢谢！", success_sub: "回复已保存。",
                 footer_note: "© 2026 Sai Ruthvik & Gayathri | 加亚特里艺术"
             }
         };
 
         function changeLang(l) {
-            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = langData[l][el.getAttribute('data-key')] || el.innerText; });
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (langData[l][key]) el.innerText = langData[l][key];
+            });
+            document.getElementById('guestNameInput').placeholder = langData[l].placeholder_name || "";
+            document.getElementById('flightInput').placeholder = langData[l].placeholder_flight || "";
+            document.getElementById('otherText').placeholder = langData[l].label_other || "";
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + l).classList.add('active');
         }
@@ -278,16 +286,21 @@
         rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn'), l = document.querySelector('.lang-btn.active').id.split('-')[1];
-            btn.disabled = true; btn.innerText = "...";
+            btn.disabled = true; btn.innerText = langData[l].btn_sending;
+            
             const fd = new FormData(rsvpForm);
             ['Events', 'Allergy'].forEach(f => {
                 const v = []; document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => v.push(c.value));
                 fd.set(f, v.join(', '));
             });
-            fetch('https://script.google.com/macros/s/AKfycbxPUVV5-jvN_PwHQSLqsXVuD3yNY-CF2Hw6sw8t-HbMXMhMEEJjdKrPoRcfPgrLdQKc/exec', { method: 'POST', body: fd })
-            .then(() => document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`)
-            .catch(() => { btn.disabled = false; btn.innerText = "Send RSVP"; });
+
+            fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: fd })
+            .then(() => { 
+                document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`;
+            })
+            .catch(() => { btn.disabled = false; btn.innerText = langData[l].btn_send; });
         });
+
         getExt(); updateTimer();
     </script>
 </body>
