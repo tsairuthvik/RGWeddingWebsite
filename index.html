@@ -34,7 +34,7 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 9999; /* Force it to the front for testing. If you see it, then change to -1 */
+            z-index: -1; /* Force it to the front for testing. If you see it, then change to -1 */
             display: block;
 }
 
@@ -248,42 +248,39 @@
     }
 
    class Sparkle {
-    constructor() { 
-        this.init(); 
-    }
+    constructor() { this.init(); }
     init() {
-        // Force positions within the visible canvas
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        // Make them slightly larger to ensure visibility (3px to 8px)
-        this.size = Math.random() * 5 + 3;
+        // 1.5px to 3.5px is the "sweet spot" for 1080p-4k screens
+        this.size = Math.random() * 2 + 1.5; 
         this.phase = Math.random() * Math.PI * 2;
-        this.twinkle = Math.random() * 0.05 + 0.01;
+        // Randomized twinkle speed for organic feel
+        this.twinkle = Math.random() * 0.04 + 0.015;
     }
     update() {
         this.phase += this.twinkle;
-        // Simplified opacity for debugging
         this.opacity = (Math.sin(this.phase) + 1) / 2;
     }
     draw() {
-        // DEBUG: Force visible opacity
-        const alpha = Math.max(this.opacity, 0.5); 
+        if (this.opacity < 0.1) return;
         
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(Math.PI / 4);
         
         ctx.beginPath();
-        // Drawing a simpler diamond for guaranteed visibility
-        ctx.moveTo(0, -this.size);
-        ctx.lineTo(this.size, 0);
-        ctx.lineTo(0, this.size);
-        ctx.lineTo(-this.size, 0);
+        // 4-pointed star (Jewelry style)
+        for (let i = 0; i < 4; i++) {
+            ctx.lineTo(0, -this.size);
+            ctx.lineTo(this.size * 0.25, 0); // Inner radius
+            ctx.rotate(Math.PI / 2);
+        }
         ctx.closePath();
         
-        // Solid Gold for testing
-        ctx.fillStyle = `rgba(224, 165, 0, ${alpha})`;
-        ctx.shadowBlur = 15;
+        // Use your turmeric/gold theme
+        ctx.fillStyle = `rgba(224, 165, 0, ${this.opacity})`;
+        ctx.shadowBlur = 8 * this.opacity;
         ctx.shadowColor = "gold";
         ctx.fill();
         
@@ -299,10 +296,6 @@
     function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Keep your red box for a second to ensure context stays active
-    ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
-    ctx.fillRect(10, 10, 50, 50); 
-
     sparkles.forEach(s => { 
         s.update(); 
         s.draw(); 
