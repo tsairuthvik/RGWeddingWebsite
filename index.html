@@ -438,7 +438,9 @@
                 btn.innerText = "Error - Try Again";
             });
         });
-        
+
+    window.addEventListener('load', initCanvas);
+    window.addEventListener('load', animate);
         // --- GLOBAL START ---
     window.addEventListener('resize', initCanvas);
     initCanvas();
