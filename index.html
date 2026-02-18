@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; }
+        :root { --parchment: #F5F2E1; --bapu-ink: #1A1A1A; --turmeric: #E0A500; --kumkum: #B31B1B; --paint-yellow: rgba(255, 224, 102, 0.85); }
         body { background-color: var(--parchment); color: var(--bapu-ink); font-family: 'Sahitya', serif; scroll-behavior: smooth; background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); }
         h1, h2, h3, h4 { font-family: 'Kurale', serif; }
         .bapu-canvas { border: 2px solid var(--bapu-ink); border-radius: 2% 98% 3% 97% / 96% 3% 97% 4%; background: #FFFFFF; padding: 0.75rem; box-shadow: 10px 10px 0px rgba(26,26,26,0.05); }
@@ -18,9 +18,26 @@
         #submitBtn { background-color: var(--kumkum) !important; color: white !important; border: 2px solid var(--bapu-ink); box-shadow: 6px 6px 0px var(--bapu-ink); cursor: pointer; width: 100%; padding: 1.5rem; font-size: 1.5rem; font-weight: bold; border-radius: 0.5rem; text-transform: uppercase; }
         .hidden { display: none; }
         input[type="checkbox"] { accent-color: var(--kumkum); width: 1.2rem; height: 1.2rem; cursor: pointer; }
+
+        /* SCENERY APPENDS */
+        .scenery-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .gopuram-bg { position: absolute; left: -30px; bottom: 0; width: 450px; height: 70%; background: url('https://i.ibb.co/L6vjW4S/temple-sketch.png') no-repeat bottom left; background-size: contain; opacity: 0.12; filter: sepia(0.6); }
+        .palm-tree { position: absolute; right: -20px; bottom: -20px; width: 380px; height: 65%; background: url('https://i.ibb.co/HhM83m4/palm-sketch.png') no-repeat bottom right; background-size: contain; opacity: 0.15; transform-origin: bottom right; animation: palmSway 12s ease-in-out infinite; }
+        @keyframes palmSway { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(2.5deg); } }
+        .birds-group { position: absolute; top: 15%; left: -15%; width: 120px; height: 80px; background: url('https://i.ibb.co/YyYhZfK/birds-sketch.png') no-repeat center; background-size: contain; opacity: 0.3; animation: birdDrift 30s linear infinite; }
+        @keyframes birdDrift { 0% { left: -15%; top: 20%; } 100% { left: 115%; top: 10%; } }
+        
+        /* PAINT SPLAT APPEND */
+        .paint-splat { background: radial-gradient(circle, var(--paint-yellow) 0%, rgba(255,224,102,0.6) 60%, rgba(255,255,255,0) 100%); padding: 2rem; border-radius: 45% 55% 65% 35% / 40% 45% 55% 60%; box-shadow: 0 0 60px var(--paint-yellow); display: inline-block; }
     </style>
 </head>
 <body class="antialiased pb-20">
+
+    <div class="scenery-layer">
+        <div class="gopuram-bg"></div>
+        <div class="palm-tree"></div>
+        <div class="birds-group"></div>
+    </div>
 
     <div class="fixed top-4 right-4 z-50 flex gap-2">
         <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
@@ -32,14 +49,16 @@
     <a href="#rsvp-section" class="tilakam-btn">RSVP</a>
 
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">
-        <div data-aos="fade-down" class="w-full max-w-xl mb-12 bapu-canvas">
-            <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
-        </div>
-        <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
-        <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
-        <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12">
-            <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
-            <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
+        <div class="paint-splat" data-aos="fade-down">
+            <div class="w-full max-w-xl mb-12 bapu-canvas mx-auto">
+                <img src="aahvanam.jpeg" class="w-full h-auto rounded opacity-90">
+            </div>
+            <h1 data-key="subham" class="text-3xl md:text-5xl mb-3 italic">Subhamastu</h1>
+            <h2 class="text-6xl md:text-8xl text-turmeric mb-10 leading-tight font-bold">Sai Ruthvik & Gayathri</h2>
+            <div class="border-t-2 border-b-2 border-bapu-ink py-4 px-12 inline-block">
+                <p class="text-2xl tracking-[0.2em] font-bold uppercase">April 27 – 29, 2026</p>
+                <p data-key="location" class="text-lg italic mt-1 font-semibold uppercase">Hyderabad, India</p>
+            </div>
         </div>
     </section>
 
@@ -48,86 +67,81 @@
         <div class="space-y-32">
             <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="mehendi.jpeg" class="w-full h-auto rounded"></div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/2 text-center"><div class="paint-splat">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th, Evening</span>
                     <h3 data-key="title_mehendi" class="text-4xl mt-4 mb-4 font-bold">Mehendi & Welcome</h3>
                     <p data-key="desc_mehendi" class="text-xl leading-relaxed text-gray-700 italic">The journey begins with henna and music. A day for family bonding and intricate art.</p>
-                </div>
+                </div></div>
             </div>
             <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-left">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="sangeet.jpeg" class="w-full h-auto rounded"></div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/2 text-center"><div class="paint-splat">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 27th Night</span>
                     <h3 data-key="title_sangeet" class="text-4xl mt-4 mb-4 font-bold">Sangeet Night</h3>
                     <p data-key="desc_sangeet" class="text-xl leading-relaxed text-gray-700 italic">Get ready for high-energy dance performances and a night of non-stop music!</p>
-                </div>
+                </div></div>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-16" data-aos="fade-right">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="haldi.jpeg" class="w-full h-auto rounded"></div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/2 text-center"><div class="paint-splat">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 28th (AM)</span>
                     <h3 data-key="title_haldi" class="text-4xl mt-4 mb-4 font-bold">The Haldi Ceremony</h3>
                     <p data-key="desc_haldi" class="text-xl leading-relaxed text-gray-700 italic">A vibrant ceremony with turmeric paste for a golden glow. Dress in yellow!</p>
-                </div>
+                </div></div>
             </div>
             <div class="flex flex-col md:flex-row-reverse items-center gap-16" data-aos="fade-up">
                 <div class="w-full md:w-1/2 bapu-canvas"><img src="wedding.jpeg" class="w-full h-auto rounded"></div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/2 text-center"><div class="paint-splat">
                     <span class="text-turmeric font-bold text-2xl border-b border-turmeric pb-1">April 29th AM</span>
                     <h3 data-key="title_wedding" class="text-4xl mt-4 mb-4 font-bold">The Main Wedding</h3>
                     <p data-key="desc_wedding" class="text-xl leading-relaxed text-gray-700 italic">The sacred Su-muhurtham: Jillakara Bellam ceremony followed by a traditional feast.</p>
-                </div>
+                </div></div>
             </div>
         </div>
     </section>
 
     <section class="py-12 flex flex-col items-center text-center px-6">
-        <div data-aos="zoom-in" class="relative p-1 bg-turmeric rounded-full bapu-canvas !border-4">
-            <div class="bg-white/95 p-10 md:p-16 rounded-full">
-                <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic font-bold">The Su-muhurtham Approaches...</h3>
-                <div id="countdown" class="flex gap-6 md:gap-10 justify-center font-bold text-4xl md:text-6xl">
-                    <div class="flex flex-col"><span id="days">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
-                    <span class="text-turmeric">•</span>
-                    <div class="flex flex-col"><span id="hours">00</span><span data-key="unit_hours" class="text-xs uppercase text-turmeric">Hrs</span></div>
-                    <span class="text-turmeric">•</span>
-                    <div class="flex flex-col"><span id="minutes">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
-                </div>
-                <p data-key="timer_sub" class="mt-8 text-sm italic border-t border-bapu-ink pt-4 inline-block">Adjusted to your local time zone.</p>
+        <div class="paint-splat" data-aos="zoom-in">
+            <h3 data-key="countdown_header" class="text-2xl md:text-3xl mb-6 italic font-bold">The Su-muhurtham Approaches...</h3>
+            <div id="countdown" class="flex gap-6 md:gap-10 justify-center font-bold text-4xl md:text-6xl">
+                <div class="flex flex-col"><span id="days">00</span><span data-key="unit_days" class="text-xs uppercase text-turmeric">Days</span></div>
+                <span class="text-turmeric">•</span>
+                <div class="flex flex-col"><span id="hours">00</span><span data-key="unit_hours" class="text-xs uppercase text-turmeric">Hrs</span></div>
+                <span class="text-turmeric">•</span>
+                <div class="flex flex-col"><span id="minutes">00</span><span data-key="unit_mins" class="text-xs uppercase text-turmeric">Mins</span></div>
             </div>
+            <p data-key="timer_sub" class="mt-8 text-sm italic border-t border-bapu-ink pt-4 inline-block">Adjusted to your local time zone.</p>
         </div>
     </section>
 
     <section class="py-32 px-6 bg-bapu-ink text-parchment">
-        <div class="max-w-6xl mx-auto">
-            <h2 data-key="explorer_title" class="text-5xl text-center mb-20 italic underline decoration-turmeric underline-offset-10 font-bold">Discover Hyderabad</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6 font-bold">🍛 Food Legends</h4>
+                <ul class="space-y-4 text-lg">
+                    <li>• <a href="https://maps.app.goo.gl/OGBiryaniParadise" target="_blank" class="hover:text-turmeric">Paradise Secunderabad</a></li>
+                    <li>• <a href="https://maps.app.goo.gl/ShahGhouseGachibowli" target="_blank" class="hover:text-turmeric">Shah Ghouse Gachibowli</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">🏰 Explore & Shop</h4>
+                <ul class="space-y-4 text-lg">
+                    <li>• <a href="https://maps.app.goo.gl/CharminarBazaars" target="_blank" class="hover:text-turmeric">Charminar</a></li>
+                    <li>• <a href="https://maps.app.goo.gl/LaadBazaar" target="_blank" class="hover:text-turmeric">Laad Bazaar 📿</a></li>
+                </ul>
+            </div>
+            <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 text-center space-y-6">
                 <div>
-                    <h4 data-key="biryani_title" class="text-turmeric text-3xl mb-6 font-bold">🍛 Food Legends</h4>
-                    <ul class="space-y-4 text-lg">
-                        <li>• <a href="https://maps.app.goo.gl/OGBiryaniParadise" target="_blank" class="hover:text-turmeric transition">Paradise Secunderabad</a></li>
-                        <li>• <a href="https://maps.app.goo.gl/ShahGhouseGachibowli" target="_blank" class="hover:text-turmeric transition">Shah Ghouse Gachibowli</a></li>
-                    </ul>
+                    <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🥥 Weather</h4>
+                    <span id="live-temp" class="text-3xl font-bold">--°</span>
+                    <button onclick="toggleTempUnit()" class="text-[10px] block mx-auto underline mt-1 opacity-60">F / C</button>
                 </div>
-                <div>
-                    <h4 data-key="sightseeing_title" class="text-turmeric text-3xl mb-4 font-bold">🏰 Explore & Shop</h4>
-                    <ul class="space-y-4 text-lg">
-                        <li>• <a href="https://maps.app.goo.gl/CharminarBazaars" target="_blank" class="hover:text-turmeric transition">Charminar</a></li>
-                        <li>• <a href="https://maps.app.goo.gl/LaadBazaar" target="_blank" class="hover:text-turmeric transition">Laad Bazaar 📿</a></li>
-                    </ul>
-                </div>
-                <div class="bapu-canvas !bg-white/10 !border-turmeric p-6 text-center space-y-6">
-                    <div>
-                        <h4 data-key="weather_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🥥 Weather</h4>
-                        <span id="live-temp" class="text-3xl font-bold">--°</span>
-                        <button onclick="toggleTempUnit()" class="text-[10px] block mx-auto underline mt-1 opacity-60">F / C</button>
-                    </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🪙 Currency</h4>
-                        <span id="curr-rate" class="text-2xl font-bold">₹ --</span>
-                        <div class="flex gap-2 justify-center mt-2">
-                            <button onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-3 py-1 rounded">USD</button>
-                            <button onclick="setCurrency('CNY')" class="text-[10px] bg-white/10 px-3 py-1 rounded">CNY</button>
-                        </div>
+                <div class="border-t border-white/10 pt-4">
+                    <h4 data-key="currency_title" class="text-turmeric text-xl mb-2 font-bold uppercase tracking-tighter">🪙 Currency</h4>
+                    <span id="curr-rate" class="text-2xl font-bold">₹ --</span>
+                    <div class="flex gap-2 justify-center mt-2">
+                        <button onclick="setCurrency('USD')" class="text-[10px] bg-white/20 px-3 py-1 rounded">USD</button>
+                        <button onclick="setCurrency('CNY')" class="text-[10px] bg-white/10 px-3 py-1 rounded">CNY</button>
                     </div>
                 </div>
             </div>
@@ -135,40 +149,29 @@
     </section>
 
     <section class="py-24 bg-white/40 border-t border-bapu-ink text-center">
-    <h2 data-key="venue_title" class="text-4xl mb-12 italic font-bold">🪔 The Wedding Venue</h2>
-    <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
-        <iframe 
-            src="https://www.google.com/maps/d/u/0/embed?mid=1pa8tsj4nDsf58z9_dYl4hf4rvTIWlwE&ehbc=2E312F" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-</section>
+        <h2 data-key="venue_title" class="text-4xl mb-12 italic font-bold">🪔 The Wedding Venue</h2>
+        <div class="bapu-canvas max-w-5xl mx-auto mb-8 h-[500px] overflow-hidden">
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1pa8tsj4nDsf58z9_dYl4hf4rvTIWlwE&ehbc=2E312F" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
 
-    <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 bg-white/50 bapu-canvas !border-t-8 !border-t-turmeric">
-        <div id="rsvpContent">
+    <section id="rsvp-section" class="py-24 px-6 max-w-3xl mx-auto mb-40 text-center">
+        <div class="paint-splat w-full">
             <h2 data-key="rsvp_title" class="text-5xl text-center mb-12 italic font-bold">RSVP</h2>
-            <div class="text-center mb-8 p-4 bg-turmeric/10 border-2 border-dashed border-turmeric rounded">
-                <p data-key="resubmit_note" class="italic font-bold text-bapu-ink">Need to update plans? Just resubmit anytime!</p>
-            </div>
-            <form id="rsvpForm" class="space-y-8">
-                <div><label data-key="label_name" class="block font-bold mb-2">Name</label><input type="text" name="Name" id="guestNameInput" required class="w-full p-4 border-2 border-bapu-ink rounded"></div>
-                <div><label data-key="label_flight" class="block font-bold mb-2">Flight Details ✈️</label><input type="text" name="FlightInfo" id="flightInput" class="w-full p-4 border-2 border-bapu-ink rounded"></div>
+            <form id="rsvpForm" class="space-y-8 text-left">
+                <div><label data-key="label_name" class="block font-bold mb-2">Name</label><input type="text" name="Name" id="guestNameInput" required class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80"></div>
+                <div><label data-key="label_flight" class="block font-bold mb-2">Flight Details ✈️</label><input type="text" name="FlightInfo" id="flightInput" class="w-full p-4 border-2 border-bapu-ink rounded bg-white/80"></div>
                 <div>
                     <label data-key="label_attend" class="block font-bold mb-4">Events</label>
                     <div class="grid grid-cols-2 gap-4">
-                        <label class="flex items-center"><input type="checkbox" name="Events" value="Mehendi" class="mr-2"> Mehendi</label>
-                        <label class="flex items-center"><input type="checkbox" name="Events" value="Sangeet" class="mr-2"> Sangeet</label>
-                        <label class="flex items-center"><input type="checkbox" name="Events" value="Haldi" class="mr-2"> Haldi</label>
-                        <label class="flex items-center"><input type="checkbox" name="Events" value="Wedding" class="mr-2"> Wedding</label>
+                        <label><input type="checkbox" name="Events" value="Mehendi"> Mehendi</label>
+                        <label><input type="checkbox" name="Events" value="Sangeet"> Sangeet</label>
+                        <label><input type="checkbox" name="Events" value="Haldi"> Haldi</label>
+                        <label><input type="checkbox" name="Events" value="Wedding"> Wedding</label>
                     </div>
                 </div>
                 <div class="p-6 bg-red-50 border-2 border-red-200 rounded">
-                    <label data-key="label_safety" class="block font-bold text-red-900 mb-4 font-bold">Safety & Dietary</label>
+                    <label data-key="label_safety" class="block font-bold text-red-900 mb-4">Safety & Dietary</label>
                     <div class="grid grid-cols-2 gap-4">
                         <label><input type="checkbox" name="Allergy" value="Nuts"> Nuts</label>
                         <label><input type="checkbox" name="Allergy" value="Dairy"> Dairy</label>
@@ -189,9 +192,8 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true });
-        
         const langData = {
-            en: { 
+        en: { 
                 subham: "Subhamastu", location: "Hyderabad, India", path_title: "The Celebration Path",
                 title_mehendi: "Mehendi & Welcome", desc_mehendi: "Henna ceremony. A day of music and family!",
                 title_sangeet: "Sangeet Night", desc_sangeet: "High-energy dance and music gala!",
@@ -200,7 +202,7 @@
                 countdown_header: "The Su-muhurtham Approaches...", unit_days: "Days", unit_hours: "Hrs", unit_mins: "Mins", timer_sub: "Adjusted to your local time zone.",
                 explorer_title: "Discover Hyderabad", biryani_title: "Food & Biryani", sightseeing_title: "Explore & Shop",
                 weather_title: "🥥 Weather", currency_title: "🪙 Currency", rsvp_title: "RSVP",
-                resubmit_note: "Need to update plans? Just resubmit the form anytime!",
+                resubmit_note: "Need to update plans? Just resubmit anytime!",
                 label_name: "Name", label_flight: "Flight Info", label_attend: "Events", label_safety: "Safety & Dietary", label_other: "Details...", 
                 btn_send: "Send RSVP", btn_sending: "Sending...", thanks: "Dhanyavadalu!", success_sub: "Response saved!",
                 footer_note: "© 2026 Sai Ruthvik & Gayathri | Gayathri's Art"
@@ -246,11 +248,14 @@
                 label_name: "姓名", label_flight: "航班信息", label_attend: "参加活动", label_safety: "饮食安全", label_other: "请注明...", 
                 btn_send: "发送", btn_sending: "发送中...", thanks: "谢谢！", success_sub: "回复已保存。",
                 footer_note: "© 2026 Sai Ruthvik & Gayathri | 加亚特里艺术"
-            }
+            }    
         };
 
         function changeLang(l) {
-            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = langData[l][el.getAttribute('data-key')] || el.innerText; });
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (langData[l][key]) el.innerText = langData[l][key];
+            });
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + l).classList.add('active');
         }
@@ -285,7 +290,7 @@
         rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn'), l = document.querySelector('.lang-btn.active').id.split('-')[1];
-            btn.disabled = true; btn.innerText = langData[l].btn_sending;
+            btn.disabled = true; btn.innerText = "...";
             const fd = new FormData(rsvpForm);
             ['Events', 'Allergy'].forEach(f => {
                 const v = []; document.querySelectorAll(`input[name="${f}"]:checked`).forEach(c => v.push(c.value));
@@ -293,7 +298,7 @@
             });
             fetch('https://script.google.com/macros/s/AKfycbyDl85EFhbnL2m6SyCbHvrb8ZTx2vMdXuYsKVrQMlv2x3ljFTOqxhw0UzzevACbTzc_XQ/exec', { method: 'POST', body: fd })
             .then(() => document.getElementById('rsvpContent').innerHTML = `<div class='text-center p-12'><h3 class='text-6xl text-turmeric italic'>${langData[l].thanks}</h3><p class='text-2xl mt-4'>${langData[l].success_sub}</p></div>`)
-            .catch(() => { btn.disabled = false; btn.innerText = langData[l].btn_send; });
+            .catch(() => { btn.disabled = false; btn.innerText = "Send RSVP"; });
         });
         getExt(); updateTimer();
     </script>
