@@ -440,24 +440,16 @@
             });
         });
 
-    // --- STARTUP SEQUENCE ---
-    window.addEventListener('resize', initCanvas);
-    
-    // This ensures initialization happens as soon as the DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            initCanvas();
-            animate();
-        });
-    } else {
+    // ADD THESE TWO LINES HERE:
+        window.addEventListener('load', initCanvas);
+        window.addEventListener('load', animate);
+
+        // --- GLOBAL START ---
+        window.addEventListener('resize', initCanvas);
         initCanvas();
         animate();
-    }
-    
-    // These run your other APIs independently
-    getExt(); 
-    updateTimer();
-});
+        getExt(); 
+        updateTimer();;
     </script>
 </body>
 </html>
