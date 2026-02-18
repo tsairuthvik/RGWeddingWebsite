@@ -105,7 +105,8 @@
 <body class="antialiased pb-20">
     <canvas id="sparkleCanvas"></canvas>
     <audio id="bgMusic" loop preload="auto">
-    <source src="your-music-file.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
 </audio>
     
     <div class="fixed bottom-6 left-6 z-[100] flex items-center gap-4 bg-white/95 backdrop-blur-md p-3 rounded-xl border-2 border-bapu-ink shadow-[8px_8px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-1 hover:-translate-y-1">
@@ -573,47 +574,62 @@
     <script>
         const audio = document.getElementById('bgMusic');
 const playIcon = document.getElementById('playIcon');
-const volumeControl = document.getElementById('volumeControl');
+const volControl = document.getElementById('volumeControl');
 
-// Set default volume to 0.1 (10%)
+// 1. Initial State
 audio.volume = 0.1;
-if(volumeControl) volumeControl.value = 0.1;
 
-// Function to handle the play promise
-function attemptPlay() {
-    audio.play().then(() => {
-        if(playIcon) playIcon.innerText = "⏸";
-        console.log("Music started successfully at 10% volume.");
-    }).catch(error => {
-        console.log("Autoplay blocked. Waiting for user interaction...");
-    });
+// 2. The Master Play Function
+async function playAudio() {
+    try {
+        await audio.play();
+        playIcon.innerText = "⏸";
+        console.log("Music Engine: Playing");
+    } catch (err) {
+        console.error("Music Engine Error:", err);
+    }
 }
 
-// 1. Try playing immediately (works if user has visited before)
-attemptPlay();
-
-// 2. UNLOCK ON INTERACTION (The "Lead Engineer" standard)
-// Any click, scroll, or touch will trigger the music if it's currently paused
-const unlockAudio = () => {
+// 3. The Toggle Logic
+function toggleMusic() {
+    console.log("Music Toggle Clicked. Current State:", audio.paused ? "Paused" : "Playing");
     if (audio.paused) {
-        attemptPlay();
-        // Remove listeners once audio is successfully playing
-        document.removeEventListener('click', unlockAudio);
-        document.removeEventListener('touchstart', unlockAudio);
-        document.removeEventListener('scroll', unlockAudio);
+        playAudio();
+    } else {
+        audio.pause();
+        playIcon.innerText = "▶";
     }
-};
+}
 
-document.addEventListener('click', unlockAudio);
-document.addEventListener('touchstart', unlockAudio);
-document.addEventListener('scroll', unlockAudio);
+// 4. Listeners
+document.getElementById('musicToggle').addEventListener('click', toggleMusic);
 
-// Volume slider sync
-if(volumeControl) {
-    volumeControl.addEventListener('input', (e) => {
+if(volControl) {
+    volControl.addEventListener('input', (e) => {
         audio.volume = e.target.value;
     });
 }
+
+// 5. Global Interaction Unlock (The "Hammer" approach)
+const autoPlayUnlock = () => {
+    if (audio.paused) {
+        playAudio();
+        // Clean up listeners so they don't keep firing
+        ["click", "touchstart", "scroll"].forEach(evt => 
+            document.removeEventListener(evt, autoPlayUnlock)
+        );
+    }
+};
+
+["click", "touchstart", "scroll"].forEach(evt => 
+    document.addEventListener(evt, autoPlayUnlock)
+);
+
+// 6. Debug Log: Is the file even loading?
+audio.addEventListener('error', (e) => {
+    console.error("CRITICAL AUDIO ERROR: Check if 'music.mp3' exists in your folder.");
+});
+audio.addEventListener('loadstart', () => console.log("Music Engine: Loading file..."));
     </script>
 </body>
 </html>
