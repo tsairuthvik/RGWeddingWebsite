@@ -88,6 +88,28 @@
     transform: rotate(-3deg) scale(1.1);
 }
 
+        .wedding-stamp {
+    /* Slight tilt makes it look hand-stamped, not digitally placed */
+    transform: rotate(-5deg);
+    
+    /* Subtle opacity variation to mimic uneven ink pressure */
+    filter: contrast(1.1) brightness(0.9) sepia(0.1);
+    
+    /* Gentle entry animation */
+    animation: stamp-drop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes stamp-drop {
+    0% {
+        transform: scale(1.5) rotate(15deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotate(-5deg);
+        opacity: 1;
+    }
+}
+
 .watercolor-splash::before {
     content: '';
     position: absolute;
@@ -159,19 +181,7 @@
 
     <div class="scenery-bg"></div>
     
-    <nav class="fixed top-0 left-0 w-full z-[100] p-4 pointer-events-none">
-    <div class="container mx-auto flex justify-between items-start">
-        <div class="pointer-events-auto">
-            <img src="logo.png" 
-                 alt="Wedding Logo" 
-                 class="h-32 md:h-48 w-auto drop-shadow-lg transition-transform hover:scale-105" 
-                 style="mix-blend-mode: multiply; background: transparent;">
-        </div>
-        
-        <div class="pointer-events-auto flex gap-2 mt-4">
-            </div>
-    </div>
-</nav>
+    
     <div class="fixed top-4 right-4 z-50 flex gap-2">
         <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
         <button onclick="changeLang('te')" class="lang-btn" id="btn-te">తెలుగు</button>
@@ -182,6 +192,16 @@
     <a href="#rsvp-section" class="tilakam-btn">RSVP</a>
 
     <section class="min-h-screen flex flex-col items-center justify-center text-center p-8 py-20">
+        <div class="flex justify-center items-center w-full mt-10 mb-[-20px] relative z-10">
+    <img src="logo.png" 
+         alt="Wedding Stamp" 
+         class="wedding-stamp w-40 md:w-64 h-auto" 
+         style="mix-blend-mode: multiply;">
+</div>
+
+<div class="w-full max-w-xl mb-12 mx-auto">
+    <img src="aahvanam.png" class="w-full h-auto opacity-90" style="mix-blend-mode: multiply;">
+</div>
     <div class="w-full max-w-xl mb-12 bapu-canvas mx-auto mt-24">
         <img src="aahvanam.png" class="w-full h-auto rounded opacity-90">
     </div>
