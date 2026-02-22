@@ -69,14 +69,23 @@
     max-width: 100%; 
 }
 
-        .logo-ink {
-    /* Subtle filter to make it look printed on the paper */
-    filter: sepia(0.2) contrast(1.1);
-    transition: transform 0.3s ease;
+        /* Custom Logo Scaling */
+.nav-logo {
+    height: 120px; /* Default for mobile */
+    width: auto;
+    mix-blend-mode: multiply;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.logo-ink:hover {
-    transform: rotate(-2deg) scale(1.05);
+@media (min-width: 768px) {
+    .nav-logo {
+        height: 200px; /* Larger for desktop/tablets */
+    }
+}
+
+/* Optional: Slight rotation to match the "Bapu" hand-drawn feel */
+.nav-logo:hover {
+    transform: rotate(-3deg) scale(1.1);
 }
 
 .watercolor-splash::before {
@@ -150,16 +159,19 @@
 
     <div class="scenery-bg"></div>
     
-    <nav class="fixed top-0 left-0 w-full z-[100] p-6 pointer-events-none">
-    <div class="container mx-auto flex justify-between items-center">
+    <nav class="fixed top-0 left-0 w-full z-[100] p-4 pointer-events-none">
+    <div class="container mx-auto flex justify-between items-start">
         <div class="pointer-events-auto">
-            <img src="logo.png" alt="Wedding Logo" class="h-16 md:h-24 w-auto drop-shadow-md" style="mix-blend-mode: multiply;">
+            <img src="logo.png" 
+                 alt="Wedding Logo" 
+                 class="h-32 md:h-48 w-auto drop-shadow-lg transition-transform hover:scale-105" 
+                 style="mix-blend-mode: multiply; background: transparent;">
         </div>
         
-        <div class="pointer-events-auto flex gap-2">
+        <div class="pointer-events-auto flex gap-2 mt-4">
             </div>
     </div>
-    </nav>
+</nav>
     <div class="fixed top-4 right-4 z-50 flex gap-2">
         <button onclick="changeLang('en')" class="lang-btn active" id="btn-en">EN</button>
         <button onclick="changeLang('te')" class="lang-btn" id="btn-te">తెలుగు</button>
